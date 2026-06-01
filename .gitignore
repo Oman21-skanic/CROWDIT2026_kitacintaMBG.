@@ -1,0 +1,24 @@
+# Folder Node (jika nanti menggunakan package)
+node_modules/
+dist/
+build/
+
+# Log Files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# File Sistem Operasi
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Konfigurasi Editor / IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
