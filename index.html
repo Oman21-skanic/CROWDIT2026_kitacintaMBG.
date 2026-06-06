@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenangin</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Gradient & Star -->
+    <div class="chat-background">
+        <div class="bg-gradient">
+            <svg width="1260" height="518" viewBox="0 0 1260 518" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g opacity="0.6" filter="url(#filter0_f_12_254)">
+                <path d="M344.624 200L279.704 366.981L399.148 530.43L551.787 518.555L546.916 393.557L424.031 373.9L421.501 439.384L467.245 451.316L466.041 429.086L495.367 427.49L498.746 489.978L391.245 461.934L395.965 339.575L503.843 356.832L499.984 221.177L344.624 200ZM285.413 271.219L169.596 334.152L210.386 550.763L432.437 678L675.138 551.815L657.456 327.617L532.344 326.059L533.353 361.551L575.318 368.263L582.237 545.739L385.124 561.074L246.483 371.351L285.413 271.219Z" fill="#9FBDB8"/>
+                <path d="M915.376 200L980.296 366.981L860.852 530.43L708.213 518.555L713.084 393.557L835.969 373.9L838.499 439.384L792.755 451.316L793.959 429.086L764.633 427.49L761.254 489.978L868.755 461.934L864.034 339.575L756.157 356.832L760.016 221.177L915.376 200ZM974.587 271.219L1090.4 334.152L1049.61 550.763L827.563 678L584.862 551.815L602.544 327.617L727.656 326.059L726.647 361.551L684.682 368.263L677.763 545.739L874.876 561.074L1013.52 371.351L974.587 271.219Z" fill="#9FBDB8"/>
+                <path d="M383.027 232.152L326.844 376.669L430.214 518.13L562.313 507.853L558.097 399.671L451.748 382.658L449.559 439.332L489.147 449.659L488.105 430.419L513.485 429.039L516.409 483.12L423.374 458.849L427.46 352.951L520.82 367.886L517.48 250.48L383.027 232.152ZM331.784 293.79L231.553 348.257L266.853 535.728L459.023 645.848L669.063 536.638L653.761 342.601L545.486 341.253L546.359 371.97L582.676 377.779L588.664 531.379L418.077 544.652L298.093 380.452L331.784 293.79Z" fill="#77A19B"/>
+                <path d="M876.973 232.152L933.156 376.669L829.786 518.13L697.687 507.853L701.903 399.671L808.252 382.658L810.441 439.332L770.853 449.659L771.895 430.419L746.515 429.039L743.591 483.12L836.626 458.849L832.54 352.951L739.18 367.886L742.52 250.48L876.973 232.152ZM928.216 293.79L1028.45 348.257L993.147 535.728L800.977 645.848L590.937 536.638L606.239 342.601L714.514 341.253L713.641 371.97L677.323 377.779L671.336 531.379L841.923 544.652L961.907 380.452L928.216 293.79Z" fill="#77A19B"/>
+                <path d="M428.052 270.735L382.111 388.296L466.636 503.37L574.652 495.01L571.205 407.007L484.245 393.168L482.454 439.27L514.825 447.671L513.974 432.02L534.726 430.897L537.117 474.89L461.043 455.146L464.384 369.001L540.724 381.151L537.993 285.645L428.052 270.735ZM386.151 320.876L304.192 365.183L333.057 517.685L490.193 607.265L661.942 518.426L649.429 360.582L560.893 359.485L561.607 384.473L591.304 389.198L596.2 514.148L456.712 524.945L358.601 391.373L386.151 320.876Z" fill="#145D52"/>
+                <path d="M831.948 270.735L877.889 388.296L793.364 503.37L685.348 495.01L688.795 407.007L775.755 393.168L777.546 439.27L745.175 447.671L746.026 432.02L725.274 430.897L722.883 474.89L798.957 455.146L795.616 369.001L719.276 381.151L722.007 285.645L831.948 270.735ZM873.849 320.876L955.808 365.183L926.943 517.685L769.807 607.265L598.058 518.426L610.571 360.582L699.107 359.485L698.393 384.473L668.696 389.198L663.8 514.148L803.288 524.945L901.399 391.373L873.849 320.876Z" fill="#145D52"/>
+                </g>
+                <defs>
+                <filter id="filter0_f_12_254" x="-30.4038" y="0" width="1320.81" height="878" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                <feGaussianBlur stdDeviation="100" result="effect1_foregroundBlur_12_254"/>
+                </filter>
+                </defs>
+            </svg>
+        </div>
+        <div class="bg-star">
+            <svg width="965" height="649" viewBox="0 0 965 649" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g filter="url(#filter0_i_16_331)">
+                <path d="M467.906 11.4568C471.619 -3.81889 493.343 -3.81891 497.057 11.4567L553.913 245.339C556.55 256.187 569.689 260.456 578.198 253.23L761.668 97.4342C773.651 87.2587 791.226 100.028 785.252 114.569L693.777 337.203C689.534 347.529 697.654 358.705 708.785 357.861L948.791 339.661C964.466 338.472 971.179 359.133 957.799 367.385L752.933 493.732C743.431 499.592 743.431 513.407 752.933 519.266L957.799 645.614C971.179 653.866 964.466 674.527 948.791 673.338L708.786 655.138C697.654 654.294 689.534 665.47 693.777 675.796L785.252 898.43C791.226 912.971 773.651 925.74 761.668 915.564L578.198 759.769C569.689 752.543 556.55 756.812 553.913 767.659L497.057 1001.54C493.343 1016.82 471.619 1016.82 467.906 1001.54L411.05 767.659C408.413 756.812 395.274 752.543 386.765 759.769L203.294 915.564C191.311 925.74 173.736 912.971 179.711 898.43L271.186 675.796C275.428 665.47 267.308 654.294 256.177 655.138L16.172 673.338C0.496468 674.527 -6.21665 653.866 7.16383 645.614L212.03 519.266C221.531 513.407 221.531 499.592 212.03 493.732L7.16383 367.385C-6.21664 359.133 0.496452 338.472 16.172 339.661L256.177 357.861C267.308 358.705 275.428 347.529 271.186 337.203L179.711 114.569C173.736 100.028 191.311 87.2587 203.294 97.4342L386.765 253.23C395.274 260.456 408.413 256.187 411.05 245.339L467.906 11.4568Z" fill="white" fill-opacity="0.25"/>
+                </g>
+                <defs>
+                <filter id="filter0_i_16_331" x="0" y="0" width="964.963" height="1013" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                <feOffset/>
+                <feGaussianBlur stdDeviation="25"/>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.25 0"/>
+                <feBlend mode="normal" in2="shape" result="effect1_innerShadow_16_331"/>
+                </filter>
+                </defs>
+            </svg>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="28" height="14" viewBox="0 0 37 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.03299 0L4.42437 6.63731L9.22386 13.1343L15.3573 12.6622L15.1615 7.6937L10.2237 6.91236L10.1221 9.51526L11.9602 9.98953L11.9118 9.10592L13.0902 9.0425L13.2259 11.5263L8.90632 10.4116L9.096 5.54796L13.4308 6.23392L13.2757 0.841751L7.03299 0ZM4.65376 2.83088L0 5.33239L1.639 13.9425L10.5615 19L20.3137 13.9843L19.6032 5.07263L14.576 5.01071L14.6165 6.42149L16.3028 6.68826L16.5808 13.7428L8.66038 14.3523L3.08946 6.81103L4.65376 2.83088Z" fill="#77A19B"/>
+                        <path d="M29.967 0L32.5756 6.63731L27.7761 13.1343L21.6427 12.6622L21.8385 7.6937L26.7763 6.91236L26.8779 9.51526L25.0398 9.98953L25.0882 9.10592L23.9098 9.0425L23.7741 11.5263L28.0937 10.4116L27.904 5.54796L23.5692 6.23392L23.7243 0.841751L29.967 0ZM32.3462 2.83088L37 5.33239L35.361 13.9425L26.4385 19L16.6863 13.9843L17.3968 5.07263L22.424 5.01071L22.3835 6.42149L20.6972 6.68826L20.4192 13.7428L28.3396 14.3523L33.9105 6.81103L32.3462 2.83088Z" fill="#77A19B"/>
+                    </svg>
+                    <span>Tenangin</span>
+                </div>
+                <button class="collapse-btn" id="collapseBtn">
+                    <i class="ph ph-caret-double-left"></i>
+                </button>
+            </div>
+            
+            <div class="search-box">
+                <i class="ph ph-magnifying-glass"></i>
+                <input type="text" placeholder="Pencarian">
+            </div>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item active">
+                    <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.875 4.96711V6.86184H18.0329V9.70395H16.1382V6.86184H13.2961V4.96711H16.1382V2.125H18.0329V4.96711H20.875ZM18.0329 18.2303H4.76974V4.96711H10.4539V3.07237H4.76974C4.26768 3.07387 3.78662 3.27397 3.43161 3.62898C3.0766 3.98399 2.8765 4.46505 2.875 4.96711V18.2303C2.8765 18.7323 3.0766 19.2134 3.43161 19.5684C3.78662 19.9234 4.26768 20.1235 4.76974 20.125H18.0329C18.5349 20.1235 19.016 19.9234 19.371 19.5684C19.726 19.2134 19.9261 18.7323 19.9276 18.2303V12.5461H18.0329V18.2303Z" fill="#5E938B"/>
+                    </svg>
+                    <span>Obrolan Baru</span>
+                </a>
+                <a href="psikolog.html" class="nav-item">
+                    <i class="ph ph-heart"></i>
+                    <span>Psikolog</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.25 5.875L19 19M11.5 5.875V19M7.75 7.75V19M4 4V19" stroke="#5E938B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Koleksi</span>
+                </a>
+            </nav>
+
+            <div class="history-dropdown" id="historyDropdown">
+                <span>Riwayat obrolan</span>
+                <i class="ph ph-caret-down" id="historyCaret"></i>
+            </div>
+
+            <div class="history-list" id="historyList">
+                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+            </div>
+
+            <div class="sidebar-spacer"></div>
+
+            <div class="sidebar-footer">
+                <div class="invite-card-wrapper">
+                    <div class="invite-card">
+                        <div class="invite-header">
+                            <svg width="15" height="15" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.2396 0.96875V5.71875M10.8646 3.34375H15.6146M6.26183 10.3215C7.08216 10.3215 7.86889 9.99563 8.44894 9.41557C9.029 8.83551 9.35487 8.04878 9.35487 7.22846C9.35487 6.40813 9.029 5.62141 8.44894 5.04135C7.86889 4.46129 7.08216 4.13542 6.26183 4.13542C5.44151 4.13542 4.65478 4.46129 4.07472 5.04135C3.49466 5.62141 3.16879 6.40813 3.16879 7.22846C3.16879 8.04878 3.49466 8.83551 4.07472 9.41557C4.65478 9.99563 5.44151 10.3215 6.26183 10.3215ZM6.26183 10.3215C7.66551 10.3217 9.01162 10.8795 10.0041 11.8721C10.9966 12.8647 11.5541 14.2109 11.5541 15.6146M6.26183 10.3215C4.85802 10.3215 3.5117 10.8792 2.51906 11.8718C1.52641 12.8645 0.96875 14.2108 0.96875 15.6146" stroke="#0C3932" stroke-width="1.9375" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <svg width="30" height="15" viewBox="0 0 37 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.03299 0L4.42437 6.63731L9.22386 13.1343L15.3573 12.6622L15.1615 7.6937L10.2237 6.91236L10.1221 9.51526L11.9602 9.98953L11.9118 9.10592L13.0902 9.0425L13.2259 11.5263L8.90632 10.4116L9.096 5.54796L13.4308 6.23392L13.2757 0.841751L7.03299 0ZM4.65376 2.83088L0 5.33239L1.639 13.9425L10.5615 19L20.3137 13.9843L19.6032 5.07263L14.576 5.01071L14.6165 6.42149L16.3028 6.68826L16.5808 13.7428L8.66038 14.3523L3.08946 6.81103L4.65376 2.83088Z" fill="#77A19B"/>
+                                <path d="M29.967 0L32.5756 6.63731L27.7761 13.1343L21.6427 12.6622L21.8385 7.6937L26.7763 6.91236L26.8779 9.51526L25.0398 9.98953L25.0882 9.10592L23.9098 9.0425L23.7741 11.5263L28.0937 10.4116L27.904 5.54796L23.5692 6.23392L23.7243 0.841751L29.967 0ZM32.3462 2.83088L37 5.33239L35.361 13.9425L26.4385 19L16.6863 13.9843L17.3968 5.07263L22.424 5.01071L22.3835 6.42149L20.6972 6.68826L20.4192 13.7428L28.3396 14.3523L33.9105 6.81103L32.3462 2.83088Z" fill="#77A19B"/>
+                            </svg>
+                        </div>
+                        <h4>Ajak temanmu berbicara bersama</h4>
+                        <p>Sesungguhnya disetiap kesulitan pasti ada kemudahan</p>
+                    </div>
+                </div>
+                
+                <div class="user-profile-footer">
+                    <img src="https://ui-avatars.com/api/?name=Sumbul+Kharamita&background=E5E5E5&color=000&size=40" alt="Sumbul Kharamita">
+                    <div class="user-profile-info">
+                        <h3>Sumbul Kharamita</h3>
+                        <span>sumbulkharamista@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-area">
+            <header class="chat-header-container">
+                <div class="chat-header">
+                    <div class="chat-partner">
+                        <img src="https://ui-avatars.com/api/?name=Hajarol&background=E5E5E5&color=000&size=44" alt="Hajarol">
+                        <div class="partner-info">
+                            <h2>Hajarol</h2>
+                            <span class="status">
+                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.41696 0.00502298C7.24306 0.0284579 7.08089 0.126103 6.97929 0.280383C6.84643 0.483485 6.84252 0.751033 6.97147 0.956089C7.08089 1.1299 7.27433 1.20411 7.4365 1.31738C7.58304 1.41893 7.78038 1.57516 7.97773 1.78998C8.3685 2.21376 8.74951 2.85041 8.74951 3.74875C8.74951 4.09441 9.02892 4.37368 9.37476 4.37368C9.72059 4.37368 10 4.09441 10 3.74875C10 2.45983 9.44314 1.53415 8.89605 0.942418C8.62446 0.647529 8.35287 0.43271 8.14771 0.2921C7.93279 0.143679 7.68855 -0.0320822 7.41305 0.00502298H7.41696ZM4.68933 2.49888C3.56389 2.49888 2.6358 3.35035 2.51465 4.44203C2.47753 4.78574 2.16686 5.03181 1.82493 4.9947C1.483 4.95759 1.23486 4.64708 1.27198 4.30532C1.46151 2.58677 2.91911 1.24902 4.68933 1.24902C6.58851 1.24902 8.12818 2.78792 8.12818 4.68614C8.12818 5.58448 7.78234 6.40275 7.21766 7.01596C6.9832 7.26984 6.87769 7.50028 6.87769 7.69362V7.81275C6.87769 9.02159 5.89879 10 4.68933 10C4.34349 10 4.06409 9.72073 4.06409 9.37507C4.06409 9.02941 4.34349 8.75014 4.68933 8.75014C5.20711 8.75014 5.6272 8.33027 5.6272 7.81275V7.69362C5.6272 7.05111 5.96718 6.52969 6.29934 6.17035C6.65885 5.77977 6.87769 5.2603 6.87769 4.68809C6.87769 3.47924 5.89879 2.50084 4.68933 2.50084V2.49888ZM0 9.37312C0 9.02745 0.279406 8.74819 0.625244 8.74819C0.971083 8.74819 1.25049 9.02745 1.25049 9.37312C1.25049 9.71878 0.971083 9.99805 0.625244 9.99805C0.279406 9.99805 0 9.71878 0 9.37312ZM3.12622 7.49833C3.47206 7.49833 3.75147 7.21906 3.75147 6.8734C3.75147 6.52773 3.47206 6.24847 3.12622 6.24847C2.78038 6.24847 2.50098 6.52773 2.50098 6.8734C2.50098 7.21906 2.78038 7.49833 3.12622 7.49833ZM1.69207 7.05697C1.44783 6.81286 1.05119 6.81286 0.806956 7.05697C0.56272 7.30108 0.56272 7.69752 0.806956 7.94164L2.05744 9.1915C2.30168 9.43561 2.69832 9.43561 2.94256 9.1915C3.18679 8.94738 3.18679 8.55094 2.94256 8.30683L1.69207 7.05697ZM4.68933 4.06121C4.34349 4.06121 4.06409 4.34048 4.06409 4.68614C4.06409 4.94588 3.85502 5.15484 3.59515 5.15484C3.33529 5.15484 3.12622 4.94588 3.12622 4.68614C3.12622 3.82296 3.82571 3.12382 4.68933 3.12382C5.55295 3.12382 6.25244 3.82296 6.25244 4.68614C6.25244 4.94588 6.04338 5.15484 5.78351 5.15484C5.52364 5.15484 5.31458 4.94588 5.31458 4.68614C5.31458 4.34048 5.03517 4.06121 4.68933 4.06121Z" fill="#44726B"/>
+                                </svg>
+                                sedang mendengarkan
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <button class="header-action">
+                    <i class="ph ph-user-circle"></i>
+                </button>
+            </header>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="date-divider"><span>Hari Ini</span></div>
+
+                <div class="message-wrapper received">
+                    <div class="message">
+                        <div class="bubble">
+                            <p>Hai, gimana harimu hari ini?</p>
+                            <span class="time">10:43 AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-wrapper sent">
+                    <div class="message">
+                        <div class="bubble">
+                            <p>Lumayan capek 😅</p>
+                            <span class="time">10:43 AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-wrapper received">
+                    <div class="message">
+                        <div class="bubble">
+                            <p>Ada hal tertentu yang bikin kamu merasa capek?</p>
+                            <span class="time">10:43 AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-wrapper sent">
+                    <div class="message">
+                        <div class="bubble">
+                            <p>Kerjaan lagi banyak banget minggu ini. Deadline datang bersamaan dan rasanya belum sempat istirahat dengan benar sejak beberapa hari terakhir.</p>
+                            <span class="time">10:43 AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-wrapper received">
+                    <div class="message">
+                        <div class="bubble">
+                            <p>Kedengarannya cukup melelahkan. Apa yang paling menguras energimu saat ini?</p>
+                            <span class="time">10:43 AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-wrapper sent">
+                    <div class="message">
+                        <div class="bubble">
+                            <p>Jujur bukan cuma kerjaan. Ada beberapa hal lain yang juga kepikiran terus, jadi kadang sulit fokus dan susah menikmati waktu istirahat.</p>
+                            <span class="time">10:43 AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-wrapper received">
+                    <div class="message">
+                        <div class="bubble">
+                            <p>Terima kasih sudah cerita sejauh ini. Membawa banyak hal sekaligus memang bisa terasa berat.</p>
+                            <span class="time">10:43 AM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <div class="chat-input-box">
+                    <button class="add-btn" aria-label="Add attachment">
+                        <i class="ph ph-plus-circle"></i>
+                    </button>
+                    <input type="text" id="messageInput" placeholder="Tulis perasaanmu di sini...">
+                    <button class="send-btn" id="sendBtn" aria-label="Send message">
+                        <i class="ph-fill ph-paper-plane-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
