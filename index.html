@@ -57,6 +57,9 @@
     </div>
 
     <div class="app-container">
+        <!-- Mobile Backdrop -->
+        <div class="mobile-backdrop" id="mobileBackdrop"></div>
+
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -72,13 +75,13 @@
                 </button>
             </div>
             
-            <div class="search-box">
+            <div class="search-box" onclick="window.location.href='pencarian.html'" style="cursor: pointer;">
                 <i class="ph ph-magnifying-glass"></i>
                 <input type="text" placeholder="Pencarian">
             </div>
 
             <nav class="nav-menu">
-                <a href="index.html" class="nav-item active">
+                <a href="index.html" class="nav-item">
                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20.875 4.96711V6.86184H18.0329V9.70395H16.1382V6.86184H13.2961V4.96711H16.1382V2.125H18.0329V4.96711H20.875ZM18.0329 18.2303H4.76974V4.96711H10.4539V3.07237H4.76974C4.26768 3.07387 3.78662 3.27397 3.43161 3.62898C3.0766 3.98399 2.8765 4.46505 2.875 4.96711V18.2303C2.8765 18.7323 3.0766 19.2134 3.43161 19.5684C3.78662 19.9234 4.26768 20.1235 4.76974 20.125H18.0329C18.5349 20.1235 19.016 19.9234 19.371 19.5684C19.726 19.2134 19.9261 18.7323 19.9276 18.2303V12.5461H18.0329V18.2303Z" fill="#5E938B"/>
                     </svg>
@@ -98,22 +101,24 @@
 
             <div class="history-dropdown" id="historyDropdown">
                 <span>Riwayat obrolan</span>
-                <i class="ph ph-caret-down" id="historyCaret"></i>
+                <svg id="historyCaret" width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="transition: transform 0.3s ease;">
+                    <path d="M1.13333 8.46663L5.33333 4.33329L1.13333 0.199959C1 0.0666256 0.8 -4.1043e-05 0.666666 -4.10371e-05C0.533333 -4.10313e-05 0.333333 0.0666256 0.2 0.199959C0.0666664 0.333292 -3.58433e-07 0.466626 -3.49691e-07 0.666626L-2.91409e-08 7.99996C-2.03986e-08 8.19996 0.0666668 8.33329 0.2 8.46663C0.333333 8.59996 0.466667 8.66663 0.666667 8.66663C0.866667 8.66663 1 8.59996 1.13333 8.46663Z" fill="#44726B"/>
+                </svg>
             </div>
 
-            <div class="history-list" id="historyList">
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+            <div class="history-list collapsed" id="historyList">
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
             </div>
 
             <div class="sidebar-spacer"></div>
@@ -147,6 +152,19 @@
 
         <!-- Main Chat Area -->
         <main class="chat-area">
+            <div class="mobile-header">
+                <button class="mobile-menu-btn"  id="mobileMenuBtn">
+                    <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.125C0 0.826631 0.118526 0.540483 0.329505 0.329505C0.540483 0.118526 0.826631 0 1.125 0H22.875C23.1734 0 23.4595 0.118526 23.6705 0.329505C23.8815 0.540483 24 0.826631 24 1.125C24 1.42337 23.8815 1.70952 23.6705 1.9205C23.4595 2.13147 23.1734 2.25 22.875 2.25H1.125C0.826631 2.25 0.540483 2.13147 0.329505 1.9205C0.118526 1.70952 0 1.42337 0 1.125ZM0 9C0 8.70163 0.118526 8.41548 0.329505 8.20451C0.540483 7.99353 0.826631 7.875 1.125 7.875H22.875C23.1734 7.875 23.4595 7.99353 23.6705 8.20451C23.8815 8.41548 24 8.70163 24 9C24 9.29837 23.8815 9.58452 23.6705 9.79549C23.4595 10.0065 23.1734 10.125 22.875 10.125H1.125C0.826631 10.125 0.540483 10.0065 0.329505 9.79549C0.118526 9.58452 0 9.29837 0 9ZM0 16.875C0 16.5766 0.118526 16.2905 0.329505 16.0795C0.540483 15.8685 0.826631 15.75 1.125 15.75H22.875C23.1734 15.75 23.4595 15.8685 23.6705 16.0795C23.8815 16.2905 24 16.5766 24 16.875C24 17.1734 23.8815 17.4595 23.6705 17.6705C23.4595 17.8815 23.1734 18 22.875 18H1.125C0.826631 18 0.540483 17.8815 0.329505 17.6705C0.118526 17.4595 0 17.1734 0 16.875Z" fill="#0C3932"/>
+                    </svg>
+                </button>
+                
+                <div class="mobile-header-profile">
+                    <svg width="25" height="25" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 27.1875C17.1396 27.1906 19.2419 26.6279 21.0938 25.5562V21.5625C21.0938 20.4436 20.6493 19.3706 19.8581 18.5794C19.0669 17.7882 17.9939 17.3438 16.875 17.3438H13.125C12.0061 17.3438 10.9331 17.7882 10.1419 18.5794C9.35072 19.3706 8.90625 20.4436 8.90625 21.5625V25.5562C10.7581 26.6279 12.8604 27.1906 15 27.1875ZM23.9062 21.5625V23.3194C25.5276 21.5837 26.6064 19.4121 27.0101 17.0716C27.4139 14.731 27.1249 12.3235 26.1787 10.1449C25.2326 7.96638 23.6705 6.11177 21.6845 4.80908C19.6985 3.50639 17.3751 2.81239 15 2.81239C12.6249 2.81239 10.3015 3.50639 8.31549 4.80908C6.32949 6.11177 4.7674 7.96638 3.82125 10.1449C2.8751 12.3235 2.58613 14.731 2.98986 17.0716C3.39359 19.4121 4.47243 21.5837 6.09375 23.3194V21.5625C6.09319 20.1128 6.54077 18.6983 7.3752 17.5128C8.20962 16.3273 9.39011 15.4287 10.755 14.94C10.047 14.1256 9.58815 13.1248 9.43325 12.0568C9.27835 10.9889 9.43392 9.89889 9.88139 8.91691C10.3289 7.93493 11.0494 7.10239 11.9569 6.5186C12.8645 5.9348 13.9209 5.62439 15 5.62439C16.0791 5.62439 17.1355 5.9348 18.0431 6.5186C18.9506 7.10239 19.6711 7.93493 20.1186 8.91691C20.5661 9.89889 20.7216 10.9889 20.5667 12.0568C20.4118 13.1248 19.953 14.1256 19.245 14.94C20.6099 15.4287 21.7904 16.3273 22.6248 17.5128C23.4592 18.6983 23.9068 20.1128 23.9062 21.5625ZM15 30C18.9782 30 22.7936 28.4196 25.6066 25.6066C28.4196 22.7936 30 18.9782 30 15C30 11.0218 28.4196 7.20644 25.6066 4.3934C22.7936 1.58035 18.9782 0 15 0C11.0218 0 7.20644 1.58035 4.3934 4.3934C1.58035 7.20644 0 11.0218 0 15C0 18.9782 1.58035 22.7936 4.3934 25.6066C7.20644 28.4196 11.0218 30 15 30ZM17.8125 11.25C17.8125 11.9959 17.5162 12.7113 16.9887 13.2387C16.4613 13.7662 15.7459 14.0625 15 14.0625C14.2541 14.0625 13.5387 13.7662 13.0113 13.2387C12.4838 12.7113 12.1875 11.9959 12.1875 11.25C12.1875 10.5041 12.4838 9.78871 13.0113 9.26126C13.5387 8.73382 14.2541 8.4375 15 8.4375C15.7459 8.4375 16.4613 8.73382 16.9887 9.26126C17.5162 9.78871 17.8125 10.5041 17.8125 11.25Z" fill="#346762"/>
+                    </svg>
+                </div>
+            </div>
             <header class="chat-header-container">
                 <div class="chat-header">
                     <div class="chat-partner">
@@ -155,91 +173,35 @@
                             <h2>Hajarol</h2>
                             <span class="status">
                                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7.41696 0.00502298C7.24306 0.0284579 7.08089 0.126103 6.97929 0.280383C6.84643 0.483485 6.84252 0.751033 6.97147 0.956089C7.08089 1.1299 7.27433 1.20411 7.4365 1.31738C7.58304 1.41893 7.78038 1.57516 7.97773 1.78998C8.3685 2.21376 8.74951 2.85041 8.74951 3.74875C8.74951 4.09441 9.02892 4.37368 9.37476 4.37368C9.72059 4.37368 10 4.09441 10 3.74875C10 2.45983 9.44314 1.53415 8.89605 0.942418C8.62446 0.647529 8.35287 0.43271 8.14771 0.2921C7.93279 0.143679 7.68855 -0.0320822 7.41305 0.00502298H7.41696ZM4.68933 2.49888C3.56389 2.49888 2.6358 3.35035 2.51465 4.44203C2.47753 4.78574 2.16686 5.03181 1.82493 4.9947C1.483 4.95759 1.23486 4.64708 1.27198 4.30532C1.46151 2.58677 2.91911 1.24902 4.68933 1.24902C6.58851 1.24902 8.12818 2.78792 8.12818 4.68614C8.12818 5.58448 7.78234 6.40275 7.21766 7.01596C6.9832 7.26984 6.87769 7.50028 6.87769 7.69362V7.81275C6.87769 9.02159 5.89879 10 4.68933 10C4.34349 10 4.06409 9.72073 4.06409 9.37507C4.06409 9.02941 4.34349 8.75014 4.68933 8.75014C5.20711 8.75014 5.6272 8.33027 5.6272 7.81275V7.69362C5.6272 7.05111 5.96718 6.52969 6.29934 6.17035C6.65885 5.77977 6.87769 5.2603 6.87769 4.68809C6.87769 3.47924 5.89879 2.50084 4.68933 2.50084V2.49888ZM0 9.37312C0 9.02745 0.279406 8.74819 0.625244 8.74819C0.971083 8.74819 1.25049 9.02745 1.25049 9.37312C1.25049 9.71878 0.971083 9.99805 0.625244 9.99805C0.279406 9.99805 0 9.71878 0 9.37312ZM3.12622 7.49833C3.47206 7.49833 3.75147 7.21906 3.75147 6.8734C3.75147 6.52773 3.47206 6.24847 3.12622 6.24847C2.78038 6.24847 2.50098 6.52773 2.50098 6.8734C2.50098 7.21906 2.78038 7.49833 3.12622 7.49833ZM1.69207 7.05697C1.44783 6.81286 1.05119 6.81286 0.806956 7.05697C0.56272 7.30108 0.56272 7.69752 0.806956 7.94164L2.05744 9.1915C2.30168 9.43561 2.69832 9.43561 2.94256 9.1915C3.18679 8.94738 3.18679 8.55094 2.94256 8.30683L1.69207 7.05697ZM4.68933 4.06121C4.34349 4.06121 4.06409 4.34048 4.06409 4.68614C4.06409 4.94588 3.85502 5.15484 3.59515 5.15484C3.33529 5.15484 3.12622 4.94588 3.12622 4.68614C3.12622 3.82296 3.82571 3.12382 4.68933 3.12382C5.55295 3.12382 6.25244 3.82296 6.25244 4.68614C6.25244 4.94588 6.04338 5.15484 5.78351 5.15484C5.52364 5.15484 5.31458 4.94588 5.31458 4.68614C5.31458 4.34048 5.03517 4.06121 4.68933 4.06121Z" fill="#44726B"/>
+                                    <path d="M7.41696 0.00502298C7.24306 0.0284579 7.08089 0.126103 6.97929 0.280383C6.84643 0.483485 6.84252 0.751033 6.97147 0.956089C7.08089 1.1299 7.27433 1.20411 7.4365 1.31738C7.58304 1.41893 7.78038 1.57516 7.97773 1.78998C8.3685 2.21376 8.74951 2.85041 8.74951 3.74875C8.74951 4.09441 9.02892 4.37368 9.37476 4.37368C9.72059 4.37368 10 4.09441 10 3.74875C10 2.45983 9.44314 1.53415 8.89605 0.942418C8.62446 0.647529 8.35287 0.43271 8.14771 0.2921C7.93279 0.143679 7.68855 -0.0320822 7.41305 0.00502298H7.41696ZM4.68933 2.49888C3.56389 2.49888 2.6358 3.35035 2.51465 4.44203C2.47753 4.78574 2.16686 5.03181 1.82493 4.9947C1.483 4.95759 1.23486 4.64708 1.27198 4.30532C1.46151 2.58677 2.91911 1.24902 4.68933 1.24902C6.58851 1.24902 8.12818 2.78792 8.12818 4.68614C8.12818 5.58448 7.78234 6.40275 7.21766 7.01596C6.9832 7.26984 6.87769 7.50028 6.87769 7.69362V7.81275C6.87769 9.02159 5.89879 10 4.68933 10C4.34349 10 4.06409 9.72073 4.06409 9.37507C4.06409 9.02941 4.34349 8.75014 4.68933 8.75014C5.20711 8.75014 5.6272 8.33027 5.6272 7.81275V7.69362C5.6272 7.05111 5.96718 6.52969 6.29934 6.17035C6.65885 5.77977 6.87769 5.2603 6.87769 4.68809C6.87769 3.47924 5.89879 2.50084 4.68933 2.50084V2.49888ZM0 9.37312C0 9.02745 0.279406 8.74819 0.625244 8.74819C0.971083 8.74819 1.25049 9.02745 1.25049 9.37312C1.25049 9.71878 0.971083 9.99805 0.625244 9.99805C0.279406 9.99805 0 9.71878 0 9.37312ZM3.12622 7.49833C3.47206 7.49833 3.75147 7.21906 3.75147 6.8734C3.75147 6.52773 3.47206 6.24847 3.12622 6.24847C2.78038 6.24847 2.50098 6.52773 2.50098 6.8734C2.50098 7.21906 2.78038 7.49833 3.12622 7.49833ZM1.69207 7.05697C1.44783 6.81286 1.05119 6.81286 0.806956 7.05697C0.56272 7.30108 0.56272 7.69752 0.806956 7.94164L2.05744 9.1915C2.30168 9.43561 2.69832 9.43561 2.94256 9.1915C3.18679 8.94738 3.18679 8.55094 2.94256 8.30683L1.69207 7.05697ZM4.68933 4.06121C4.34349 4.06121 4.06409 4.34048 4.06409 4.68614C4.06409 4.94588 3.85502 5.15484 3.59515 5.15484C3.33529 5.15484 3.12622 4.94588 3.12622 4.68614C3.12622 3.82296 3.82571 3.12382 4.68933 3.12382C5.55295 3.12382 6.25244 3.82296 6.25244 4.68614C6.25244 4.94588 6.04338 5.15484 5.78351 5.15484C5.52364 5.15484 5.31458 4.94588 5.31458 4.68614C5.31458 4.34048 5.03517 4.06121 4.68933 4.06121Z" fill="#44726B"/>
                                 </svg>
-                                sedang mendengarkan
+                                <span id="botStatusText">siap mendengarkan</span>
                             </span>
                         </div>
                     </div>
                 </div>
                 <button class="header-action">
-                    <i class="ph ph-user-circle"></i>
+                    <svg width="25" height="25" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 27.1875C17.1396 27.1906 19.2419 26.6279 21.0938 25.5562V21.5625C21.0938 20.4436 20.6493 19.3706 19.8581 18.5794C19.0669 17.7882 17.9939 17.3438 16.875 17.3438H13.125C12.0061 17.3438 10.9331 17.7882 10.1419 18.5794C9.35072 19.3706 8.90625 20.4436 8.90625 21.5625V25.5562C10.7581 26.6279 12.8604 27.1906 15 27.1875ZM23.9062 21.5625V23.3194C25.5276 21.5837 26.6064 19.4121 27.0101 17.0716C27.4139 14.731 27.1249 12.3235 26.1787 10.1449C25.2326 7.96638 23.6705 6.11177 21.6845 4.80908C19.6985 3.50639 17.3751 2.81239 15 2.81239C12.6249 2.81239 10.3015 3.50639 8.31549 4.80908C6.32949 6.11177 4.7674 7.96638 3.82125 10.1449C2.8751 12.3235 2.58613 14.731 2.98986 17.0716C3.39359 19.4121 4.47243 21.5837 6.09375 23.3194V21.5625C6.09319 20.1128 6.54077 18.6983 7.3752 17.5128C8.20962 16.3273 9.39011 15.4287 10.755 14.94C10.047 14.1256 9.58815 13.1248 9.43325 12.0568C9.27835 10.9889 9.43392 9.89889 9.88139 8.91691C10.3289 7.93493 11.0494 7.10239 11.9569 6.5186C12.8645 5.9348 13.9209 5.62439 15 5.62439C16.0791 5.62439 17.1355 5.9348 18.0431 6.5186C18.9506 7.10239 19.6711 7.93493 20.1186 8.91691C20.5661 9.89889 20.7216 10.9889 20.5667 12.0568C20.4118 13.1248 19.953 14.1256 19.245 14.94C20.6099 15.4287 21.7904 16.3273 22.6248 17.5128C23.4592 18.6983 23.9068 20.1128 23.9062 21.5625ZM15 30C18.9782 30 22.7936 28.4196 25.6066 25.6066C28.4196 22.7936 30 18.9782 30 15C30 11.0218 28.4196 7.20644 25.6066 4.3934C22.7936 1.58035 18.9782 0 15 0C11.0218 0 7.20644 1.58035 4.3934 4.3934C1.58035 7.20644 0 11.0218 0 15C0 18.9782 1.58035 22.7936 4.3934 25.6066C7.20644 28.4196 11.0218 30 15 30ZM17.8125 11.25C17.8125 11.9959 17.5162 12.7113 16.9887 13.2387C16.4613 13.7662 15.7459 14.0625 15 14.0625C14.2541 14.0625 13.5387 13.7662 13.0113 13.2387C12.4838 12.7113 12.1875 11.9959 12.1875 11.25C12.1875 10.5041 12.4838 9.78871 13.0113 9.26126C13.5387 8.73382 14.2541 8.4375 15 8.4375C15.7459 8.4375 16.4613 8.73382 16.9887 9.26126C17.5162 9.78871 17.8125 10.5041 17.8125 11.25Z" fill="#346762"/>
+                    </svg>
                 </button>
             </header>
 
             <div class="chat-messages" id="chatMessages">
-                <div class="date-divider"><span>Hari Ini</span></div>
-
-                <div class="message-wrapper received">
-                    <div class="message">
-                        <div class="bubble">
-                            <p>Hai, gimana harimu hari ini?</p>
-                            <span class="time">10:43 AM</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="message-wrapper sent">
-                    <div class="message">
-                        <div class="bubble">
-                            <p>Lumayan capek 😅</p>
-                            <span class="time">10:43 AM</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="message-wrapper received">
-                    <div class="message">
-                        <div class="bubble">
-                            <p>Ada hal tertentu yang bikin kamu merasa capek?</p>
-                            <span class="time">10:43 AM</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="message-wrapper sent">
-                    <div class="message">
-                        <div class="bubble">
-                            <p>Kerjaan lagi banyak banget minggu ini. Deadline datang bersamaan dan rasanya belum sempat istirahat dengan benar sejak beberapa hari terakhir.</p>
-                            <span class="time">10:43 AM</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="message-wrapper received">
-                    <div class="message">
-                        <div class="bubble">
-                            <p>Kedengarannya cukup melelahkan. Apa yang paling menguras energimu saat ini?</p>
-                            <span class="time">10:43 AM</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="message-wrapper sent">
-                    <div class="message">
-                        <div class="bubble">
-                            <p>Jujur bukan cuma kerjaan. Ada beberapa hal lain yang juga kepikiran terus, jadi kadang sulit fokus dan susah menikmati waktu istirahat.</p>
-                            <span class="time">10:43 AM</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="message-wrapper received">
-                    <div class="message">
-                        <div class="bubble">
-                            <p>Terima kasih sudah cerita sejauh ini. Membawa banyak hal sekaligus memang bisa terasa berat.</p>
-                            <span class="time">10:43 AM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+                  <div class="date-divider"><span>Hari Ini</span></div>
+              </div>
             <div class="chat-input-container">
+                <div class="suggestion-chips">
+                    <button class="chip">Aku cemas</button>
+                    <button class="chip">Aku sedang stres</button>
+                    <button class="chip">Aku hanya ingin ngobrol</button>
+                    <button class="chip">Aku ingin bercerita</button>
+                </div>
                 <div class="chat-input-box">
                     <button class="add-btn" aria-label="Add attachment">
                         <i class="ph ph-plus-circle"></i>
                     </button>
-                    <input type="text" id="messageInput" placeholder="Tulis perasaanmu di sini...">
+                    <textarea id="messageInput" placeholder="Tulis perasaanmu di sini..." rows="1"></textarea>
                     <button class="send-btn" id="sendBtn" aria-label="Send message">
                         <i class="ph-fill ph-paper-plane-right"></i>
                     </button>
@@ -251,3 +213,15 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

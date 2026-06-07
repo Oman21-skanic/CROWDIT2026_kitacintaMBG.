@@ -1,6 +1,8 @@
 :root {
-    --primary-color: #355C56; /* Dark Green from bubbles */
-    --primary-light: #EEF5F4; /* Light green for hover/active */
+    --primary-color: #355C56;
+    /* Dark Green from bubbles */
+    --primary-light: #EEF5F4;
+    /* Light green for hover/active */
     --text-dark: #1F2937;
     --text-muted: #6B7280;
     --text-white: #FFFFFF;
@@ -8,7 +10,7 @@
     --bg-app: #F5F9F8;
     --border-color: #E5E7EB;
     --sidebar-width: 15%;
-    
+
     /* Bubble specific */
     --bubble-sent-bg: #355C56;
     --bubble-received-bg: #FFFFFF;
@@ -111,8 +113,12 @@ body.sidebar-collapsed .history-dropdown,
 body.sidebar-collapsed .history-list,
 body.sidebar-collapsed .invite-card,
 body.sidebar-collapsed .user-profile-info {
-    display: none;
     opacity: 0;
+    width: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    pointer-events: none;
 }
 
 body.sidebar-collapsed .collapse-btn i {
@@ -124,11 +130,13 @@ body.sidebar-collapsed .sidebar-header {
 }
 
 body.sidebar-collapsed .nav-item {
+    transition: all 0.3s ease;
     justify-content: center;
     padding: 8px 0;
 }
 
 body.sidebar-collapsed .search-box {
+    cursor: pointer;
     justify-content: center;
     padding: 10px;
 }
@@ -154,7 +162,6 @@ body.sidebar-collapsed .user-profile-footer {
     display: flex;
     align-items: center;
     gap: 4px;
-    font-weight: 600;
     font-size: 0.95rem;
     color: #000000;
 }
@@ -173,6 +180,7 @@ body.sidebar-collapsed .user-profile-footer {
 }
 
 .search-box {
+    cursor: pointer;
     display: flex;
     align-items: center;
     background-color: #D0EFEA40;
@@ -192,6 +200,7 @@ body.sidebar-collapsed .user-profile-footer {
 }
 
 .search-box input {
+    cursor: pointer;
     background: none;
     border: none;
     outline: none;
@@ -215,16 +224,17 @@ body.sidebar-collapsed .user-profile-footer {
 }
 
 .nav-item {
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 10px;
+    padding: 5px 7px;
     border-radius: 10px;
     color: #5E938B;
     text-decoration: none;
     font-weight: 500;
     font-size: 0.85rem;
-    transition: background-color 0.2s, color 0.2s;
+
 }
 
 .nav-item:hover {
@@ -234,7 +244,7 @@ body.sidebar-collapsed .user-profile-footer {
 
 .nav-item:hover svg path {
     fill: #0C3932;
-    stroke: #0C3932;
+    /* stroke: #0C3932; */
 }
 
 .nav-item.active {
@@ -285,7 +295,7 @@ body.sidebar-collapsed .user-profile-footer {
     margin: 4px 12px 12px 12px;
     overflow-y: auto;
     scrollbar-width: none;
-    max-height: 500px;
+    max-height: 5000px;
     transition: max-height 0.3s ease-out, margin 0.3s ease-out, opacity 0.3s ease-out;
     opacity: 1;
 }
@@ -302,16 +312,17 @@ body.sidebar-collapsed .user-profile-footer {
 }
 
 .history-item {
-    font-size: 0.8rem;
-    color: #5E938B;
+    font-size: 0.85rem;
+    color: #77A19B;
     font-weight: 400;
     text-decoration: none;
-    padding: 6px 10px;
+    padding: 8px 8px 8px 8px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     border-radius: 8px;
     transition: background-color 0.2s;
+    cursor: pointer;
 }
 
 .history-item:hover {
@@ -319,6 +330,7 @@ body.sidebar-collapsed .user-profile-footer {
 }
 
 .sidebar-footer {
+    margin-top: auto;
     display: flex;
     flex-direction: column;
 }
@@ -354,6 +366,8 @@ body.sidebar-collapsed .user-profile-footer {
     font-size: 0.6rem;
     color: #475D5A;
     line-height: 1.4;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 .user-profile-footer {
@@ -460,6 +474,17 @@ body.sidebar-collapsed .user-profile-footer {
     color: #0E4139;
     font-size: 32px;
     cursor: pointer;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.header-action:hover {
+    background: #D0F8F280;
 }
 
 .chat-messages {
@@ -524,6 +549,9 @@ body.sidebar-collapsed .user-profile-footer {
     line-height: 1.4;
     position: relative;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    min-width: 225px;
+    max-width: 480px;
+    box-sizing: border-box;
 }
 
 .received .bubble {
@@ -557,30 +585,34 @@ body.sidebar-collapsed .user-profile-footer {
 .chat-input-container {
     padding: 16px 40px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
 }
 
 .chat-input-box {
-    background: linear-gradient(to right, #FFFFFF, #F6FFFE);
+    background: #FAFFFE;
     border-radius: 20px;
-    padding: 20px 24px;
+    padding: 20px;
     display: flex;
-    align-items: center;
+    align-items: start;
     gap: 16px;
     width: 100%;
     max-width: 640px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    min-height: 140px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    border: 1px solid #E8F0EF;
 }
 
 .add-btn {
     background: none;
     border: none;
     color: #5E938BE5;
-    font-size: 28px;
+    font-size: 24px;
     cursor: pointer;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    justify-content: start;
     transition: transform 0.2s;
 }
 
@@ -588,7 +620,7 @@ body.sidebar-collapsed .user-profile-footer {
     transform: scale(1.1);
 }
 
-.chat-input-box input {
+.chat-input-box textarea {
     flex: 1;
     border: none;
     outline: none;
@@ -596,9 +628,14 @@ body.sidebar-collapsed .user-profile-footer {
     font-size: 1rem;
     color: #0C3932;
     font-weight: 500;
+    background: transparent;
+    resize: none;
+    min-height: 90px;
+    margin-top: 5px;
+    line-height: 1.5;
 }
 
-.chat-input-box input::placeholder {
+.chat-input-box textarea::placeholder {
     color: #A5C2BD;
     font-weight: 500;
 }
@@ -606,11 +643,11 @@ body.sidebar-collapsed .user-profile-footer {
 .send-btn {
     background-color: #94C0BA82;
     border-radius: 50%;
-    width: 44px;
-    height: 44px;
+    width: 28px;
+    height: 28px;
     border: none;
     color: #0C3932;
-    font-size: 20px;
+    font-size: 15px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -629,15 +666,16 @@ body.sidebar-collapsed .user-profile-footer {
         left: -100%;
         transition: left 0.3s ease;
     }
-    
+
     .sidebar.active {
         left: 0;
     }
-    
+
     .chat-background {
         left: 0;
     }
 }
+
 /* =========================================
    PSIKOLOG PAGE STYLES
    ========================================= */
@@ -691,8 +729,9 @@ body.sidebar-collapsed .user-profile-footer {
 .pill {
     padding: 8px 16px;
     border-radius: 20px;
-    background-color: #FFFFFF;
-    border: 1px solid #EAF0EF;
+    background: #FFFFFF;
+    border: 1px solid #C4C4C44C;
+    box-shadow: 0px 2px 10px 0px #0C39321A;
     color: #44726B;
     font-size: 0.85rem;
     font-weight: 500;
@@ -703,15 +742,14 @@ body.sidebar-collapsed .user-profile-footer {
 
 .pill:hover {
     background-color: #F4F4F4;
-    border: 1px solid #C4C4C44C;
-    box-shadow: 0px 2px 10px 0px #0C39321A;
     color: #0C3932;
 }
 
 .pill.active {
-    background-color: #355C56;
+    background: #346762;
+    border: 1px solid #77A19B;
+    box-shadow: 0px 2px 25px 0px #0C39321A;
     color: #FFFFFF;
-    border-color: #355C56;
 }
 
 .pill.primary {
@@ -740,38 +778,62 @@ body.sidebar-collapsed .user-profile-footer {
 /* Grids */
 .psikolog-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
 }
 
 .rekomendasi-grid {
     display: flex;
     overflow-x: auto;
-    padding-bottom: 12px;
-    gap: 20px;
-    scrollbar-width: thin;
+    gap: 24px;
+    padding-bottom: 8px;
+    /* Slightly reduced since scrollbar is hidden */
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
 }
 
 .rekomendasi-grid::-webkit-scrollbar {
-    height: 6px;
-}
-
-.rekomendasi-grid::-webkit-scrollbar-thumb {
-    background-color: #D0EFEA;
-    border-radius: 10px;
+    display: none;
+    /* Chrome, Safari, Opera */
 }
 
 .rekomendasi-grid .psikolog-card {
-    min-width: 320px;
-    flex-shrink: 0;
+    min-width: calc(33.333% - 16px);
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+}
+
+/* Adjust mobile layout to single column */
+@media (max-width: 1024px) {
+    .psikolog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .rekomendasi-grid .psikolog-card {
+        min-width: calc(50% - 12px);
+    }
+}
+
+@media (max-width: 768px) {
+    .psikolog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rekomendasi-grid .psikolog-card {
+        min-width: 85vw;
+    }
 }
 
 /* Psikolog Card */
 .psikolog-card {
-    background: #FFFFFF;
+    background: linear-gradient(360deg, #F5FFFE -6.04%, #FFFFFF 69.57%);
+    border: 1px solid #C4C4C44C;
     border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 8px 24px rgba(12, 57, 50, 0.04);
+    padding: 16px;
+    box-shadow: 0px 5px 10px 0px #0C39321A;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -790,6 +852,7 @@ body.sidebar-collapsed .user-profile-footer {
 .psikolog-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 32px rgba(12, 57, 50, 0.08);
+    z-index: 100;
 }
 
 .card-header {
@@ -819,9 +882,17 @@ body.sidebar-collapsed .user-profile-footer {
     border: 2px solid #FFFFFF;
 }
 
-.status-dot.green { background-color: #22C55E; }
-.status-dot.yellow { background-color: #EAB308; }
-.status-dot.grey { background-color: #9CA3AF; }
+.status-dot.green {
+    background-color: #22C55E;
+}
+
+.status-dot.yellow {
+    background-color: #EAB308;
+}
+
+.status-dot.grey {
+    background-color: #9CA3AF;
+}
 
 .card-title {
     display: flex;
@@ -848,8 +919,20 @@ body.sidebar-collapsed .user-profile-footer {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    border-bottom: 1px solid #C4C4C44C;
     padding-bottom: 16px;
+    position: relative;
+}
+
+.card-tags::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -8px;
+    right: -8px;
+    height: 0.5px;
+    /* Thinner */
+    background-color: #C4C4C4;
+    opacity: 0.3;
 }
 
 .card-tags .tag {
@@ -905,3 +988,1000 @@ body.sidebar-collapsed .user-profile-footer {
 .availability i {
     font-size: 1rem;
 }
+
+/* =========================================
+   COLLAPSED SIDEBAR OVERRIDES
+   ========================================= */
+
+body.sidebar-collapsed {
+    --sidebar-width: 65px;
+}
+
+.sidebar {
+    position: relative;
+    /* Ensure absolute children position relative to sidebar */
+}
+
+body.sidebar-collapsed .logo span,
+body.sidebar-collapsed .search-box input,
+body.sidebar-collapsed .nav-item span,
+body.sidebar-collapsed .history-dropdown,
+body.sidebar-collapsed .history-list,
+body.sidebar-collapsed .invite-card-wrapper,
+body.sidebar-collapsed .user-profile-footer,
+body.sidebar-collapsed .sidebar-spacer {
+    display: none !important;
+}
+
+body.sidebar-collapsed .sidebar-header {
+    justify-content: center;
+    padding: 24px 0 16px 0;
+    margin: 0;
+}
+
+body.sidebar-collapsed .logo {
+    margin: 0;
+}
+
+.logo span,
+.nav-item span,
+.search-box input {
+    transition: all 0.3s ease;
+}
+
+.logo span {
+    font-size: 18px;
+}
+
+/* Handle for expanding */
+body.sidebar-collapsed .collapse-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 40px;
+    width: 10px;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+body.sidebar-collapsed .collapse-btn i {
+    display: none;
+    /* Hide the caret icon */
+}
+
+body.sidebar-collapsed .collapse-btn::after {
+    content: "";
+    display: block;
+    width: 3px;
+    height: 24px;
+    border-left: 1px solid #77A19B;
+    border-right: 1px solid #77A19B;
+    margin-right: 4px;
+}
+
+body.sidebar-collapsed .search-box {
+    cursor: pointer;
+    background: transparent;
+    padding: 16px 0;
+    margin: 0;
+    justify-content: center;
+}
+
+body.sidebar-collapsed .search-box i,
+body.sidebar-collapsed .search-box svg {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+body.sidebar-collapsed .nav-menu {
+    margin: 0;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+body.sidebar-collapsed .nav-item {
+    transition: all 0.3s ease;
+    padding: 8px;
+    background: transparent !important;
+    border: none !important;
+}
+
+body.sidebar-collapsed .nav-item i,
+body.sidebar-collapsed .nav-item svg {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+}
+
+/* Make sure active state color stays green but no background */
+body.sidebar-collapsed .nav-item.active svg path {
+    fill: #5E938B !important;
+    stroke: none !important;
+}
+
+/* For icons that use stroke */
+body.sidebar-collapsed .nav-item svg path[stroke] {
+    stroke: #5E938B !important;
+    fill: none !important;
+}
+
+body.sidebar-collapsed .nav-item.active i {
+    color: #5E938B !important;
+}
+
+/* =========================================
+   PENCARIAN PAGE STYLES
+   ========================================= */
+
+.pencarian-area {
+    flex: 1;
+    overflow-y: auto;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+}
+
+.pencarian-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #77A19B40;
+    padding: 16px 32px;
+}
+
+#mainSearchInput {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: #5E938B;
+    background: transparent;
+    font-family: inherit;
+}
+
+#mainSearchInput::placeholder {
+    color: #5E938B80;
+}
+
+.search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pencarian-content {
+    padding: 32px;
+    max-width: 900px;
+}
+
+.aksi-section {
+    margin-bottom: 32px;
+}
+
+.aksi-section h3,
+.obrolan-terakhir-section h3 {
+    font-size: 0.9rem;
+    color: #5E938B;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.obrolan-baru-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    border: 1px solid #77A19B;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #5E938B;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+}
+
+.obrolan-baru-btn:hover {
+    background: #F2FBF9;
+}
+
+.history-list-full {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.history-item-full {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #5E938B;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.history-item-full:hover,
+.history-item-full.active {
+    background: #EAF0EF;
+}
+
+.history-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.history-date {
+    font-size: 0.85rem;
+    color: #5E938B;
+}
+
+.history-item-full i.ph-trash {
+    font-size: 18px;
+    color: #5E938B;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.history-item-full:hover i.ph-trash,
+.history-item-full.active i.ph-trash {
+    opacity: 1;
+}
+
+/* Active search box gradient for minimized sidebar */
+body.sidebar-collapsed .search-box.active {
+    background: linear-gradient(0deg, rgba(208, 239, 234, 0.25), rgba(208, 239, 234, 0.25)), radial-gradient(25.24% 118.22% at 19.34% 100%, #D3E6E4 0%, rgba(189, 219, 215, 0) 100%);
+    border: 1px solid #77A19B;
+    border-radius: 10px;
+}
+
+
+/* =========================================
+   PENCARIAN PAGE OVERRIDES (FULL SCREEN)
+   ========================================= */
+
+body.pencarian-page .sidebar {
+    display: none !important;
+}
+
+body.pencarian-page .pencarian-area {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    padding-bottom: 60px;
+}
+
+body.pencarian-page .pencarian-header {
+    border-bottom: 1px solid #C4C4C44C;
+}
+
+body.pencarian-page .pencarian-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 32px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+}
+
+.back-from-search-btn {
+    background: transparent;
+    border: none;
+    color: #5E938B;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-from-search-btn:hover {
+    color: #0C3932;
+}
+
+
+body.pencarian-page .pencarian-footer {
+    border-top: 1px solid #C4C4C44C;
+}
+
+body.pencarian-page .pencarian-content {
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* OVERRIDE FOR STICKY HEADER AND FOOTER */
+body.pencarian-page .pencarian-area {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-bottom: 0;
+}
+
+body.pencarian-page .pencarian-header {
+    background: #FFFFFF;
+    border-bottom: 1px solid #C4C4C4;
+    padding: 24px 32px;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+body.pencarian-page .pencarian-content {
+    flex: 1;
+    overflow-y: auto;
+    width: 100%;
+    margin: 0;
+    padding: 32px;
+}
+
+body.pencarian-page .pencarian-footer {
+    position: relative;
+    background: #FFFFFF;
+    border-top: 1px solid #C4C4C44C;
+    padding: 16px 32px;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+body.pencarian-page .pencarian-content {
+    max-width: none;
+}
+
+body.pencarian-page .pencarian-area {
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-bottom: 0;
+}
+
+body.pencarian-page .pencarian-footer {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 9999 !important;
+    background: #FFFFFF !important;
+    border-top: 1px solid #C4C4C4 !important;
+}
+
+body.pencarian-page .pencarian-content {
+    padding-bottom: 100px !important;
+    /* Space for the fixed footer */
+}
+
+/* =========================================
+   MOBILE RESPONSIVE LAYOUT
+   ========================================= */
+
+.mobile-header {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Hide desktop sidebar completely */
+
+
+    /* Show mobile header */
+    .mobile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px;
+        background: transparent;
+        position: relative;
+        z-index: 50;
+    }
+
+    .mobile-menu-btn,
+    .mobile-profile-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px;
+    }
+
+
+    /* Hide desktop chat header */
+    .chat-header-container {
+        display: none !important;
+    }
+
+    /* Adjust chat area */
+    .chat-area {
+        width: 100vw;
+        flex: 1;
+    }
+
+    /* Chat content padding */
+    .chat-content {
+        padding: 0 20px;
+    }
+
+    /* Input area padding & placement */
+    .chat-input-container {
+        padding: 0;
+        margin: 16px 20px 24px 20px;
+    }
+
+    .bubble {
+        max-width: 90%;
+    }
+
+    .date-separator {
+        margin: 0 0 20px 0;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Adjust psikolog area */
+    .psikolog-area {
+        width: 100vw;
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Sidebar as a mobile drawer */
+    .app-container .sidebar {
+        display: flex !important;
+        /* Override the desktop display or previous none */
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 85vw;
+        max-width: 320px;
+        z-index: 1001;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        background: #FFFFFF;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    body.sidebar-open .app-container .sidebar {
+        transform: translateX(0);
+    }
+
+    /* Mobile backdrop */
+    .mobile-backdrop {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    body.sidebar-open .mobile-backdrop {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Psikolog page mobile adjustments */
+
+    /* Header text adjustments */
+    .psikolog-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .psikolog-header p {
+        font-size: 0.85rem;
+    }
+
+    /* Hide section titles like Rekomendasi / Psikolog Ahli as per image */
+    .psikolog-section h2 {
+        display: none;
+    }
+
+    /* Filter bar adjustments */
+    .filter-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .filter-group-left {
+        gap: 8px;
+    }
+
+    .filter-label {
+        width: 100%;
+        margin-bottom: 4px;
+        font-size: 0.9rem;
+    }
+
+    .filter-bar .pill.primary {
+        display: none;
+        /* Hide 'Cari Sekitar Saya' as in image */
+    }
+
+    /* Card mobile adjustments */
+    .psikolog-card {
+        padding: 16px;
+    }
+
+    .card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .card-footer .availability {
+        order: -1;
+        /* Move offline/online text above the button */
+        font-size: 0.85rem;
+    }
+
+    .view-profile-btn {
+        width: auto;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+/* =========================================
+   TYPING INDICATOR ANIMATION
+   ========================================= */
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background-color: #FFFFFF;
+    border: 1px solid #C4C4C44C;
+    border-radius: 12px 12px 12px 0;
+    width: fit-content;
+    box-shadow: 0px 5px 15px rgba(12, 57, 50, 0.05);
+}
+
+.typing-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #77A19B;
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes typingBounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+}
+
+/* Suggestion Chips */
+.suggestion-chips {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 640px;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    /* Hide scrollbar for Firefox */
+}
+
+.suggestion-chips::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar for Chrome/Safari */
+}
+
+.chip {
+    background: #EBF0EFE5;
+    border: 1px solid #C4C4C44C;
+    border-radius: 99px;
+    padding: 5px 20px;
+    height: 28px;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #17423B;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    box-shadow: 0px 2px 10px 0px #0C39321A;
+    opacity: 1;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.chip:hover {
+    background: #E2EBEA;
+    transform: translateY(-1px);
+}
+
+#botStatusText {
+    display: inline-block;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#botStatusText.fade-out {
+    opacity: 0;
+}
+
+.global-info-tooltip h4 {
+    font-size: 1rem;
+    color: #346762;
+    margin: 0 0 8px 0;
+    font-weight: 500;
+}
+
+.global-info-tooltip .divider {
+    height: 1px;
+    background-color: #EAEAEA;
+    margin-bottom: 8px;
+}
+
+.global-info-tooltip .info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.global-info-tooltip .info-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: #77A19B;
+}
+
+.global-info-tooltip .tooltip-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.tooltip-dot.green {
+    background-color: #00A600;
+}
+
+.tooltip-dot.yellow {
+    background-color: #D6A800;
+}
+
+.tooltip-dot.grey {
+    background-color: #8C8C8C;
+}
+
+
+
+
+/* Mobile Sidebar Parallax Push Effect */
+@media (max-width: 768px) {
+
+    .chat-area,
+    .psikolog-area,
+    .pencarian-area,
+    .mobile-header {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    body.sidebar-open .chat-area,
+    body.sidebar-open .psikolog-area,
+    body.sidebar-open .pencarian-area,
+    body.sidebar-open .mobile-header {
+        transform: translateX(calc(min(85vw, 320px) * 0.5));
+    }
+}
+
+/* Exact Search Page Mockup Styles */
+.history-item-full .history-actions i.ph-trash {
+    display: none;
+    opacity: 1;
+}
+
+.history-item-full:hover .history-actions i.ph-trash,
+.history-item-full.active .history-actions i.ph-trash {
+    display: block;
+}
+
+.history-item-full:hover .history-actions .history-date,
+.history-item-full.active .history-actions .history-date {
+    display: none;
+}
+
+.history-item-full {
+    padding: 16px;
+    margin-bottom: 2px;
+}
+
+.obrolan-baru-btn {
+    justify-content: flex-start;
+    border-color: #77A19B;
+    border-radius: 12px;
+}
+
+.aksi-section h3,
+.obrolan-terakhir-section h3 {
+    color: #44726B;
+}
+
+
+/* Further Mobile Spacing Reductions */
+@media (max-width: 768px) {
+    .psikolog-area {
+        padding: 16px 24px !important;
+        gap: 20px !important;
+    }
+
+    .mobile-header {
+        padding: 24px 24px 8px 0px !important;
+    }
+}
+
+
+/* Hide burger menu when sidebar is open */
+.mobile-menu-btn {
+    transition: opacity 0.3s ease;
+}
+
+body.sidebar-open .mobile-menu-btn {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* Mobile adjustments for psikolog cards - Vertical & Compact */
+@media (max-width: 768px) {
+    .rekomendasi-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        overflow-x: hidden !important;
+        padding-bottom: 0 !important;
+    }
+
+    .rekomendasi-grid .psikolog-card {
+        min-width: unset !important;
+        width: 100% !important;
+    }
+
+    /* Make cards smaller */
+    .psikolog-card {
+        padding: 16px 20px !important;
+    }
+
+    .psikolog-card .card-header img {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .psikolog-card h3 {
+        font-size: 1.1rem !important;
+        margin-bottom: 2px !important;
+    }
+
+    .psikolog-card p {
+        font-size: 0.8rem !important;
+    }
+
+    .card-tags {
+        padding-bottom: 12px !important;
+    }
+
+    .card-tags .tag {
+        padding: 4px 10px !important;
+        font-size: 0.75rem !important;
+    }
+
+    .card-footer {
+        padding-top: 12px !important;
+    }
+
+    .view-profile-btn {
+        padding: 8px 16px !important;
+        font-size: 0.85rem !important;
+    }
+
+    .load-more-btn {
+        width: 100%;
+        padding: 12px;
+        background: transparent;
+        border: 1px solid #77A19B;
+        color: #5E938B;
+        border-radius: 8px;
+        font-weight: 500;
+        text-align: center;
+        margin-top: 4px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .load-more-btn:hover {
+        background: #F2FBF9;
+    }
+}
+
+
+
+
+
+/* Additional Mobile Header & Psikolog Adjustments */
+@media (max-width: 768px) {
+    .mobile-profile-btn {
+        display: none !important;
+    }
+
+    .mobile-header {
+        padding: 16px 24px 4px 24px !important;
+    }
+
+    body.psikolog-page .mobile-header {
+        padding-left: 0 !important;
+    }
+
+    .psikolog-area {
+        padding: 8px 24px 16px 24px !important;
+        gap: 16px !important;
+    }
+
+    .psikolog-header h1 {
+        margin-bottom: 4px !important;
+    }
+
+    .filter-bar {
+        gap: 12px !important;
+    }
+}
+
+.card-info-icon:hover+.global-info-tooltip,
+.global-info-tooltip:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.global-info-tooltip {
+    top: -60px;
+    right: -150px;
+}
+
+/* Global Info Tooltip */
+.global-info-tooltip {
+    position: absolute;
+    background: #F8FFFE;
+    border: 1px solid #C4C4C44C;
+    box-shadow: 0px 5px 10px 0px #0C393226;
+    border-radius: 5px;
+    padding: 12px 16px;
+    width: 213px;
+    height: 88px;
+    box-sizing: border-box;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    transform: translateY(10px);
+}
+
+.global-info-tooltip.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Exact Tooltip Spacing for 88px height */
+.global-info-tooltip {
+    padding: 8px 12px !important;
+}
+
+.global-info-tooltip h4 {
+    margin: 0 0 4px 0 !important;
+}
+
+.global-info-tooltip .divider {
+    margin-bottom: 4px !important;
+}
+
+.global-info-tooltip .info-list {
+    gap: 4px !important;
+}
+
+.psikolog-card {
+    z-index: 1;
+}
+
+.psikolog-card:hover {
+    z-index: 1000 !important;
+}
+
+.global-info-tooltip {
+    z-index: 1001 !important;
+    padding: 12px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.global-info-tooltip {
+    top: 40px !important;
+    right: 20px !important;
+    left: auto !important;
+}
+
+.psikolog-card {
+    overflow: visible !important;
+}
+
+.global-info-tooltip {
+    top: 20px !important;
+    right: -120px !important;
+    left: auto !important;
+}
+
+
+.history-list {
+    display: block !important;
+    flex: 1 1 0 !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+}
+
+
+
+
+
+.sidebar-spacer { display: none !important; }
+
+
+#historyCaret { transform: rotate(90deg); }
+.history-list.collapsed ~ #historyCaret,
+.collapsed #historyCaret {
+    transform: rotate(0deg);
+}
+
+

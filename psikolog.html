@@ -13,7 +13,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="psikolog-page">
     <!-- Background Gradient & Star -->
     <div class="chat-background">
         <div class="bg-gradient">
@@ -57,6 +57,9 @@
     </div>
 
     <div class="app-container">
+        <!-- Mobile Backdrop -->
+        <div class="mobile-backdrop" id="mobileBackdrop"></div>
+
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -72,19 +75,19 @@
                 </button>
             </div>
             
-            <div class="search-box">
+            <div class="search-box" onclick="window.location.href='pencarian.html'" style="cursor: pointer;">
                 <i class="ph ph-magnifying-glass"></i>
                 <input type="text" placeholder="Pencarian">
             </div>
 
             <nav class="nav-menu">
-                <a href="index.html" class="nav-item active">
+                <a href="index.html" class="nav-item">
                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20.875 4.96711V6.86184H18.0329V9.70395H16.1382V6.86184H13.2961V4.96711H16.1382V2.125H18.0329V4.96711H20.875ZM18.0329 18.2303H4.76974V4.96711H10.4539V3.07237H4.76974C4.26768 3.07387 3.78662 3.27397 3.43161 3.62898C3.0766 3.98399 2.8765 4.46505 2.875 4.96711V18.2303C2.8765 18.7323 3.0766 19.2134 3.43161 19.5684C3.78662 19.9234 4.26768 20.1235 4.76974 20.125H18.0329C18.5349 20.1235 19.016 19.9234 19.371 19.5684C19.726 19.2134 19.9261 18.7323 19.9276 18.2303V12.5461H18.0329V18.2303Z" fill="#5E938B"/>
                     </svg>
                     <span>Obrolan Baru</span>
                 </a>
-                <a href="psikolog.html" class="nav-item">
+                <a href="psikolog.html" class="nav-item active">
                     <i class="ph ph-heart"></i>
                     <span>Psikolog</span>
                 </a>
@@ -98,22 +101,24 @@
 
             <div class="history-dropdown" id="historyDropdown">
                 <span>Riwayat obrolan</span>
-                <i class="ph ph-caret-down" id="historyCaret"></i>
+                <svg id="historyCaret" width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="transition: transform 0.3s ease;">
+                    <path d="M1.13333 8.46663L5.33333 4.33329L1.13333 0.199959C1 0.0666256 0.8 -4.1043e-05 0.666666 -4.10371e-05C0.533333 -4.10313e-05 0.333333 0.0666256 0.2 0.199959C0.0666664 0.333292 -3.58433e-07 0.466626 -3.49691e-07 0.666626L-2.91409e-08 7.99996C-2.03986e-08 8.19996 0.0666668 8.33329 0.2 8.46663C0.333333 8.59996 0.466667 8.66663 0.666667 8.66663C0.866667 8.66663 1 8.59996 1.13333 8.46663Z" fill="#44726B"/>
+                </svg>
             </div>
 
-            <div class="history-list" id="historyList">
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
-                <a href="#" class="history-item">Curhat stress karena kerja ..</a>
+            <div class="history-list collapsed" id="historyList">
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
+                <div class="history-item">Curhat stress karna kerjaan yang sangat menumpuk</div>
             </div>
 
             <div class="sidebar-spacer"></div>
@@ -148,6 +153,14 @@
 
         <!-- Main Psikolog Area -->
         <main class="psikolog-area">
+            <div class="mobile-header">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.125C0 0.826631 0.118526 0.540483 0.329505 0.329505C0.540483 0.118526 0.826631 0 1.125 0H22.875C23.1734 0 23.4595 0.118526 23.6705 0.329505C23.8815 0.540483 24 0.826631 24 1.125C24 1.42337 23.8815 1.70952 23.6705 1.9205C23.4595 2.13147 23.1734 2.25 22.875 2.25H1.125C0.826631 2.25 0.540483 2.13147 0.329505 1.9205C0.118526 1.70952 0 1.42337 0 1.125ZM0 9C0 8.70163 0.118526 8.41548 0.329505 8.20451C0.540483 7.99353 0.826631 7.875 1.125 7.875H22.875C23.1734 7.875 23.4595 7.99353 23.6705 8.20451C23.8815 8.41548 24 8.70163 24 9C24 9.29837 23.8815 9.58452 23.6705 9.79549C23.4595 10.0065 23.1734 10.125 22.875 10.125H1.125C0.826631 10.125 0.540483 10.0065 0.329505 9.79549C0.118526 9.58452 0 9.29837 0 9ZM0 16.875C0 16.5766 0.118526 16.2905 0.329505 16.0795C0.540483 15.8685 0.826631 15.75 1.125 15.75H22.875C23.1734 15.75 23.4595 15.8685 23.6705 16.0795C23.8815 16.2905 24 16.5766 24 16.875C24 17.1734 23.8815 17.4595 23.6705 17.6705C23.4595 17.8815 23.1734 18 22.875 18H1.125C0.826631 18 0.540483 17.8815 0.329505 17.6705C0.118526 17.4595 0 17.1734 0 16.875Z" fill="#0C3932"/>
+                    </svg>
+                </button>
+                
+            </div>
             <header class="psikolog-header">
                 <h1>Temukan Jalan Menuju Kedamaian</h1>
                 <p>Terhubunglah dengan para profesional yang penuh empati, siap mendampingi perjalanan emosional unik Anda dengan perhatian dan kepedulian yang tulus</p>
@@ -163,47 +176,26 @@
                     <button class="pill">Online</button>
                     <button class="pill active">Tersedia Sekarang</button>
                 </div>
-                <button class="pill primary">Cari Sekitar Saya</button>
+                <button class="pill primary" onclick="window.open('https://www.google.com/maps/search/psikolog+terdekat', '_blank')">Cari Sekitar Saya</button>
             </div>
 
             <section class="psikolog-section">
                 <h2>Rekomendasi</h2>
                 <div class="psikolog-grid rekomendasi-grid">
-                    <!-- Card 1 -->
+
                     <div class="psikolog-card">
                         <i class="ph ph-info card-info-icon"></i>
+                        <div class="global-info-tooltip">
+                            
+                            <ul class="info-list">
+                                <li><div class="tooltip-dot green"></div> Tersedia Untuk Konsul</li>
+                                <li><div class="tooltip-dot yellow"></div> Sedang Sibuk</li>
+                                <li><div class="tooltip-dot grey"></div> Tidak Tersedia</li>
+                            </ul>
+                        </div>
                         <div class="card-header">
                             <div class="avatar-container">
-                                <img src="https://ui-avatars.com/api/?name=Dr+Kharim+Asmaudin&background=E5E5E5&color=000&size=56" alt="Dr. Kharim">
-                                <div class="status-dot green"></div>
-                            </div>
-                            <div class="card-title">
-                                <h3>Dr. Kharim Asmaudin</h3>
-                                <span>Psikolog Klinik</span>
-                            </div>
-                        </div>
-                        <div class="card-tags">
-                            <span class="tag">Psikiater</span>
-                            <span class="tag">Stres</span>
-                            <span class="tag">Trauma</span>
-                            <span class="tag">Depresi</span>
-                        </div>
-                        <div class="card-footer">
-                            <button class="view-profile-btn">View Profile</button>
-                            <span class="availability offline">
-                                <svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8.92496 4.32714C10.036 4.32714 10.9414 3.33752 10.9414 2.13339C10.9414 0.942964 10.0406 0 8.92496 0C7.81857 0 6.90834 0.956893 6.90834 2.14268C6.91298 3.34216 7.81857 4.32714 8.92496 4.32714ZM3.54761 4.42975C4.50914 4.42975 5.29796 3.56618 5.29796 2.50668C5.29796 1.47039 4.51843 0.634911 3.54761 0.634911C2.58607 0.634911 1.79261 1.48455 1.79725 2.51596C1.80189 3.57105 2.58607 4.42975 3.54761 4.42975ZM8.92496 3.62236C8.24339 3.62236 7.65979 2.96888 7.65979 2.14268C7.65979 1.33018 8.23411 0.705018 8.92496 0.705018C9.62046 0.705018 10.1899 1.32113 10.1899 2.13316C10.1899 2.95959 9.61582 3.62236 8.92496 3.62236ZM3.54761 3.73425C2.97816 3.73425 2.49275 3.18825 2.49275 2.51596C2.49275 1.85784 2.97329 1.33041 3.54761 1.33041C4.13562 1.33041 4.60711 1.84855 4.60711 2.50668C4.60711 3.18825 4.1217 3.73425 3.54761 3.73425ZM0.95225 8.71023H4.61662C4.39237 8.58418 4.21966 8.30398 4.25239 8.01938H0.835714C0.742393 8.01938 0.695732 7.98223 0.695732 7.89332C0.695732 6.73586 2.01662 5.65291 3.5432 5.65291C4.13121 5.65291 4.65864 5.79289 5.11155 6.05893C5.26179 5.86872 5.43955 5.70199 5.63898 5.56423C5.0368 5.16727 4.31345 4.96205 3.5432 4.96205C1.58716 4.96205 0 6.38091 0 7.93534C0 8.45348 0.317339 8.71023 0.95225 8.71023ZM5.99346 8.71023H11.8565C12.6311 8.71023 13 8.47693 13 7.96343C13 6.7405 11.4549 4.97111 8.92496 4.97111C6.3902 4.97111 4.84529 6.7405 4.84529 7.96343C4.84529 8.47693 5.21393 8.71023 5.99346 8.71023ZM5.76945 8.00545C5.64804 8.00545 5.59673 7.97295 5.59673 7.87475C5.59673 7.10914 6.78229 5.67636 8.92496 5.67636C11.063 5.67636 12.2483 7.10914 12.2483 7.87475C12.2483 7.97272 12.2019 8.00545 12.0802 8.00545H5.76945Z" fill="#346762"/>
-</svg>
-                                Tersedia Offline
-                            </span>
-                        </div>
-                    </div>
-                    <!-- Card 2 -->
-                    <div class="psikolog-card">
-                        <i class="ph ph-info card-info-icon"></i>
-                        <div class="card-header">
-                            <div class="avatar-container">
-                                <img src="https://ui-avatars.com/api/?name=Dr+Kharim+Asmaudin&background=E5E5E5&color=000&size=56" alt="Dr. Kharim">
+                                <img src="https://ui-avatars.com/api/?name=Dr.%20Kharim%20Asmaudin&background=E5E5E5&color=000&size=56" alt="Dr. Kharim Asmaudin">
                                 <div class="status-dot green"></div>
                             </div>
                             <div class="card-title">
@@ -220,38 +212,143 @@
                         <div class="card-footer">
                             <button class="view-profile-btn">View Profile</button>
                             <span class="availability online">
-                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1.33333 10.6667C0.966667 10.6667 0.652778 10.5361 0.391667 10.275C0.130556 10.0139 0 9.7 0 9.33333V1.33333C0 0.966667 0.130556 0.652778 0.391667 0.391667C0.652778 0.130556 0.966667 0 1.33333 0H9.33333C9.7 0 10.0139 0.130556 10.275 0.391667C10.5361 0.652778 10.6667 0.966667 10.6667 1.33333V4.33333L13.3333 1.66667V9L10.6667 6.33333V9.33333C10.6667 9.7 10.5361 10.0139 10.275 10.275C10.0139 10.5361 9.7 10.6667 9.33333 10.6667H1.33333ZM1.33333 9.33333H9.33333V1.33333H1.33333V9.33333ZM1.33333 9.33333V1.33333V9.33333Z" fill="#346762"/>
-</svg>
+                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.33333 10.6667C0.966667 10.6667 0.652778 10.5361 0.391667 10.275C0.130556 10.0139 0 9.7 0 9.33333V1.33333C0 0.966667 0.130556 0.652778 0.391667 0.391667C0.652778 0.130556 0.966667 0 1.33333 0H9.33333C9.7 0 10.0139 0.130556 10.275 0.391667C10.5361 0.652778 10.6667 0.966667 10.6667 1.33333V4.33333L13.3333 1.66667V9L10.6667 6.33333V9.33333C10.6667 9.7 10.5361 10.0139 10.275 10.275C10.0139 10.5361 9.7 10.6667 9.33333 10.6667H1.33333ZM1.33333 9.33333H9.33333V1.33333H1.33333V9.33333ZM1.33333 9.33333V1.33333V9.33333Z" fill="#346762"/></svg>
                                 Tersedia Online
                             </span>
                         </div>
                     </div>
-                    <!-- Card 3 -->
+
                     <div class="psikolog-card">
                         <i class="ph ph-info card-info-icon"></i>
+                        <div class="global-info-tooltip">
+                            
+                            <ul class="info-list">
+                                <li><div class="tooltip-dot green"></div> Tersedia Untuk Konsul</li>
+                                <li><div class="tooltip-dot yellow"></div> Sedang Sibuk</li>
+                                <li><div class="tooltip-dot grey"></div> Tidak Tersedia</li>
+                            </ul>
+                        </div>
                         <div class="card-header">
                             <div class="avatar-container">
-                                <img src="https://ui-avatars.com/api/?name=Dr+Kharim+Asmaudin&background=E5E5E5&color=000&size=56" alt="Dr. Kharim">
+                                <img src="https://ui-avatars.com/api/?name=Budi%20Santoso&background=E5E5E5&color=000&size=56" alt="Budi Santoso">
                                 <div class="status-dot yellow"></div>
                             </div>
                             <div class="card-title">
-                                <h3>Dr. Kharim Asmaudin</h3>
-                                <span>Psikolog Klinik</span>
+                                <h3>Budi Santoso</h3>
+                                <span>Konselor</span>
                             </div>
                         </div>
                         <div class="card-tags">
-                            <span class="tag">Psikiater</span>
-                            <span class="tag">Stres</span>
-                            <span class="tag">Trauma</span>
-                            <span class="tag">Depresi</span>
+                            <span class="tag">Keluarga</span>
+                            <span class="tag">Remaja</span>
+                            <span class="tag">Karir</span>
                         </div>
                         <div class="card-footer">
                             <button class="view-profile-btn">View Profile</button>
                             <span class="availability online">
-                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1.33333 10.6667C0.966667 10.6667 0.652778 10.5361 0.391667 10.275C0.130556 10.0139 0 9.7 0 9.33333V1.33333C0 0.966667 0.130556 0.652778 0.391667 0.391667C0.652778 0.130556 0.966667 0 1.33333 0H9.33333C9.7 0 10.0139 0.130556 10.275 0.391667C10.5361 0.652778 10.6667 0.966667 10.6667 1.33333V4.33333L13.3333 1.66667V9L10.6667 6.33333V9.33333C10.6667 9.7 10.5361 10.0139 10.275 10.275C10.0139 10.5361 9.7 10.6667 9.33333 10.6667H1.33333ZM1.33333 9.33333H9.33333V1.33333H1.33333V9.33333ZM1.33333 9.33333V1.33333V9.33333Z" fill="#346762"/>
-</svg>
+                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.33333 10.6667C0.966667 10.6667 0.652778 10.5361 0.391667 10.275C0.130556 10.0139 0 9.7 0 9.33333V1.33333C0 0.966667 0.130556 0.652778 0.391667 0.391667C0.652778 0.130556 0.966667 0 1.33333 0H9.33333C9.7 0 10.0139 0.130556 10.275 0.391667C10.5361 0.652778 10.6667 0.966667 10.6667 1.33333V4.33333L13.3333 1.66667V9L10.6667 6.33333V9.33333C10.6667 9.7 10.5361 10.0139 10.275 10.275C10.0139 10.5361 9.7 10.6667 9.33333 10.6667H1.33333ZM1.33333 9.33333H9.33333V1.33333H1.33333V9.33333ZM1.33333 9.33333V1.33333V9.33333Z" fill="#346762"/></svg>
+                                Tersedia Online
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="psikolog-card">
+                        <i class="ph ph-info card-info-icon"></i>
+                        <div class="global-info-tooltip">
+                            
+                            <ul class="info-list">
+                                <li><div class="tooltip-dot green"></div> Tersedia Untuk Konsul</li>
+                                <li><div class="tooltip-dot yellow"></div> Sedang Sibuk</li>
+                                <li><div class="tooltip-dot grey"></div> Tidak Tersedia</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">
+                            <div class="avatar-container">
+                                <img src="https://ui-avatars.com/api/?name=Dr.%20Siti%20Aminah&background=E5E5E5&color=000&size=56" alt="Dr. Siti Aminah">
+                                <div class="status-dot grey"></div>
+                            </div>
+                            <div class="card-title">
+                                <h3>Dr. Siti Aminah</h3>
+                                <span>Psikiater</span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Trauma</span>
+                            <span class="tag">Depresi</span>
+                            <span class="tag">Kecemasan</span>
+                        </div>
+                        <div class="card-footer">
+                            <button class="view-profile-btn">View Profile</button>
+                            <span class="availability offline">
+                                <svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.92496 4.32714C10.036 4.32714 10.9414 3.33752 10.9414 2.13339C10.9414 0.942964 10.0406 0 8.92496 0C7.81857 0 6.90834 0.956893 6.90834 2.14268C6.91298 3.34216 7.81857 4.32714 8.92496 4.32714ZM3.54761 4.42975C4.50914 4.42975 5.29796 3.56618 5.29796 2.50668C5.29796 1.47039 4.51843 0.634911 3.54761 0.634911C2.58607 0.634911 1.79261 1.48455 1.79725 2.51596C1.80189 3.57105 2.58607 4.42975 3.54761 4.42975ZM8.92496 3.62236C8.24339 3.62236 7.65979 2.96888 7.65979 2.14268C7.65979 1.33018 8.23411 0.705018 8.92496 0.705018C9.62046 0.705018 10.1899 1.32113 10.1899 2.13316C10.1899 2.95959 9.61582 3.62236 8.92496 3.62236ZM3.54761 3.73425C2.97816 3.73425 2.49275 3.18825 2.49275 2.51596C2.49275 1.85784 2.97329 1.33041 3.54761 1.33041C4.13562 1.33041 4.60711 1.84855 4.60711 2.50668C4.60711 3.18825 4.1217 3.73425 3.54761 3.73425ZM0.95225 8.71023H4.61662C4.39237 8.58418 4.21966 8.30398 4.25239 8.01938H0.835714C0.742393 8.01938 0.695732 7.98223 0.695732 7.89332C0.695732 6.73586 2.01662 5.65291 3.5432 5.65291C4.13121 5.65291 4.65864 5.79289 5.11155 6.05893C5.26179 5.86872 5.43955 5.70199 5.63898 5.56423C5.0368 5.16727 4.31345 4.96205 3.5432 4.96205C1.58716 4.96205 0 6.38091 0 7.93534C0 8.45348 0.317339 8.71023 0.95225 8.71023ZM5.99346 8.71023H11.8565C12.6311 8.71023 13 8.47693 13 7.96343C13 6.7405 11.4549 4.97111 8.92496 4.97111C6.3902 4.97111 4.84529 6.7405 4.84529 7.96343C4.84529 8.47693 5.21393 8.71023 5.99346 8.71023ZM5.76945 8.00545C5.64804 8.00545 5.59673 7.97295 5.59673 7.87475C5.59673 7.10914 6.78229 5.67636 8.92496 5.67636C11.063 5.67636 12.2483 7.10914 12.2483 7.87475C12.2483 7.97272 12.2019 8.00545 12.0802 8.00545H5.76945Z" fill="#346762"/></svg>
+                                Tersedia Offline
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="psikolog-card">
+                        <i class="ph ph-info card-info-icon"></i>
+                        <div class="global-info-tooltip">
+                            
+                            <ul class="info-list">
+                                <li><div class="tooltip-dot green"></div> Tersedia Untuk Konsul</li>
+                                <li><div class="tooltip-dot yellow"></div> Sedang Sibuk</li>
+                                <li><div class="tooltip-dot grey"></div> Tidak Tersedia</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">
+                            <div class="avatar-container">
+                                <img src="https://ui-avatars.com/api/?name=Andi%20Wijaya&background=E5E5E5&color=000&size=56" alt="Andi Wijaya">
+                                <div class="status-dot green"></div>
+                            </div>
+                            <div class="card-title">
+                                <h3>Andi Wijaya</h3>
+                                <span>Konselor</span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Stres</span>
+                            <span class="tag">Pendidikan</span>
+                            <span class="tag">Karir</span>
+                        </div>
+                        <div class="card-footer">
+                            <button class="view-profile-btn">View Profile</button>
+                            <span class="availability online">
+                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.33333 10.6667C0.966667 10.6667 0.652778 10.5361 0.391667 10.275C0.130556 10.0139 0 9.7 0 9.33333V1.33333C0 0.966667 0.130556 0.652778 0.391667 0.391667C0.652778 0.130556 0.966667 0 1.33333 0H9.33333C9.7 0 10.0139 0.130556 10.275 0.391667C10.5361 0.652778 10.6667 0.966667 10.6667 1.33333V4.33333L13.3333 1.66667V9L10.6667 6.33333V9.33333C10.6667 9.7 10.5361 10.0139 10.275 10.275C10.0139 10.5361 9.7 10.6667 9.33333 10.6667H1.33333ZM1.33333 9.33333H9.33333V1.33333H1.33333V9.33333ZM1.33333 9.33333V1.33333V9.33333Z" fill="#346762"/></svg>
+                                Tersedia Online
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="psikolog-card">
+                        <i class="ph ph-info card-info-icon"></i>
+                        <div class="global-info-tooltip">
+                            
+                            <ul class="info-list">
+                                <li><div class="tooltip-dot green"></div> Tersedia Untuk Konsul</li>
+                                <li><div class="tooltip-dot yellow"></div> Sedang Sibuk</li>
+                                <li><div class="tooltip-dot grey"></div> Tidak Tersedia</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">
+                            <div class="avatar-container">
+                                <img src="https://ui-avatars.com/api/?name=Dr.%20Ratna%20Sari&background=E5E5E5&color=000&size=56" alt="Dr. Ratna Sari">
+                                <div class="status-dot green"></div>
+                            </div>
+                            <div class="card-title">
+                                <h3>Dr. Ratna Sari</h3>
+                                <span>Psikolog Pendidikan</span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Anak</span>
+                            <span class="tag">Remaja</span>
+                            <span class="tag">Autisme</span>
+                        </div>
+                        <div class="card-footer">
+                            <button class="view-profile-btn">View Profile</button>
+                            <span class="availability online">
+                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.33333 10.6667C0.966667 10.6667 0.652778 10.5361 0.391667 10.275C0.130556 10.0139 0 9.7 0 9.33333V1.33333C0 0.966667 0.130556 0.652778 0.391667 0.391667C0.652778 0.130556 0.966667 0 1.33333 0H9.33333C9.7 0 10.0139 0.130556 10.275 0.391667C10.5361 0.652778 10.6667 0.966667 10.6667 1.33333V4.33333L13.3333 1.66667V9L10.6667 6.33333V9.33333C10.6667 9.7 10.5361 10.0139 10.275 10.275C10.0139 10.5361 9.7 10.6667 9.33333 10.6667H1.33333ZM1.33333 9.33333H9.33333V1.33333H1.33333V9.33333ZM1.33333 9.33333V1.33333V9.33333Z" fill="#346762"/></svg>
                                 Tersedia Online
                             </span>
                         </div>
@@ -262,133 +359,207 @@
             <section class="psikolog-section">
                 <h2>Psikolog Ahli</h2>
                 <div class="psikolog-grid">
-                    <!-- Duplicate cards for ahli grid -->
+
                     <div class="psikolog-card">
                         <i class="ph ph-info card-info-icon"></i>
+                        <div class="global-info-tooltip">
+                            
+                            <ul class="info-list">
+                                <li><div class="tooltip-dot green"></div> Tersedia Untuk Konsul</li>
+                                <li><div class="tooltip-dot yellow"></div> Sedang Sibuk</li>
+                                <li><div class="tooltip-dot grey"></div> Tidak Tersedia</li>
+                            </ul>
+                        </div>
                         <div class="card-header">
                             <div class="avatar-container">
-                                <img src="https://ui-avatars.com/api/?name=Dr+Kharim+Asmaudin&background=E5E5E5&color=000&size=56" alt="Dr. Kharim">
+                                <img src="https://ui-avatars.com/api/?name=Dr.%20Ahmad%20Hidayat&background=E5E5E5&color=000&size=56" alt="Dr. Ahmad Hidayat">
                                 <div class="status-dot grey"></div>
                             </div>
                             <div class="card-title">
-                                <h3>Dr. Kharim Asmaudin</h3>
-                                <span>Psikolog Klinik</span>
+                                <h3>Dr. Ahmad Hidayat</h3>
+                                <span>Psikiater</span>
                             </div>
                         </div>
                         <div class="card-tags">
+                            <span class="tag">Trauma Berat</span>
+                            <span class="tag">Bipolar</span>
                             <span class="tag">Psikiater</span>
-                            <span class="tag">Stres</span>
-                            <span class="tag">Trauma</span>
-                            <span class="tag">Depresi</span>
                         </div>
                         <div class="card-footer">
                             <button class="view-profile-btn">View Profile</button>
-                            <span class="availability offline"><svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.92496 4.32714C10.036 4.32714 10.9414 3.33752 10.9414 2.13339C10.9414 0.942964 10.0406 0 8.92496 0C7.81857 0 6.90834 0.956893 6.90834 2.14268C6.91298 3.34216 7.81857 4.32714 8.92496 4.32714ZM3.54761 4.42975C4.50914 4.42975 5.29796 3.56618 5.29796 2.50668C5.29796 1.47039 4.51843 0.634911 3.54761 0.634911C2.58607 0.634911 1.79261 1.48455 1.79725 2.51596C1.80189 3.57105 2.58607 4.42975 3.54761 4.42975ZM8.92496 3.62236C8.24339 3.62236 7.65979 2.96888 7.65979 2.14268C7.65979 1.33018 8.23411 0.705018 8.92496 0.705018C9.62046 0.705018 10.1899 1.32113 10.1899 2.13316C10.1899 2.95959 9.61582 3.62236 8.92496 3.62236ZM3.54761 3.73425C2.97816 3.73425 2.49275 3.18825 2.49275 2.51596C2.49275 1.85784 2.97329 1.33041 3.54761 1.33041C4.13562 1.33041 4.60711 1.84855 4.60711 2.50668C4.60711 3.18825 4.1217 3.73425 3.54761 3.73425ZM0.95225 8.71023H4.61662C4.39237 8.58418 4.21966 8.30398 4.25239 8.01938H0.835714C0.742393 8.01938 0.695732 7.98223 0.695732 7.89332C0.695732 6.73586 2.01662 5.65291 3.5432 5.65291C4.13121 5.65291 4.65864 5.79289 5.11155 6.05893C5.26179 5.86872 5.43955 5.70199 5.63898 5.56423C5.0368 5.16727 4.31345 4.96205 3.5432 4.96205C1.58716 4.96205 0 6.38091 0 7.93534C0 8.45348 0.317339 8.71023 0.95225 8.71023ZM5.99346 8.71023H11.8565C12.6311 8.71023 13 8.47693 13 7.96343C13 6.7405 11.4549 4.97111 8.92496 4.97111C6.3902 4.97111 4.84529 6.7405 4.84529 7.96343C4.84529 8.47693 5.21393 8.71023 5.99346 8.71023ZM5.76945 8.00545C5.64804 8.00545 5.59673 7.97295 5.59673 7.87475C5.59673 7.10914 6.78229 5.67636 8.92496 5.67636C11.063 5.67636 12.2483 7.10914 12.2483 7.87475C12.2483 7.97272 12.2019 8.00545 12.0802 8.00545H5.76945Z" fill="#346762"/></svg> Tersedia Offline</span>
+                            <span class="availability offline">
+                                <svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.92496 4.32714C10.036 4.32714 10.9414 3.33752 10.9414 2.13339C10.9414 0.942964 10.0406 0 8.92496 0C7.81857 0 6.90834 0.956893 6.90834 2.14268C6.91298 3.34216 7.81857 4.32714 8.92496 4.32714ZM3.54761 4.42975C4.50914 4.42975 5.29796 3.56618 5.29796 2.50668C5.29796 1.47039 4.51843 0.634911 3.54761 0.634911C2.58607 0.634911 1.79261 1.48455 1.79725 2.51596C1.80189 3.57105 2.58607 4.42975 3.54761 4.42975ZM8.92496 3.62236C8.24339 3.62236 7.65979 2.96888 7.65979 2.14268C7.65979 1.33018 8.23411 0.705018 8.92496 0.705018C9.62046 0.705018 10.1899 1.32113 10.1899 2.13316C10.1899 2.95959 9.61582 3.62236 8.92496 3.62236ZM3.54761 3.73425C2.97816 3.73425 2.49275 3.18825 2.49275 2.51596C2.49275 1.85784 2.97329 1.33041 3.54761 1.33041C4.13562 1.33041 4.60711 1.84855 4.60711 2.50668C4.60711 3.18825 4.1217 3.73425 3.54761 3.73425ZM0.95225 8.71023H4.61662C4.39237 8.58418 4.21966 8.30398 4.25239 8.01938H0.835714C0.742393 8.01938 0.695732 7.98223 0.695732 7.89332C0.695732 6.73586 2.01662 5.65291 3.5432 5.65291C4.13121 5.65291 4.65864 5.79289 5.11155 6.05893C5.26179 5.86872 5.43955 5.70199 5.63898 5.56423C5.0368 5.16727 4.31345 4.96205 3.5432 4.96205C1.58716 4.96205 0 6.38091 0 7.93534C0 8.45348 0.317339 8.71023 0.95225 8.71023ZM5.99346 8.71023H11.8565C12.6311 8.71023 13 8.47693 13 7.96343C13 6.7405 11.4549 4.97111 8.92496 4.97111C6.3902 4.97111 4.84529 6.7405 4.84529 7.96343C4.84529 8.47693 5.21393 8.71023 5.99346 8.71023ZM5.76945 8.00545C5.64804 8.00545 5.59673 7.97295 5.59673 7.87475C5.59673 7.10914 6.78229 5.67636 8.92496 5.67636C11.063 5.67636 12.2483 7.10914 12.2483 7.87475C12.2483 7.97272 12.2019 8.00545 12.0802 8.00545H5.76945Z" fill="#346762"/></svg>
+                                Tersedia Offline
+                            </span>
                         </div>
                     </div>
-                    <div class="psikolog-card">`n                        <i class="ph ph-info card-info-icon"></i>`n                        <div class="card-header">
+
+                    <div class="psikolog-card">
+                        <i class="ph ph-info card-info-icon"></i>
+                        <div class="global-info-tooltip">
+                            
+                            <ul class="info-list">
+                                <li><div class="tooltip-dot green"></div> Tersedia Untuk Konsul</li>
+                                <li><div class="tooltip-dot yellow"></div> Sedang Sibuk</li>
+                                <li><div class="tooltip-dot grey"></div> Tidak Tersedia</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">
                             <div class="avatar-container">
-                                <img src="https://ui-avatars.com/api/?name=Dr+Kharim+Asmaudin&background=E5E5E5&color=000&size=56" alt="Dr. Kharim">
+                                <img src="https://ui-avatars.com/api/?name=Linda%20Kusuma&background=E5E5E5&color=000&size=56" alt="Linda Kusuma">
+                                <div class="status-dot green"></div>
+                            </div>
+                            <div class="card-title">
+                                <h3>Linda Kusuma</h3>
+                                <span>Konselor Pernikahan</span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Keluarga</span>
+                            <span class="tag">Pasangan</span>
+                        </div>
+                        <div class="card-footer">
+                            <button class="view-profile-btn">View Profile</button>
+                            <span class="availability online">
+                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.33333 10.6667C0.966667 10.6667 0.652778 10.5361 0.391667 10.275C0.130556 10.0139 0 9.7 0 9.33333V1.33333C0 0.966667 0.130556 0.652778 0.391667 0.391667C0.652778 0.130556 0.966667 0 1.33333 0H9.33333C9.7 0 10.0139 0.130556 10.275 0.391667C10.5361 0.652778 10.6667 0.966667 10.6667 1.33333V4.33333L13.3333 1.66667V9L10.6667 6.33333V9.33333C10.6667 9.7 10.5361 10.0139 10.275 10.275C10.0139 10.5361 9.7 10.6667 9.33333 10.6667H1.33333ZM1.33333 9.33333H9.33333V1.33333H1.33333V9.33333ZM1.33333 9.33333V1.33333V9.33333Z" fill="#346762"/></svg>
+                                Tersedia Online
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="psikolog-card">
+                        <i class="ph ph-info card-info-icon"></i>
+                        <div class="global-info-tooltip">
+                            
+                            <ul class="info-list">
+                                <li><div class="tooltip-dot green"></div> Tersedia Untuk Konsul</li>
+                                <li><div class="tooltip-dot yellow"></div> Sedang Sibuk</li>
+                                <li><div class="tooltip-dot grey"></div> Tidak Tersedia</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">
+                            <div class="avatar-container">
+                                <img src="https://ui-avatars.com/api/?name=Dr.%20Faisal&background=E5E5E5&color=000&size=56" alt="Dr. Faisal">
                                 <div class="status-dot yellow"></div>
                             </div>
                             <div class="card-title">
-                                <h3>Dr. Kharim Asmaudin</h3>
-                                <span>Psikolog Klinik</span>
+                                <h3>Dr. Faisal</h3>
+                                <span>Psikolog Anak</span>
                             </div>
                         </div>
                         <div class="card-tags">
-                            <span class="tag">Psikiater</span>
-                            <span class="tag">Stres</span>
+                            <span class="tag">Anak</span>
                             <span class="tag">Trauma</span>
-                            <span class="tag">Depresi</span>
+                            <span class="tag">Tumbuh Kembang</span>
                         </div>
                         <div class="card-footer">
                             <button class="view-profile-btn">View Profile</button>
-                            <span class="availability offline"><svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.92496 4.32714C10.036 4.32714 10.9414 3.33752 10.9414 2.13339C10.9414 0.942964 10.0406 0 8.92496 0C7.81857 0 6.90834 0.956893 6.90834 2.14268C6.91298 3.34216 7.81857 4.32714 8.92496 4.32714ZM3.54761 4.42975C4.50914 4.42975 5.29796 3.56618 5.29796 2.50668C5.29796 1.47039 4.51843 0.634911 3.54761 0.634911C2.58607 0.634911 1.79261 1.48455 1.79725 2.51596C1.80189 3.57105 2.58607 4.42975 3.54761 4.42975ZM8.92496 3.62236C8.24339 3.62236 7.65979 2.96888 7.65979 2.14268C7.65979 1.33018 8.23411 0.705018 8.92496 0.705018C9.62046 0.705018 10.1899 1.32113 10.1899 2.13316C10.1899 2.95959 9.61582 3.62236 8.92496 3.62236ZM3.54761 3.73425C2.97816 3.73425 2.49275 3.18825 2.49275 2.51596C2.49275 1.85784 2.97329 1.33041 3.54761 1.33041C4.13562 1.33041 4.60711 1.84855 4.60711 2.50668C4.60711 3.18825 4.1217 3.73425 3.54761 3.73425ZM0.95225 8.71023H4.61662C4.39237 8.58418 4.21966 8.30398 4.25239 8.01938H0.835714C0.742393 8.01938 0.695732 7.98223 0.695732 7.89332C0.695732 6.73586 2.01662 5.65291 3.5432 5.65291C4.13121 5.65291 4.65864 5.79289 5.11155 6.05893C5.26179 5.86872 5.43955 5.70199 5.63898 5.56423C5.0368 5.16727 4.31345 4.96205 3.5432 4.96205C1.58716 4.96205 0 6.38091 0 7.93534C0 8.45348 0.317339 8.71023 0.95225 8.71023ZM5.99346 8.71023H11.8565C12.6311 8.71023 13 8.47693 13 7.96343C13 6.7405 11.4549 4.97111 8.92496 4.97111C6.3902 4.97111 4.84529 6.7405 4.84529 7.96343C4.84529 8.47693 5.21393 8.71023 5.99346 8.71023ZM5.76945 8.00545C5.64804 8.00545 5.59673 7.97295 5.59673 7.87475C5.59673 7.10914 6.78229 5.67636 8.92496 5.67636C11.063 5.67636 12.2483 7.10914 12.2483 7.87475C12.2483 7.97272 12.2019 8.00545 12.0802 8.00545H5.76945Z" fill="#346762"/></svg> Tersedia Offline</span>
+                            <span class="availability online">
+                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.33333 10.6667C0.966667 10.6667 0.652778 10.5361 0.391667 10.275C0.130556 10.0139 0 9.7 0 9.33333V1.33333C0 0.966667 0.130556 0.652778 0.391667 0.391667C0.652778 0.130556 0.966667 0 1.33333 0H9.33333C9.7 0 10.0139 0.130556 10.275 0.391667C10.5361 0.652778 10.6667 0.966667 10.6667 1.33333V4.33333L13.3333 1.66667V9L10.6667 6.33333V9.33333C10.6667 9.7 10.5361 10.0139 10.275 10.275C10.0139 10.5361 9.7 10.6667 9.33333 10.6667H1.33333ZM1.33333 9.33333H9.33333V1.33333H1.33333V9.33333ZM1.33333 9.33333V1.33333V9.33333Z" fill="#346762"/></svg>
+                                Tersedia Online
+                            </span>
                         </div>
                     </div>
-                    <div class="psikolog-card">`n                        <i class="ph ph-info card-info-icon"></i>`n                        <div class="card-header">
+
+                    <div class="psikolog-card">
+                        <i class="ph ph-info card-info-icon"></i>
+                        <div class="global-info-tooltip">
+                            
+                            <ul class="info-list">
+                                <li><div class="tooltip-dot green"></div> Tersedia Untuk Konsul</li>
+                                <li><div class="tooltip-dot yellow"></div> Sedang Sibuk</li>
+                                <li><div class="tooltip-dot grey"></div> Tidak Tersedia</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">
                             <div class="avatar-container">
-                                <img src="https://ui-avatars.com/api/?name=Dr+Kharim+Asmaudin&background=E5E5E5&color=000&size=56" alt="Dr. Kharim">
+                                <img src="https://ui-avatars.com/api/?name=Maya%20Indah&background=E5E5E5&color=000&size=56" alt="Maya Indah">
                                 <div class="status-dot green"></div>
                             </div>
                             <div class="card-title">
-                                <h3>Dr. Kharim Asmaudin</h3>
+                                <h3>Maya Indah</h3>
+                                <span>Konselor</span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Stres Kerja</span>
+                            <span class="tag">Karir</span>
+                            <span class="tag">Kecemasan</span>
+                        </div>
+                        <div class="card-footer">
+                            <button class="view-profile-btn">View Profile</button>
+                            <span class="availability online">
+                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.33333 10.6667C0.966667 10.6667 0.652778 10.5361 0.391667 10.275C0.130556 10.0139 0 9.7 0 9.33333V1.33333C0 0.966667 0.130556 0.652778 0.391667 0.391667C0.652778 0.130556 0.966667 0 1.33333 0H9.33333C9.7 0 10.0139 0.130556 10.275 0.391667C10.5361 0.652778 10.6667 0.966667 10.6667 1.33333V4.33333L13.3333 1.66667V9L10.6667 6.33333V9.33333C10.6667 9.7 10.5361 10.0139 10.275 10.275C10.0139 10.5361 9.7 10.6667 9.33333 10.6667H1.33333ZM1.33333 9.33333H9.33333V1.33333H1.33333V9.33333ZM1.33333 9.33333V1.33333V9.33333Z" fill="#346762"/></svg>
+                                Tersedia Online
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="psikolog-card">
+                        <i class="ph ph-info card-info-icon"></i>
+                        <div class="global-info-tooltip">
+                            
+                            <ul class="info-list">
+                                <li><div class="tooltip-dot green"></div> Tersedia Untuk Konsul</li>
+                                <li><div class="tooltip-dot yellow"></div> Sedang Sibuk</li>
+                                <li><div class="tooltip-dot grey"></div> Tidak Tersedia</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">
+                            <div class="avatar-container">
+                                <img src="https://ui-avatars.com/api/?name=Dr.%20Denny%20Pratama&background=E5E5E5&color=000&size=56" alt="Dr. Denny Pratama">
+                                <div class="status-dot grey"></div>
+                            </div>
+                            <div class="card-title">
+                                <h3>Dr. Denny Pratama</h3>
                                 <span>Psikolog Klinik</span>
                             </div>
                         </div>
                         <div class="card-tags">
                             <span class="tag">Psikiater</span>
-                            <span class="tag">Stres</span>
-                            <span class="tag">Trauma</span>
                             <span class="tag">Depresi</span>
+                            <span class="tag">Trauma</span>
                         </div>
                         <div class="card-footer">
                             <button class="view-profile-btn">View Profile</button>
-                            <span class="availability offline"><svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.92496 4.32714C10.036 4.32714 10.9414 3.33752 10.9414 2.13339C10.9414 0.942964 10.0406 0 8.92496 0C7.81857 0 6.90834 0.956893 6.90834 2.14268C6.91298 3.34216 7.81857 4.32714 8.92496 4.32714ZM3.54761 4.42975C4.50914 4.42975 5.29796 3.56618 5.29796 2.50668C5.29796 1.47039 4.51843 0.634911 3.54761 0.634911C2.58607 0.634911 1.79261 1.48455 1.79725 2.51596C1.80189 3.57105 2.58607 4.42975 3.54761 4.42975ZM8.92496 3.62236C8.24339 3.62236 7.65979 2.96888 7.65979 2.14268C7.65979 1.33018 8.23411 0.705018 8.92496 0.705018C9.62046 0.705018 10.1899 1.32113 10.1899 2.13316C10.1899 2.95959 9.61582 3.62236 8.92496 3.62236ZM3.54761 3.73425C2.97816 3.73425 2.49275 3.18825 2.49275 2.51596C2.49275 1.85784 2.97329 1.33041 3.54761 1.33041C4.13562 1.33041 4.60711 1.84855 4.60711 2.50668C4.60711 3.18825 4.1217 3.73425 3.54761 3.73425ZM0.95225 8.71023H4.61662C4.39237 8.58418 4.21966 8.30398 4.25239 8.01938H0.835714C0.742393 8.01938 0.695732 7.98223 0.695732 7.89332C0.695732 6.73586 2.01662 5.65291 3.5432 5.65291C4.13121 5.65291 4.65864 5.79289 5.11155 6.05893C5.26179 5.86872 5.43955 5.70199 5.63898 5.56423C5.0368 5.16727 4.31345 4.96205 3.5432 4.96205C1.58716 4.96205 0 6.38091 0 7.93534C0 8.45348 0.317339 8.71023 0.95225 8.71023ZM5.99346 8.71023H11.8565C12.6311 8.71023 13 8.47693 13 7.96343C13 6.7405 11.4549 4.97111 8.92496 4.97111C6.3902 4.97111 4.84529 6.7405 4.84529 7.96343C4.84529 8.47693 5.21393 8.71023 5.99346 8.71023ZM5.76945 8.00545C5.64804 8.00545 5.59673 7.97295 5.59673 7.87475C5.59673 7.10914 6.78229 5.67636 8.92496 5.67636C11.063 5.67636 12.2483 7.10914 12.2483 7.87475C12.2483 7.97272 12.2019 8.00545 12.0802 8.00545H5.76945Z" fill="#346762"/></svg> Tersedia Offline</span>
+                            <span class="availability offline">
+                                <svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.92496 4.32714C10.036 4.32714 10.9414 3.33752 10.9414 2.13339C10.9414 0.942964 10.0406 0 8.92496 0C7.81857 0 6.90834 0.956893 6.90834 2.14268C6.91298 3.34216 7.81857 4.32714 8.92496 4.32714ZM3.54761 4.42975C4.50914 4.42975 5.29796 3.56618 5.29796 2.50668C5.29796 1.47039 4.51843 0.634911 3.54761 0.634911C2.58607 0.634911 1.79261 1.48455 1.79725 2.51596C1.80189 3.57105 2.58607 4.42975 3.54761 4.42975ZM8.92496 3.62236C8.24339 3.62236 7.65979 2.96888 7.65979 2.14268C7.65979 1.33018 8.23411 0.705018 8.92496 0.705018C9.62046 0.705018 10.1899 1.32113 10.1899 2.13316C10.1899 2.95959 9.61582 3.62236 8.92496 3.62236ZM3.54761 3.73425C2.97816 3.73425 2.49275 3.18825 2.49275 2.51596C2.49275 1.85784 2.97329 1.33041 3.54761 1.33041C4.13562 1.33041 4.60711 1.84855 4.60711 2.50668C4.60711 3.18825 4.1217 3.73425 3.54761 3.73425ZM0.95225 8.71023H4.61662C4.39237 8.58418 4.21966 8.30398 4.25239 8.01938H0.835714C0.742393 8.01938 0.695732 7.98223 0.695732 7.89332C0.695732 6.73586 2.01662 5.65291 3.5432 5.65291C4.13121 5.65291 4.65864 5.79289 5.11155 6.05893C5.26179 5.86872 5.43955 5.70199 5.63898 5.56423C5.0368 5.16727 4.31345 4.96205 3.5432 4.96205C1.58716 4.96205 0 6.38091 0 7.93534C0 8.45348 0.317339 8.71023 0.95225 8.71023ZM5.99346 8.71023H11.8565C12.6311 8.71023 13 8.47693 13 7.96343C13 6.7405 11.4549 4.97111 8.92496 4.97111C6.3902 4.97111 4.84529 6.7405 4.84529 7.96343C4.84529 8.47693 5.21393 8.71023 5.99346 8.71023ZM5.76945 8.00545C5.64804 8.00545 5.59673 7.97295 5.59673 7.87475C5.59673 7.10914 6.78229 5.67636 8.92496 5.67636C11.063 5.67636 12.2483 7.10914 12.2483 7.87475C12.2483 7.97272 12.2019 8.00545 12.0802 8.00545H5.76945Z" fill="#346762"/></svg>
+                                Tersedia Offline
+                            </span>
                         </div>
                     </div>
-                    <div class="psikolog-card">`n                        <i class="ph ph-info card-info-icon"></i>`n                        <div class="card-header">
+
+                    <div class="psikolog-card">
+                        <i class="ph ph-info card-info-icon"></i>
+                        <div class="global-info-tooltip">
+                            
+                            <ul class="info-list">
+                                <li><div class="tooltip-dot green"></div> Tersedia Untuk Konsul</li>
+                                <li><div class="tooltip-dot yellow"></div> Sedang Sibuk</li>
+                                <li><div class="tooltip-dot grey"></div> Tidak Tersedia</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">
                             <div class="avatar-container">
-                                <img src="https://ui-avatars.com/api/?name=Dr+Kharim+Asmaudin&background=E5E5E5&color=000&size=56" alt="Dr. Kharim">
+                                <img src="https://ui-avatars.com/api/?name=Rina%20Oktavia&background=E5E5E5&color=000&size=56" alt="Rina Oktavia">
                                 <div class="status-dot green"></div>
                             </div>
                             <div class="card-title">
-                                <h3>Dr. Kharim Asmaudin</h3>
-                                <span>Psikolog Klinik</span>
+                                <h3>Rina Oktavia</h3>
+                                <span>Konselor</span>
                             </div>
                         </div>
                         <div class="card-tags">
-                            <span class="tag">Psikiater</span>
-                            <span class="tag">Stres</span>
                             <span class="tag">Trauma</span>
-                            <span class="tag">Depresi</span>
+                            <span class="tag">Pelecehan</span>
+                            <span class="tag">Pemulihan</span>
                         </div>
                         <div class="card-footer">
                             <button class="view-profile-btn">View Profile</button>
-                            <span class="availability offline"><svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.92496 4.32714C10.036 4.32714 10.9414 3.33752 10.9414 2.13339C10.9414 0.942964 10.0406 0 8.92496 0C7.81857 0 6.90834 0.956893 6.90834 2.14268C6.91298 3.34216 7.81857 4.32714 8.92496 4.32714ZM3.54761 4.42975C4.50914 4.42975 5.29796 3.56618 5.29796 2.50668C5.29796 1.47039 4.51843 0.634911 3.54761 0.634911C2.58607 0.634911 1.79261 1.48455 1.79725 2.51596C1.80189 3.57105 2.58607 4.42975 3.54761 4.42975ZM8.92496 3.62236C8.24339 3.62236 7.65979 2.96888 7.65979 2.14268C7.65979 1.33018 8.23411 0.705018 8.92496 0.705018C9.62046 0.705018 10.1899 1.32113 10.1899 2.13316C10.1899 2.95959 9.61582 3.62236 8.92496 3.62236ZM3.54761 3.73425C2.97816 3.73425 2.49275 3.18825 2.49275 2.51596C2.49275 1.85784 2.97329 1.33041 3.54761 1.33041C4.13562 1.33041 4.60711 1.84855 4.60711 2.50668C4.60711 3.18825 4.1217 3.73425 3.54761 3.73425ZM0.95225 8.71023H4.61662C4.39237 8.58418 4.21966 8.30398 4.25239 8.01938H0.835714C0.742393 8.01938 0.695732 7.98223 0.695732 7.89332C0.695732 6.73586 2.01662 5.65291 3.5432 5.65291C4.13121 5.65291 4.65864 5.79289 5.11155 6.05893C5.26179 5.86872 5.43955 5.70199 5.63898 5.56423C5.0368 5.16727 4.31345 4.96205 3.5432 4.96205C1.58716 4.96205 0 6.38091 0 7.93534C0 8.45348 0.317339 8.71023 0.95225 8.71023ZM5.99346 8.71023H11.8565C12.6311 8.71023 13 8.47693 13 7.96343C13 6.7405 11.4549 4.97111 8.92496 4.97111C6.3902 4.97111 4.84529 6.7405 4.84529 7.96343C4.84529 8.47693 5.21393 8.71023 5.99346 8.71023ZM5.76945 8.00545C5.64804 8.00545 5.59673 7.97295 5.59673 7.87475C5.59673 7.10914 6.78229 5.67636 8.92496 5.67636C11.063 5.67636 12.2483 7.10914 12.2483 7.87475C12.2483 7.97272 12.2019 8.00545 12.0802 8.00545H5.76945Z" fill="#346762"/></svg> Tersedia Offline</span>
-                        </div>
-                    </div>
-                    <div class="psikolog-card">`n                        <i class="ph ph-info card-info-icon"></i>`n                        <div class="card-header">
-                            <div class="avatar-container">
-                                <img src="https://ui-avatars.com/api/?name=Dr+Kharim+Asmaudin&background=E5E5E5&color=000&size=56" alt="Dr. Kharim">
-                                <div class="status-dot green"></div>
-                            </div>
-                            <div class="card-title">
-                                <h3>Dr. Kharim Asmaudin</h3>
-                                <span>Psikolog Klinik</span>
-                            </div>
-                        </div>
-                        <div class="card-tags">
-                            <span class="tag">Psikiater</span>
-                            <span class="tag">Stres</span>
-                            <span class="tag">Trauma</span>
-                            <span class="tag">Depresi</span>
-                        </div>
-                        <div class="card-footer">
-                            <button class="view-profile-btn">View Profile</button>
-                            <span class="availability offline"><svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.92496 4.32714C10.036 4.32714 10.9414 3.33752 10.9414 2.13339C10.9414 0.942964 10.0406 0 8.92496 0C7.81857 0 6.90834 0.956893 6.90834 2.14268C6.91298 3.34216 7.81857 4.32714 8.92496 4.32714ZM3.54761 4.42975C4.50914 4.42975 5.29796 3.56618 5.29796 2.50668C5.29796 1.47039 4.51843 0.634911 3.54761 0.634911C2.58607 0.634911 1.79261 1.48455 1.79725 2.51596C1.80189 3.57105 2.58607 4.42975 3.54761 4.42975ZM8.92496 3.62236C8.24339 3.62236 7.65979 2.96888 7.65979 2.14268C7.65979 1.33018 8.23411 0.705018 8.92496 0.705018C9.62046 0.705018 10.1899 1.32113 10.1899 2.13316C10.1899 2.95959 9.61582 3.62236 8.92496 3.62236ZM3.54761 3.73425C2.97816 3.73425 2.49275 3.18825 2.49275 2.51596C2.49275 1.85784 2.97329 1.33041 3.54761 1.33041C4.13562 1.33041 4.60711 1.84855 4.60711 2.50668C4.60711 3.18825 4.1217 3.73425 3.54761 3.73425ZM0.95225 8.71023H4.61662C4.39237 8.58418 4.21966 8.30398 4.25239 8.01938H0.835714C0.742393 8.01938 0.695732 7.98223 0.695732 7.89332C0.695732 6.73586 2.01662 5.65291 3.5432 5.65291C4.13121 5.65291 4.65864 5.79289 5.11155 6.05893C5.26179 5.86872 5.43955 5.70199 5.63898 5.56423C5.0368 5.16727 4.31345 4.96205 3.5432 4.96205C1.58716 4.96205 0 6.38091 0 7.93534C0 8.45348 0.317339 8.71023 0.95225 8.71023ZM5.99346 8.71023H11.8565C12.6311 8.71023 13 8.47693 13 7.96343C13 6.7405 11.4549 4.97111 8.92496 4.97111C6.3902 4.97111 4.84529 6.7405 4.84529 7.96343C4.84529 8.47693 5.21393 8.71023 5.99346 8.71023ZM5.76945 8.00545C5.64804 8.00545 5.59673 7.97295 5.59673 7.87475C5.59673 7.10914 6.78229 5.67636 8.92496 5.67636C11.063 5.67636 12.2483 7.10914 12.2483 7.87475C12.2483 7.97272 12.2019 8.00545 12.0802 8.00545H5.76945Z" fill="#346762"/></svg> Tersedia Offline</span>
-                        </div>
-                    </div>
-                    <div class="psikolog-card">`n                        <i class="ph ph-info card-info-icon"></i>`n                        <div class="card-header">
-                            <div class="avatar-container">
-                                <img src="https://ui-avatars.com/api/?name=Dr+Kharim+Asmaudin&background=E5E5E5&color=000&size=56" alt="Dr. Kharim">
-                                <div class="status-dot green"></div>
-                            </div>
-                            <div class="card-title">
-                                <h3>Dr. Kharim Asmaudin</h3>
-                                <span>Psikolog Klinik</span>
-                            </div>
-                        </div>
-                        <div class="card-tags">
-                            <span class="tag">Psikiater</span>
-                            <span class="tag">Stres</span>
-                            <span class="tag">Trauma</span>
-                            <span class="tag">Depresi</span>
-                        </div>
-                        <div class="card-footer">
-                            <button class="view-profile-btn">View Profile</button>
-                            <span class="availability online"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.33333 10.6667C0.966667 10.6667 0.652778 10.5361 0.391667 10.275C0.130556 10.0139 0 9.7 0 9.33333V1.33333C0 0.966667 0.130556 0.652778 0.391667 0.391667C0.652778 0.130556 0.966667 0 1.33333 0H9.33333C9.7 0 10.0139 0.130556 10.275 0.391667C10.5361 0.652778 10.6667 0.966667 10.6667 1.33333V4.33333L13.3333 1.66667V9L10.6667 6.33333V9.33333C10.6667 9.7 10.5361 10.0139 10.275 10.275C10.0139 10.5361 9.7 10.6667 9.33333 10.6667H1.33333ZM1.33333 9.33333H9.33333V1.33333H1.33333V9.33333ZM1.33333 9.33333V1.33333V9.33333Z" fill="#346762"/></svg> Tersedia Online</span>
+                            <span class="availability online">
+                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.33333 10.6667C0.966667 10.6667 0.652778 10.5361 0.391667 10.275C0.130556 10.0139 0 9.7 0 9.33333V1.33333C0 0.966667 0.130556 0.652778 0.391667 0.391667C0.652778 0.130556 0.966667 0 1.33333 0H9.33333C9.7 0 10.0139 0.130556 10.275 0.391667C10.5361 0.652778 10.6667 0.966667 10.6667 1.33333V4.33333L13.3333 1.66667V9L10.6667 6.33333V9.33333C10.6667 9.7 10.5361 10.0139 10.275 10.275C10.0139 10.5361 9.7 10.6667 9.33333 10.6667H1.33333ZM1.33333 9.33333H9.33333V1.33333H1.33333V9.33333ZM1.33333 9.33333V1.33333V9.33333Z" fill="#346762"/></svg>
+                                Tersedia Online
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -398,4 +569,19 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
