@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
             users.push(newUser);
             localStorage.setItem('tenangin_users', JSON.stringify(users));
             localStorage.setItem('tenangin_active_user', JSON.stringify(newUser));
-            window.location.href = "chatbot.html"; 
+            window.location.href = "../../index.html"; 
         });
     }
 
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             localStorage.setItem('tenangin_active_user', JSON.stringify(user));
-            window.location.href = "chatbot.html"; 
+            window.location.href = "../../index.html"; 
         });
     }
 
@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // mengalihkan otomatis ke halaman chatbot setelah jeda 2 detik
                 setTimeout(() => {
-                    window.location.href = "chatbot.html";
+                    window.location.href = "../../index.html";
                 }, 1000);
             } else {
                 // tampilkan pesan error

@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let activeUser = JSON.parse(localStorage.getItem('tenangin_active_user'));
 
     if (!activeUser) {
-        window.location.href = 'login.html';
+        window.location.href = '../auth/login.html';
         return;
     }
 
@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputTelepon = document.getElementById('input-telepon');
 
     const btnDelete = document.getElementById('btn-delete-account');
+    const btnLogout = document.getElementById('btn-logout');
 
     let tempAvatarData = activeUser.avatarDataUrl || null;
 
@@ -152,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         localStorage.setItem('tenangin_users', JSON.stringify(users));
                         
                         localStorage.removeItem('tenangin_active_user');
-                        window.location.href = "login.html";
+                        window.location.href = "../auth/login.html";
                     }
                 },
                 { text: "Batal", style: "cancel" }
@@ -160,5 +161,25 @@ document.addEventListener("DOMContentLoaded", () => {
             'danger' 
         );
     });
+
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            showAlert(
+                "Konfirmasi Keluar",
+                "Apakah kamu yakin ingin keluar dari akun ini?",
+                [
+                    {
+                        text: "Keluar",
+                        style: "primary",
+                        onClick: () => {
+                            localStorage.removeItem('tenangin_active_user');
+                            window.location.href = "../auth/login.html";
+                        }
+                    },
+                    { text: "Batal", style: "cancel" }
+                ]
+            );
+        });
+    }
 
 });

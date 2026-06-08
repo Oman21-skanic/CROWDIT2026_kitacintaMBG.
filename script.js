@@ -1,4 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- AUTHENTICATION CHECK ---
+    const currentPath = window.location.pathname;
+    if (!currentPath.includes('login.html') && !currentPath.includes('register.html') && !currentPath.includes('forgot-password.html')) {
+        const activeUserStr = localStorage.getItem('tenangin_active_user');
+        if (activeUserStr) {
+            try {
+                const activeUser = JSON.parse(activeUserStr);
+                const nameEls = document.querySelectorAll('.user-profile-info h3');
+                const emailEls = document.querySelectorAll('.user-profile-info span');
+                const imgEls = document.querySelectorAll('.user-profile-footer img');
+
+                nameEls.forEach(el => el.textContent = activeUser.name);
+                emailEls.forEach(el => el.textContent = activeUser.email);
+                imgEls.forEach(el => {
+                    el.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(activeUser.name)}&background=E5E5E5&color=000&size=40`;
+                    el.alt = activeUser.name;
+                });
+
+                const profileBtns = document.querySelectorAll('.user-profile-footer, .mobile-header-profile, .header-action');
+                profileBtns.forEach(btn => {
+                    btn.style.cursor = 'pointer';
+                    btn.addEventListener('click', () => {
+                        window.location.href = 'features/profile/profile.html';
+                    });
+                });
+            } catch (e) {
+                console.error("Error parsing user data", e);
+            }
+        }
+    }
+
     const messageInput = document.getElementById('messageInput');
     const sendBtn = document.getElementById('sendBtn');
     const chatMessages = document.getElementById('chatMessages');
@@ -21,19 +52,19 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
             .replace(/\n/g, '<br>');
     }
 
-    function addMessage(text, isSent = true, saveToHistory = false) {
+    function addMessage(text, isSent = true, saveToHistory = false, animateTyping = false) {
         if (!text || !chatMessages) return;
 
         const now = new Date();
         const timeString = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
 
         const messageWrapper = document.createElement('div');
-        messageWrapper.className = "message-wrapper " + (isSent ? 'sent' : 'received');
+        messageWrapper.className = "message-wrapper " + (isSent ? 'sent' : 'received') + " animate-in";
 
         messageWrapper.innerHTML = `
             <div class="message">
                 <div class="bubble">
-                    <p>${formatTextToHTML(text)}</p>
+                    <p class="message-content"></p>
                     <span class="time">${timeString}</span>
                 </div>
             </div>
@@ -41,6 +72,25 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
 
         chatMessages.appendChild(messageWrapper);
         chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        const p = messageWrapper.querySelector('.message-content');
+        
+        if (animateTyping && !isSent) {
+            let i = 0;
+            let tempText = "";
+            const interval = setInterval(() => {
+                tempText += text.charAt(i);
+                p.textContent = tempText;
+                i++;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                if (i >= text.length) {
+                    clearInterval(interval);
+                    p.innerHTML = formatTextToHTML(text);
+                }
+            }, 20); // 20ms per character typing speed
+        } else {
+            p.innerHTML = formatTextToHTML(text);
+        }
 
         if (saveToHistory) {
             conversationHistory.push({
@@ -123,15 +173,24 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
             const aiResponseText = data.candidates[0].content.parts[0].text;
             
             hideTypingIndicator();
-            addMessage(aiResponseText, false, true); 
+            addMessage(aiResponseText, false, true, true); 
         } catch (error) {
             console.error("Gemini API Error:", error);
             hideTypingIndicator();
-            addMessage("Maaf ya, koneksi terganggu. Boleh coba lagi?", false, false);
+            addMessage("Maaf ya, koneksi terganggu. Boleh coba lagi?", false, false, true);
         }
     }
 
     async function handleSend() {
+        const activeUserStr = localStorage.getItem('tenangin_active_user');
+        if (!activeUserStr) {
+            const authModal = document.getElementById('authModal');
+            if (authModal) {
+                authModal.classList.add('active');
+            }
+            return;
+        }
+
         if(!messageInput) return;
         const text = messageInput.value.trim();
         if (!text) return;
@@ -150,6 +209,22 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
         generateResponse(text);
     }
 
+    // Auth Modal Close Logic
+    const authModal = document.getElementById('authModal');
+    const authModalBackdrop = document.getElementById('authModalBackdrop');
+    
+    if (authModalBackdrop) {
+        authModalBackdrop.addEventListener('click', () => {
+            if (authModal) authModal.classList.remove('active');
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && authModal && authModal.classList.contains('active')) {
+            authModal.classList.remove('active');
+        }
+    });
+
     if (sendBtn) {
         sendBtn.addEventListener('click', handleSend);
     }
@@ -161,6 +236,30 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
             }
         });
     }
+
+    // AI Initial Greeting Logic
+    setTimeout(() => {
+        if (chatMessages) {
+            const hasMessages = chatMessages.querySelectorAll('.message-wrapper').length > 0;
+            if (!hasMessages) {
+                const greetings = [
+                    "Halo! Aku Tenangin AI, teman ngobrolmu hari ini. Ada yang membebani pikiranmu?",
+                    "Hai, selamat datang! Gimana kabarmu hari ini? Aku siap mendengarkan cerita apapun darimu.",
+                    "Halo! Aku di sini untuk mendengarkan. Ada sesuatu yang ingin kamu ceritakan atau luapkan?",
+                    "Hai! Kadang bercerita bisa membuat perasaan jadi lebih lega. Mau mulai dari mana?",
+                    "Halo, aku Tenangin AI. Aku siap menjadi pendengar yang baik untukmu hari ini. Ada yang bisa aku bantu?"
+                ];
+                const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+                
+                showTypingIndicator();
+                setBotStatus('sedang mengetik...');
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addMessage(randomGreeting, false, true, true);
+                }, 1500);
+            }
+        }
+    }, 500);
 
     // Sidebar collapse functionality (Desktop vs Mobile)
     const collapseBtn = document.getElementById('collapseBtn');
@@ -412,6 +511,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
     // --- MOBILE SIDEBAR TOGGLE LOGIC ---
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileBackdrop = document.getElementById('mobileBackdrop');
@@ -428,4 +528,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // (Removed duplicate collapseBtn logic)
+    // --- SEARCH MODAL LOGIC ---
+    const searchModal = document.getElementById('searchModal');
+    const openSearchModalBtn = document.getElementById('openSearchModalBtn');
+    const closeSearchModalBtn = document.getElementById('closeSearchModalBtn');
+    const searchModalBackdrop = document.getElementById('searchModalBackdrop');
+    const modalSearchInput = document.getElementById('modalSearchInput');
+
+    function openSearchModal() {
+        if(searchModal) {
+            if (window.innerWidth <= 768) {
+                document.body.classList.remove('sidebar-open');
+            }
+            searchModal.classList.add('active');
+            if(modalSearchInput) setTimeout(() => modalSearchInput.focus(), 100);
+        }
+    }
+
+    function closeSearchModal() {
+        if(searchModal) {
+            searchModal.classList.remove('active');
+        }
+    }
+
+    if(openSearchModalBtn) openSearchModalBtn.addEventListener('click', openSearchModal);
+    if(closeSearchModalBtn) closeSearchModalBtn.addEventListener('click', closeSearchModal);
+    if(searchModalBackdrop) searchModalBackdrop.addEventListener('click', closeSearchModal);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchModal && searchModal.classList.contains('active')) {
+            closeSearchModal();
+        }
+    });

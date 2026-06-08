@@ -19,6 +19,14 @@
     </div>
 
     <nav class="relative z-10 w-full px-5 py-5 flex justify-between items-center max-w-[650px] mx-auto">
+        <button onclick="window.location.href='../../index.html'" class="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-sm text-[#0C3932] hover:bg-gray-50 transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <span class="font-bold text-[16px] text-[#0C3932]">Profil Saya</span>
+        <div class="w-10"></div>
     </nav>
 
     <main class="relative z-10 flex flex-col items-center px-5 pt-3 pb-14 w-full max-w-[650px] mx-auto">
@@ -142,6 +150,15 @@
         <div class="w-full">
             <h2 class="text-[12px] font-semibold text-[#0C3932] border-b border-gray-250 pb-2.5 mb-4 w-full">Aksi</h2>
             
+            <button id="btn-logout" class="w-full flex items-center justify-center gap-1.5 bg-white/90 border border-gray-300 rounded-xl py-3 text-[12px] font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition-colors focus:outline-none mb-3">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Keluar
+            </button>
+
             <button id="btn-delete-account" class="w-full flex items-center justify-center gap-1.5 bg-white/90 border border-red-500 rounded-xl py-3 text-[12px] font-medium text-red-500 shadow-sm hover:bg-red-50 transition-colors focus:outline-none">
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="3 6 5 6 21 6"></polyline>
