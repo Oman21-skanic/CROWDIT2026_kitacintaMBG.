@@ -489,12 +489,18 @@ function renderSearchHistory(searchTerm = '') {
 }
 
 const mainSearchInputMock = document.getElementById('mainSearchInput');
+const modalSearchInput = document.getElementById('modalSearchInput');
+
 if (document.getElementById('searchHistoryListMock')) {
     renderSearchHistory();
+    const handleSearchInput = (e) => {
+        renderSearchHistory(e.target.value.trim());
+    };
     if (mainSearchInputMock) {
-        mainSearchInputMock.addEventListener('input', (e) => {
-            renderSearchHistory(e.target.value.trim());
-        });
+        mainSearchInputMock.addEventListener('input', handleSearchInput);
+    }
+    if (modalSearchInput) {
+        modalSearchInput.addEventListener('input', handleSearchInput);
     }
 }
 
@@ -676,7 +682,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const openSearchModalBtn = document.getElementById('openSearchModalBtn');
     const closeSearchModalBtn = document.getElementById('closeSearchModalBtn');
     const searchModalBackdrop = document.getElementById('searchModalBackdrop');
-    const modalSearchInput = document.getElementById('modalSearchInput');
+    const modalSearchInputEl = document.getElementById('modalSearchInput');
 
     function openSearchModal() {
         if(searchModal) {
@@ -684,7 +690,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.classList.remove('sidebar-open');
             }
             searchModal.classList.add('active');
-            if(modalSearchInput) setTimeout(() => modalSearchInput.focus(), 100);
+            if(modalSearchInputEl) setTimeout(() => modalSearchInputEl.focus(), 100);
         }
     }
 
