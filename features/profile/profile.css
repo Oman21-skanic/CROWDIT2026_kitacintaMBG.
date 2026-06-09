@@ -1,19 +1,339 @@
-.font-jakarta {
+/* profile.css */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #0D4F45;
+    --primary-dark: #0C3932;
+    --text-dark: #112720;
+    --text-muted: #5E938B;
+    --text-gray: #6B7280;
+    --border-color: #E5ECEB;
+    --bg-color: #F8FAFC;
+    --danger: #EF4444;
+}
+
+body {
     font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Background effects */
+.bg-effects {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bg-blur {
+    position: absolute;
+    max-width: none;
+    width: 180%;
+    transform: translateY(260px);
+    opacity: 0.6;
+}
+
+.bg-star {
+    position: absolute;
+    max-width: none;
+    width: 150%;
+    transform: translateY(260px);
+    opacity: 0.75;
+}
+
+@media (min-width: 768px) {
+    .bg-blur {
+        width: 100%;
+        transform: translateY(330px);
+    }
+    .bg-star {
+        width: 70%;
+        transform: translateY(150px);
+    }
+}
+
+/* Navbar */
+.profile-nav {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    border: none;
+    color: var(--primary-dark);
+    cursor: pointer;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s;
+}
+
+.back-btn:hover {
+    background-color: #F9FAFB;
+}
+
+.back-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.nav-title {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--primary-dark);
+}
+
+.nav-spacer {
+    width: 40px;
+}
+
+/* Main Content */
+.profile-main {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 20px 56px;
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+/* Header Avatar */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+.avatar-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profile-avatar {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #E5E7EB;
+    border: 2px solid #44726B;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn-edit-avatar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: var(--primary);
+    color: #ffffff;
+    padding: 6px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-edit-avatar:hover {
+    transform: scale(1.05);
+}
+
+.btn-edit-avatar svg {
+    width: 12px;
+    height: 12px;
+}
+
+.hidden-input {
+    display: none;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-name {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--primary-dark);
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .profile-name {
+        font-size: 24px;
+    }
+}
+
+.profile-role {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin: 2px 0 0 0;
+}
+
+/* Section Styling */
+.section-wrapper {
+    width: 100%;
+    margin-bottom: 28px;
+}
+
+.section-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary-dark);
+    border-bottom: 1px solid rgba(229, 236, 235, 0.8);
+    padding-bottom: 10px;
+    margin: 0 0 16px 0;
+    width: 100%;
+}
+
+/* Form Styling */
+.profile-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 20px;
+    row-gap: 16px;
+}
+
+@media (min-width: 768px) {
+    .profile-form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-gray);
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: all 0.2s;
+    color: var(--text-muted);
 }
 
 .figma-shadow {
     box-shadow: 0px 2px 3px 0px rgba(12, 57, 50, 0.10);
 }
 
+.input-container:focus-within {
+    border-color: var(--text-muted);
+    color: var(--text-muted);
+}
+
+.input-icon-left {
+    position: absolute;
+    left: 14px;
+    transition: color 0.2s;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon-right {
+    position: absolute;
+    right: 14px;
+    transition: color 0.2s;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+.input-container svg {
+    width: 14px;
+    height: 14px;
+}
+
 .custom-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #1f2937;
     outline: none !important;
     box-shadow: none !important;
-    -webkit-appearance: none;
-    appearance: none;
+    font-family: inherit;
+    transition: color 0.2s;
 }
+
+.custom-input.with-left-icon {
+    padding-left: 40px;
+}
+
+.custom-input.with-right-icon {
+    padding-right: 40px;
+}
+
+.custom-input::placeholder {
+    color: rgba(94, 147, 139, 0.75);
+}
+
 .custom-input:focus {
-    border-color: #5E938B !important;
+    color: var(--text-dark);
+}
+
+.custom-input:focus::placeholder {
+    color: var(--text-muted);
+}
+
+.custom-input:disabled {
+    color: var(--text-gray);
+    cursor: not-allowed;
+}
+
+.custom-date-picker {
+    color: #9CA3AF;
 }
 
 .custom-date-picker::-webkit-calendar-picker-indicator {
@@ -33,11 +353,139 @@
     color: #1f2937;
 }
 
-/* Modal Baru CSS Transition */
+/* Actions Styling */
+.btn-action {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn-action svg {
+    width: 14px;
+    height: 14px;
+}
+
+.btn-logout {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #D1D5DB;
+    color: #374151;
+    margin-bottom: 12px;
+}
+
+.btn-logout:hover {
+    background-color: #F9FAFB;
+}
+
+.btn-delete {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+}
+
+.btn-delete:hover {
+    background-color: #FEF2F2;
+}
+
+/* Modal CSS Transition */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    position: relative;
+    background-color: #ffffff;
+    width: 380px;
+    max-width: 90%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transform: scale(0.95);
+    transition: transform 0.3s;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: #9CA3AF;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+}
+
+.modal-close-btn:hover {
+    color: #4B5563;
+}
+
+.modal-close-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.modal-icon-container {
+    margin-bottom: 12px;
+}
+
+.modal-title {
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--primary-dark);
+    letter-spacing: -0.025em;
+    margin: 0 0 8px 0;
+}
+
+.modal-message {
+    font-size: 13px;
+    color: #6B7280;
+    line-height: 1.375;
+    margin: 0 0 24px 0;
+    padding: 0 4px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    justify-content: center;
+}
+
+/* Modal states */
 .modal-active {
     opacity: 1 !important;
     pointer-events: auto !important;
 }
-.modal-active #custom-modal-box {
+
+.modal-active .modal-content {
     transform: scale(1) !important;
 }

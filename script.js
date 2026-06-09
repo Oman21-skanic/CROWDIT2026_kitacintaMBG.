@@ -1,3 +1,46 @@
+// --- LOCAL STORAGE HELPERS ---
+function getConversations() {
+    const data = localStorage.getItem('tenangin_conversations');
+    return data ? JSON.parse(data) : [];
+}
+
+function saveConversations(convs) {
+    localStorage.setItem('tenangin_conversations', JSON.stringify(convs));
+}
+
+function getActiveChatId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('chatId');
+}
+
+function renderSidebarHistory() {
+    const historyLists = document.querySelectorAll('.history-list');
+    if (historyLists.length === 0) return;
+    
+    const convs = getConversations();
+    historyLists.forEach(list => {
+        list.innerHTML = '';
+        if (convs.length === 0) {
+            list.innerHTML = '<div class="history-item" style="opacity: 0.5;">Belum ada riwayat</div>';
+            return;
+        }
+        convs.forEach(conv => {
+            const div = document.createElement('div');
+            div.className = 'history-item';
+            div.textContent = conv.title;
+            div.dataset.id = conv.id;
+            div.style.cursor = 'pointer';
+            list.appendChild(div);
+        });
+    });
+}
+
+function formatDate(isoString) {
+    const date = new Date(isoString);
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return `${date.getDate()} ${months[date.getMonth()]}`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- AUTHENTICATION CHECK ---
     const currentPath = window.location.pathname;
@@ -45,6 +88,28 @@ Berikan saran psikologis ringan jika dirasa perlu, namun fokus utama adalah memb
 Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan apa yang sedang mereka rasakan.`;
 
     let conversationHistory = [];
+    let currentConversationId = getActiveChatId();
+    let currentTitle = "Obrolan Baru";
+
+    // Load active conversation if exists
+    if (currentConversationId) {
+        const convs = getConversations();
+        const activeConv = convs.find(c => c.id === currentConversationId);
+        if (activeConv) {
+            currentTitle = activeConv.title;
+            activeConv.messages.forEach(msg => {
+                addMessage(msg.text, msg.role === 'user', false, false, msg.time);
+                conversationHistory.push({
+                    role: msg.role,
+                    parts: [{ text: msg.text }]
+                });
+            });
+        } else {
+            currentConversationId = null;
+        }
+    }
+
+    renderSidebarHistory();
 
     function formatTextToHTML(text) {
         return text
@@ -52,11 +117,11 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
             .replace(/\n/g, '<br>');
     }
 
-    function addMessage(text, isSent = true, saveToHistory = false, animateTyping = false) {
+    function addMessage(text, isSent = true, saveToHistory = false, animateTyping = false, customTime = null) {
         if (!text || !chatMessages) return;
 
         const now = new Date();
-        const timeString = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        const timeString = customTime || now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
 
         const messageWrapper = document.createElement('div');
         messageWrapper.className = "message-wrapper " + (isSent ? 'sent' : 'received') + " animate-in";
@@ -97,6 +162,37 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
                 role: isSent ? "user" : "model",
                 parts: [{ text: text }]
             });
+
+            // Save to LocalStorage
+            let convs = getConversations();
+            if (!currentConversationId) {
+                currentConversationId = 'conv_' + Date.now();
+                currentTitle = text.length > 30 ? text.substring(0, 30) + '...' : text;
+                const newConv = {
+                    id: currentConversationId,
+                    title: currentTitle,
+                    date: now.toISOString(),
+                    messages: []
+                };
+                convs.unshift(newConv);
+                
+                // Update URL
+                const url = new URL(window.location);
+                url.searchParams.set('chatId', currentConversationId);
+                window.history.replaceState({}, '', url);
+            }
+            
+            const activeConv = convs.find(c => c.id === currentConversationId);
+            if (activeConv) {
+                activeConv.messages.push({
+                    role: isSent ? "user" : "model",
+                    text: text,
+                    time: timeString,
+                    timestamp: now.getTime()
+                });
+                saveConversations(convs);
+                renderSidebarHistory();
+            }
         }
     }
 
@@ -239,7 +335,7 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
 
     // AI Initial Greeting Logic
     setTimeout(() => {
-        if (chatMessages) {
+        if (chatMessages && !currentConversationId) {
             const hasMessages = chatMessages.querySelectorAll('.message-wrapper').length > 0;
             if (!hasMessages) {
                 const greetings = [
@@ -360,32 +456,79 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
     }
 });
 
-// --- MOCK PENCARIAN PAGE LOGIC ---
-const searchHistoryListMock = document.getElementById('searchHistoryListMock');
-const mainSearchInputMock = document.getElementById('mainSearchInput');
-if (searchHistoryListMock && mainSearchInputMock) {
-    const historyItems = searchHistoryListMock.querySelectorAll('.history-item-full');
-    mainSearchInputMock.addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase().trim();
-        historyItems.forEach(item => {
-            const title = item.querySelector('.history-title').textContent.toLowerCase();
-            if (title.includes(term)) {
-                item.style.display = 'flex';
-            } else {
-                item.style.display = 'none';
-            }
-        });
+// --- MOCK PENCARIAN PAGE LOGIC REPLACED WITH LOCALSTORAGE ---
+function renderSearchHistory(searchTerm = '') {
+    const searchHistoryList = document.getElementById('searchHistoryListMock');
+    if (!searchHistoryList) return;
+    
+    searchHistoryList.innerHTML = '';
+    const convs = getConversations();
+    
+    const filtered = convs.filter(c => c.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    if (filtered.length === 0) {
+        searchHistoryList.innerHTML = '<div style="text-align:center; padding:20px; color:#5E938B;">Tidak ada riwayat obrolan yang ditemukan</div>';
+        return;
+    }
+    
+    filtered.forEach(conv => {
+        const item = document.createElement('div');
+        item.className = 'history-item-full';
+        item.dataset.id = conv.id;
+        item.style.cursor = 'pointer';
+        
+        item.innerHTML = `
+            <span class="history-title">${conv.title}</span>
+            <div class="history-actions">
+                <span class="history-date">${formatDate(conv.date)}</span>
+                <i class="ph ph-trash delete-chat-btn" data-id="${conv.id}"></i>
+            </div>
+        `;
+        searchHistoryList.appendChild(item);
     });
+}
+
+const mainSearchInputMock = document.getElementById('mainSearchInput');
+if (document.getElementById('searchHistoryListMock')) {
+    renderSearchHistory();
+    if (mainSearchInputMock) {
+        mainSearchInputMock.addEventListener('input', (e) => {
+            renderSearchHistory(e.target.value.trim());
+        });
+    }
 }
 
 // --- GLOBAL HISTORY CLICK LOGIC ---
 document.addEventListener('click', (e) => {
-    const historyItem = e.target.closest('.history-item, .history-item-full');
-    if (historyItem) {
-        if (e.target.closest('.ph-trash')) {
+    // Handle Delete
+    const deleteBtn = e.target.closest('.delete-chat-btn');
+    if (deleteBtn) {
+        e.stopPropagation();
+        const chatId = deleteBtn.dataset.id;
+        let convs = getConversations();
+        convs = convs.filter(c => c.id !== chatId);
+        saveConversations(convs);
+        
+        // If the current chat is being deleted, redirect to new chat
+        if (getActiveChatId() === chatId) {
+            window.location.href = 'index.html';
             return;
         }
-        window.location.href = 'index.html';
+        
+        renderSearchHistory(mainSearchInputMock ? mainSearchInputMock.value.trim() : '');
+        renderSidebarHistory();
+        return;
+    }
+    
+    // Handle Navigate
+    const historyItem = e.target.closest('.history-item, .history-item-full');
+    if (historyItem) {
+        const chatId = historyItem.dataset.id;
+        if (chatId) {
+            window.location.href = 'index.html?chatId=' + chatId;
+        } else {
+            window.location.href = 'index.html';
+        }
     }
 });
 

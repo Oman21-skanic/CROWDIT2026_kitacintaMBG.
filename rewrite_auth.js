@@ -1,0 +1,384 @@
+const fs = require('fs');
+
+const illustrationHtml = `
+    <div class="auth-right">
+        <div class="ill-container">
+            <div class="ill-bg-logo">
+                <img src="../../assets/images/Logo.svg" alt="Logo Tenangin">
+            </div>
+            <div class="ill-title">
+                <h2>Teman Cerita yang Selalu<br>Mendengarkan</h2>
+            </div>
+            <div class="ill-chat-box">
+                <div class="chat-header">
+                    <div class="chat-avatar">
+                        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=hajarol" alt="Hajarol">
+                    </div>
+                    <div class="chat-info">
+                        <h4>Hajarol</h4>
+                        <div class="chat-status">
+                            <img src="../../assets/images/Vector.svg" alt="Listening Icon">
+                            <p>sedang mendengarkan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-messages">
+                    <div class="msg-wrapper left">
+                        <div class="msg-bubble left">
+                            Hai, gimana harimu hari ini?
+                            <span class="msg-time">9 : 10 AM</span>
+                        </div>
+                    </div>
+                    <div class="msg-wrapper right">
+                        <div class="msg-bubble right">
+                            Lumayan capek 😅
+                            <span class="msg-time">9 : 10 AM</span>
+                        </div>
+                    </div>
+                    <div class="msg-wrapper left">
+                        <div class="msg-bubble left">
+                            Mau cerita sedikit?
+                            <span class="msg-time">9 : 10 AM</span>
+                        </div>
+                    </div>
+                    <div class="msg-wrapper right">
+                        <div class="msg-bubble right">
+                            Banyak pikiran akhir-akhir ini.
+                            <span class="msg-time">9 : 10 AM</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-typing">
+                    <div class="typing-dots">
+                        <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                    </div>
+                    <span id="changing-text" class="typing-text">Sedang memahami ceritamu...</span>
+                </div>
+            </div>
+            <div class="ill-blur-effect">
+                <img src="../../assets/images/logoblureffect.svg" alt="Effect">
+            </div>
+        </div>
+    </div>
+`;
+
+const loginHtml = `<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenangin - Masuk</title>
+    <link rel="stylesheet" href="./auth.css">
+</head>
+<body class="auth-page">
+    <div class="auth-left">
+        <div class="auth-container">
+            <div class="mobile-logo">
+                <img src="../../assets/images/Logo.svg" alt="Logo Tenangin">
+            </div>
+
+            <div class="auth-header">
+                <h1>Kembali Bercerita</h1>
+                <p>Lanjutkan percakapan yang tertunda kemarin.</p>
+            </div>
+
+            <form id="login-form" class="auth-form" novalidate>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
+                                <polyline points="3 7 12 13 21 7"></polyline>
+                            </svg>
+                        </div>
+                        <input type="email" id="email" required placeholder="isi dengan alamat email kamu..." class="input-field">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="8" width="18" height="8" rx="2"></rect>
+                                <circle cx="8" cy="12" r="1"></circle>
+                                <circle cx="12" cy="12" r="1"></circle>
+                                <circle cx="16" cy="12" r="1"></circle>
+                            </svg>
+                        </div>
+                        <input type="password" id="password" required placeholder="isi dengan sandi kamu..." class="input-field pr-10">
+                        <button type="button" id="togglePassword" class="toggle-password-btn">
+                            <svg id="eyeClosedIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 11C4 11 9 16 12 16C15 16 20 11 20 11"></path>
+                                <line x1="12" y1="16" x2="12" y2="20"></line>
+                                <line x1="8" y1="15" x2="6" y2="18"></line>
+                                <line x1="16" y1="15" x2="18" y2="18"></line>
+                            </svg>
+                            <svg id="eyeOpenIcon" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12C2 12 7 5 12 5C17 5 22 12 22 12C22 12 17 19 12 19C7 19 2 12 2 12Z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Masuk</button>
+            </form>
+
+            <div class="auth-divider">
+                <div class="divider-line"></div>
+                <span class="divider-text">atau</span>
+                <div class="divider-line"></div>
+            </div>
+
+            <button type="button" class="btn-google">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M47.532 24.5528C47.532 22.9214 47.3997 21.2811 47.1175 19.6761H24.48V28.918H37.4434C36.9055 31.8988 35.177 34.5356 32.6461 36.2111V42.2078H40.3801C44.9217 38.0278 47.532 31.8547 47.532 24.5528Z" fill="#4285F4"/>
+                    <path d="M24.48 48.0016C30.9529 48.0016 36.4116 45.8764 40.3888 42.2078L32.6549 36.2111C30.5031 37.675 27.7252 38.5039 24.4888 38.5039C18.2275 38.5039 12.9187 34.2798 11.0139 28.6006H3.03296V34.7825C7.10718 42.8868 15.4056 48.0016 24.48 48.0016Z" fill="#34A853"/>
+                    <path d="M11.0051 28.6006C9.99973 25.6197 9.99973 22.3922 11.0051 19.4113V13.2294H3.03296C-0.371021 20.0012 -0.371021 28.0108 3.03296 34.7825L11.0051 28.6006Z" fill="#FBBC04"/>
+                    <path d="M24.48 9.49932C27.9016 9.44641 31.2086 10.7339 33.6869 13.0973L40.5387 6.24553C36.2 2.17101 30.4414 -0.068932 24.48 0.00161733C15.4056 0.00161733 7.10718 5.11644 3.03296 13.2294L11.0051 19.4113C12.901 13.7232 18.2187 9.49932 24.48 9.49932Z" fill="#EA4335"/>
+                </svg>
+                Lanjutkan Dengan Google
+            </button>
+
+            <div class="auth-footer">
+                <span class="left-text">Tidak punya akun? <a href="./register.html" class="auth-link">Daftar</a></span>
+                <a href="./forgot-password.html" class="auth-link">Lupa password?</a>
+            </div>
+        </div>
+    </div>
+${illustrationHtml}
+    <script src="./auth.js" defer></script>
+</body>
+</html>`;
+
+const registerHtml = `<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenangin - Daftar</title>
+    <link rel="stylesheet" href="./auth.css">
+</head>
+<body class="auth-page">
+    <div class="auth-left">
+        <div class="auth-container">
+            <div class="mobile-logo">
+                <img src="../../assets/images/Logo.svg" alt="Logo Tenangin">
+            </div>
+
+            <div class="auth-header">
+                <h1>Buat Akun Tenangin</h1>
+                <p>Mulai perjalanan tenangmu bersama kami.</p>
+            </div>
+
+            <form id="register-form" class="auth-form" novalidate>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <input type="text" id="name" required placeholder="isi dengan nama lengkap kamu..." class="input-field">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
+                                <polyline points="3 7 12 13 21 7"></polyline>
+                            </svg>
+                        </div>
+                        <input type="email" id="email" required placeholder="isi dengan alamat email kamu..." class="input-field">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="8" width="18" height="8" rx="2"></rect>
+                                <circle cx="8" cy="12" r="1"></circle>
+                                <circle cx="12" cy="12" r="1"></circle>
+                                <circle cx="16" cy="12" r="1"></circle>
+                            </svg>
+                        </div>
+                        <input type="password" id="password" required placeholder="isi dengan sandi kamu..." class="input-field pr-10">
+                        <button type="button" id="togglePassword" class="toggle-password-btn">
+                            <svg id="eyeClosedIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 11C4 11 9 16 12 16C15 16 20 11 20 11"></path>
+                                <line x1="12" y1="16" x2="12" y2="20"></line>
+                                <line x1="8" y1="15" x2="6" y2="18"></line>
+                                <line x1="16" y1="15" x2="18" y2="18"></line>
+                            </svg>
+                            <svg id="eyeOpenIcon" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12C2 12 7 5 12 5C17 5 22 12 22 12C22 12 17 19 12 19C7 19 2 12 2 12Z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <input type="password" id="confirmPassword" required placeholder="konfirmasi sandi kamu..." class="input-field pr-10">
+                        <button type="button" id="toggleConfirmPassword" class="toggle-password-btn">
+                            <svg id="confirmEyeClosedIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 11C4 11 9 16 12 16C15 16 20 11 20 11"></path>
+                                <line x1="12" y1="16" x2="12" y2="20"></line>
+                                <line x1="8" y1="15" x2="6" y2="18"></line>
+                                <line x1="16" y1="15" x2="18" y2="18"></line>
+                            </svg>
+                            <svg id="confirmEyeOpenIcon" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12C2 12 7 5 12 5C17 5 22 12 22 12C22 12 17 19 12 19C7 19 2 12 2 12Z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms-checkbox" class="custom-checkbox">
+                    <label for="terms-checkbox" class="checkbox-label">
+                        Saya menyetujui <a href="#">Syarat Layanan</a> dan <a href="#">Kebijakan Privasi</a> yang berlaku.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-primary" id="register-btn" disabled style="opacity: 0.6; cursor: not-allowed;">Buat Akun</button>
+            </form>
+
+            <div class="auth-divider">
+                <div class="divider-line"></div>
+                <span class="divider-text">atau</span>
+                <div class="divider-line"></div>
+            </div>
+
+            <button type="button" class="btn-google">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M47.532 24.5528C47.532 22.9214 47.3997 21.2811 47.1175 19.6761H24.48V28.918H37.4434C36.9055 31.8988 35.177 34.5356 32.6461 36.2111V42.2078H40.3801C44.9217 38.0278 47.532 31.8547 47.532 24.5528Z" fill="#4285F4"/>
+                    <path d="M24.48 48.0016C30.9529 48.0016 36.4116 45.8764 40.3888 42.2078L32.6549 36.2111C30.5031 37.675 27.7252 38.5039 24.4888 38.5039C18.2275 38.5039 12.9187 34.2798 11.0139 28.6006H3.03296V34.7825C7.10718 42.8868 15.4056 48.0016 24.48 48.0016Z" fill="#34A853"/>
+                    <path d="M11.0051 28.6006C9.99973 25.6197 9.99973 22.3922 11.0051 19.4113V13.2294H3.03296C-0.371021 20.0012 -0.371021 28.0108 3.03296 34.7825L11.0051 28.6006Z" fill="#FBBC04"/>
+                    <path d="M24.48 9.49932C27.9016 9.44641 31.2086 10.7339 33.6869 13.0973L40.5387 6.24553C36.2 2.17101 30.4414 -0.068932 24.48 0.00161733C15.4056 0.00161733 7.10718 5.11644 3.03296 13.2294L11.0051 19.4113C12.901 13.7232 18.2187 9.49932 24.48 9.49932Z" fill="#EA4335"/>
+                </svg>
+                Lanjutkan Dengan Google
+            </button>
+
+            <div class="auth-footer" style="justify-content: center;">
+                <span class="left-text">Sudah punya akun? <a href="./login.html" class="auth-link">Masuk</a></span>
+            </div>
+        </div>
+    </div>
+${illustrationHtml}
+    <script src="./auth.js" defer></script>
+</body>
+</html>`;
+
+const forgotPasswordHtml = `<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenangin - Lupa Password</title>
+    <link rel="stylesheet" href="./auth.css">
+</head>
+<body class="auth-page">
+    <div class="auth-left">
+        <!-- Step 1 -->
+        <div id="step-1" class="auth-container">
+            <button onclick="window.location.href='./login.html'" class="back-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </button>
+
+            <div class="auth-header">
+                <h1>Lupa Password?</h1>
+                <p>Jangan khawatir, masukkan email yang terdaftar dan kami akan mengirimkan kode verifikasi.</p>
+            </div>
+
+            <form id="forgot-form" class="auth-form" novalidate>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
+                                <polyline points="3 7 12 13 21 7"></polyline>
+                            </svg>
+                        </div>
+                        <input type="email" id="reset-email" required placeholder="isi dengan alamat email kamu..." class="input-field">
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Kirim Kode Verifikasi</button>
+            </form>
+        </div>
+
+        <!-- Step 2 -->
+        <div id="step-2" class="auth-container hidden">
+            <button type="button" id="back-to-step-1" class="back-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </button>
+
+            <div class="auth-header">
+                <h1>Verifikasi Email</h1>
+                <p>Kami telah mengirimkan 5 digit kode ke <span id="display-email" style="color:#0C3932; font-weight:700;"></span></p>
+            </div>
+
+            <form id="otp-form" class="auth-form" novalidate>
+                <div class="otp-container">
+                    <input type="text" maxlength="1" class="otp-input">
+                    <input type="text" maxlength="1" class="otp-input">
+                    <input type="text" maxlength="1" class="otp-input">
+                    <input type="text" maxlength="1" class="otp-input">
+                    <input type="text" maxlength="1" class="otp-input">
+                </div>
+                <p id="otp-error" class="error-msg hidden">Kode yang dimasukkan salah. Silakan coba lagi.</p>
+
+                <button type="submit" class="btn-primary">Verifikasi Kode</button>
+                
+                <div class="resend-text">
+                    Tidak menerima code? <button type="button" id="resend-code" class="resend-btn">Kirim ulang</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Step 3 -->
+        <div id="step-3" class="auth-container hidden">
+            <div class="mobile-logo">
+                <img src="../../assets/images/Logo.svg" alt="Logo Tenangin">
+            </div>
+
+            <div class="auth-header">
+                <h1>Verifikasi Berhasil</h1>
+                <p>Identitas Anda telah terverifikasi. Anda akan dialihkan secara otomatis...</p>
+            </div>
+
+            <div class="success-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+        </div>
+    </div>
+${illustrationHtml}
+    <script src="./auth.js" defer></script>
+</body>
+</html>\`;
+
+fs.writeFileSync('c:/Sekolah/Coding/lomba/tenangin/features/auth/login.html', loginHtml);
+fs.writeFileSync('c:/Sekolah/Coding/lomba/tenangin/features/auth/register.html', registerHtml);
+fs.writeFileSync('c:/Sekolah/Coding/lomba/tenangin/features/auth/forgot-password.html', forgotPasswordHtml);
+
+console.log('Auth HTML files successfully rewritten to use full native CSS.');

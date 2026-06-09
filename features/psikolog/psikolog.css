@@ -1,0 +1,441 @@
+/* psikolog.css */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #0D4F45;
+    --primary-dark: #0C3932;
+    --primary-light: #5E938B;
+    --bg-color: #F8FAFC;
+    --text-dark: #112720;
+    --text-gray: #6B7280;
+    --border-color: #E5ECEB;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Background effects */
+.bg-effects {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bg-blur {
+    position: absolute;
+    max-width: none;
+    width: 180%;
+    transform: translateY(260px);
+    opacity: 0.6;
+}
+
+.bg-star {
+    position: absolute;
+    max-width: none;
+    width: 150%;
+    transform: translateY(260px);
+    opacity: 0.75;
+}
+
+@media (min-width: 768px) {
+    .bg-blur {
+        width: 100%;
+        transform: translateY(330px);
+    }
+    .bg-star {
+        width: 70%;
+        transform: translateY(150px);
+    }
+}
+
+/* Navbar */
+.detail-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    padding: 24px 0 16px;
+    background-color: rgba(248, 250, 252, 0.8);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s;
+}
+
+.nav-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--primary-dark);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: #0E4139;
+}
+
+.back-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Main Layout */
+.detail-main {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 0 24px 56px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 8px auto 0;
+}
+
+@media (min-width: 768px) {
+    .detail-main {
+        flex-direction: row;
+    }
+}
+
+/* Sidebar */
+.detail-sidebar {
+    flex-shrink: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+@media (min-width: 768px) {
+    .detail-sidebar {
+        width: 280px;
+        position: sticky;
+        top: 96px;
+        height: max-content;
+    }
+}
+
+.avatar-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: #E8F0F6;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ffffff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.avatar-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--primary-light);
+    font-weight: 500;
+}
+
+.contact-item svg {
+    width: 16px;
+    height: 16px;
+    color: var(--primary-dark);
+    flex-shrink: 0;
+}
+
+/* Content Section */
+.detail-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+}
+
+.header-section {
+    border-bottom: 1px solid rgba(229, 236, 235, 0.6);
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+}
+
+.psikolog-name {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--primary-dark);
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .psikolog-name {
+        font-size: 32px;
+    }
+}
+
+.psikolog-specialty {
+    font-size: 14px;
+    color: var(--primary-light);
+    font-weight: 500;
+    margin: 4px 0 0 0;
+}
+
+.stats-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.stat-item svg {
+    width: 16px;
+    height: 16px;
+    color: var(--primary);
+}
+
+.stat-divider {
+    color: #D1D5DB;
+}
+
+.stat-subtext {
+    color: #6B7280;
+    font-weight: 400;
+}
+
+.language-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--primary-dark);
+    font-weight: 500;
+}
+
+.language-item svg {
+    width: 16px;
+    height: 16px;
+    color: var(--primary);
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.btn-primary, .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 9999px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-primary:hover {
+    background-color: #0e4139;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+.btn-primary svg, .btn-outline svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Info Section */
+.info-section {
+    margin-bottom: 32px;
+}
+
+.section-heading {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin: 0 0 12px 0;
+}
+
+.bio-text {
+    font-size: 13px;
+    color: var(--primary-light);
+    line-height: 1.625;
+    font-weight: 500;
+    margin: 0;
+}
+
+.bio-text p {
+    margin: 0 0 16px 0;
+}
+
+.bio-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Focus Section */
+.focus-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    background-color: #EAEFF4;
+    color: var(--primary);
+    padding: 6px 16px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Reviews Section */
+.reviews-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    padding-bottom: 16px;
+}
+
+@media (min-width: 768px) {
+    .reviews-container {
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+    }
+}
+
+.review-card {
+    width: 100%;
+    flex-shrink: 0;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+}
+
+@media (min-width: 768px) {
+    .review-card {
+        min-width: 300px;
+        width: 300px;
+        scroll-snap-align: start;
+    }
+}
+
+.stars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+    color: var(--primary);
+}
+
+.stars svg {
+    width: 14px;
+    height: 14px;
+}
+
+.review-text {
+    font-size: 12px;
+    color: var(--primary-light);
+    font-style: italic;
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+}
+
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.reviewer-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #E5E7EB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: #4B5563;
+}
+
+.reviewer-meta {
+    font-size: 10px;
+    color: #9CA3AF;
+}
