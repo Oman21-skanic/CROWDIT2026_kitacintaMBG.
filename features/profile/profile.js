@@ -138,48 +138,63 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // tombol hapus akun dengan konfirmasi
-    btnDelete.addEventListener('click', () => {
-        showAlert(
-            "Konfirmasi Hapus", 
-            "Dengan ini kamu menghapus akunmu secara <b class='font-medium text-[#D31313]'>permanen</b> dan tidak ada jalan kembali", 
-            [
-                { 
-                    text: "Hapus", 
-                    style: "danger", 
-                    onClick: () => {
-                        let users = JSON.parse(localStorage.getItem('tenangin_users')) || [];
-                        users = users.filter(u => u.email !== activeUser.email);
-                        localStorage.setItem('tenangin_users', JSON.stringify(users));
-                        
-                        localStorage.removeItem('tenangin_active_user');
-                        window.location.href = "../auth/login.html";
-                    }
-                },
-                { text: "Batal", style: "cancel" }
-            ],
-            'danger' 
-        );
+    // tombol hapus akun dengan konfirmasi (Figma-based modal)
+    const deleteModal = document.getElementById('delete-modal');
+    const deleteModalClose = document.getElementById('delete-modal-close');
+    const btnConfirmDelete = document.getElementById('btn-confirm-delete');
+    const btnCancelDelete = document.getElementById('btn-cancel-delete');
+
+    function showDeleteModal() {
+        deleteModal.classList.add('active');
+    }
+
+    function hideDeleteModal() {
+        deleteModal.classList.remove('active');
+    }
+
+    btnDelete.addEventListener('click', showDeleteModal);
+
+    deleteModalClose.addEventListener('click', hideDeleteModal);
+    btnCancelDelete.addEventListener('click', hideDeleteModal);
+    deleteModal.addEventListener('click', (e) => {
+        if (e.target === deleteModal) hideDeleteModal();
     });
 
-    if (btnLogout) {
-        btnLogout.addEventListener('click', () => {
-            showAlert(
-                "Konfirmasi Keluar",
-                "Apakah kamu yakin ingin keluar dari akun ini?",
-                [
-                    {
-                        text: "Keluar",
-                        style: "primary",
-                        onClick: () => {
-                            localStorage.removeItem('tenangin_active_user');
-                            window.location.href = "../auth/login.html";
-                        }
-                    },
-                    { text: "Batal", style: "cancel" }
-                ]
-            );
-        });
+    btnConfirmDelete.addEventListener('click', () => {
+        let users = JSON.parse(localStorage.getItem('tenangin_users')) || [];
+        users = users.filter(u => u.email !== activeUser.email);
+        localStorage.setItem('tenangin_users', JSON.stringify(users));
+        localStorage.removeItem('tenangin_active_user');
+        window.location.href = "../auth/login.html";
+    });
+
+    // tombol logout dengan konfirmasi (Figma-based modal)
+    const logoutModal = document.getElementById('logout-modal');
+    const logoutModalClose = document.getElementById('logout-modal-close');
+    const btnConfirmLogout = document.getElementById('btn-confirm-logout');
+    const btnCancelLogout = document.getElementById('btn-cancel-logout');
+
+    function showLogoutModal() {
+        logoutModal.classList.add('active');
     }
+
+    function hideLogoutModal() {
+        logoutModal.classList.remove('active');
+    }
+
+    if (btnLogout) {
+        btnLogout.addEventListener('click', showLogoutModal);
+    }
+
+    logoutModalClose.addEventListener('click', hideLogoutModal);
+    btnCancelLogout.addEventListener('click', hideLogoutModal);
+    logoutModal.addEventListener('click', (e) => {
+        if (e.target === logoutModal) hideLogoutModal();
+    });
+
+    btnConfirmLogout.addEventListener('click', () => {
+        localStorage.removeItem('tenangin_active_user');
+        window.location.href = "../auth/login.html";
+    });
 
 });

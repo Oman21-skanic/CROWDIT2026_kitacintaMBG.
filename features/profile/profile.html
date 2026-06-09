@@ -178,6 +178,58 @@
         </div>
     </div>
 
+    <!-- Logout Confirmation Modal -->
+    <div id="logout-modal" class="modal-overlay-2">
+        <div class="modal-backdrop-2"></div>
+        <div class="modal-content-2">
+            <button id="logout-modal-close" class="modal-close-btn-2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#727c7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal-icon-2">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="#0C3932" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polyline points="16 17 21 12 16 7" stroke="#0C3932" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="21" y1="12" x2="9" y2="12" stroke="#0C3932" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h3 class="modal-title-2">Konfirmasi Keluar</h3>
+            <p class="modal-message-2">Apakah kamu yakin ingin keluar dari akun ini?</p>
+            <div class="modal-buttons-2">
+                <button id="btn-confirm-logout" class="modal-btn-primary-2">Keluar</button>
+                <button id="btn-cancel-logout" class="modal-btn-cancel-2">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Account Confirmation Modal (Figma) -->
+    <div id="delete-modal" class="delete-modal-overlay">
+        <div class="delete-modal-backdrop"></div>
+        <div class="delete-modal-content">
+            <button id="delete-modal-close" class="delete-modal-close-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#727c7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="delete-modal-icon">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L2 22h20L12 2z" fill="#ff0000"/>
+                    <line x1="12" y1="9" x2="12" y2="14" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                    <circle cx="12" cy="18" r="1.2" fill="white"/>
+                </svg>
+            </div>
+            <h3 class="delete-modal-title">Konfirmasi Hapus</h3>
+            <p class="delete-modal-message">Dengan ini kamu menghapus akunmu secara <span class="delete-modal-highlight">permanen</span> dan tidak ada jalan kembali</p>
+            <div class="delete-modal-buttons">
+                <button id="btn-confirm-delete" class="delete-btn-danger">Hapus</button>
+                <button id="btn-cancel-delete" class="delete-btn-cancel">Batal</button>
+            </div>
+        </div>
+    </div>
+
     <script src="./profile.js"></script>
 </body>
 </html>

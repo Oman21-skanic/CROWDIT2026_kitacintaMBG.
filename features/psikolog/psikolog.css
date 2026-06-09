@@ -396,6 +396,12 @@ body {
     }
 }
 
+@media (min-width: 768px) {
+    .reviews-container {
+        gap: 16px;
+    }
+}
+
 .stars {
     display: flex;
     gap: 4px;

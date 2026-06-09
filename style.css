@@ -1,23 +1,42 @@
 :root {
     --primary-color: #355C56;
-    /* Dark Green from bubbles */
     --primary-light: #EEF5F4;
-    /* Light green for hover/active */
     --text-dark: #1F2937;
     --text-muted: #6B7280;
     --text-white: #FFFFFF;
     --bg-white: #FFFFFF;
     --bg-app: #F5F9F8;
     --border-color: #E5E7EB;
-    --sidebar-width: 15%;
+    --sidebar-width: clamp(200px, 15vw, 280px);
 
-    /* Bubble specific */
     --bubble-sent-bg: #355C56;
     --bubble-received-bg: #FFFFFF;
 }
 
 html {
-    font-size: 13px;
+    font-size: clamp(12px, 0.65rem + 0.35vw, 14px);
+}
+
+/* WCAG 2.0: visible focus indicator for all interactive elements */
+*:focus-visible {
+    outline: 2px solid #0C3932;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Remove default outline, rely on focus-visible */
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* WCAG 2.0: Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 * {
@@ -161,18 +180,29 @@ body.sidebar-collapsed .user-profile-footer {
 .logo {
     display: flex;
     align-items: center;
-    gap: 4px;
-    font-size: 0.95rem;
+    gap: 10px;
     color: #000000;
+}
+
+.logo svg {
+    width: clamp(32px, 2rem + 0.4vw, 45px);
+    height: auto;
 }
 
 .collapse-btn {
     background: none;
     border: none;
-    font-size: 15px;
+    font-size: clamp(13px, 0.8rem + 0.3vw, 16px);
     color: var(--text-muted);
     cursor: pointer;
     transition: color 0.2s;
+    width: clamp(28px, 2vw, 36px);
+    height: clamp(28px, 2vw, 36px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    /* WCAG 2.0: ensure touch target */
 }
 
 .collapse-btn:hover {
@@ -183,20 +213,31 @@ body.sidebar-collapsed .user-profile-footer {
     cursor: pointer;
     display: flex;
     align-items: center;
-    background-color: #D0EFEA40;
-    border-radius: 16px;
-    padding: 6px 10px;
-    margin: 0 12px 6px 12px;
-    gap: 6px;
+    gap: 8px;
+    padding: 0px 7px;
+    border-radius: 10px;
+    color: #44726B;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin: 0 12px 0px 12px;
+    /* WCAG 2.0: minimum touch target */
+    min-height: clamp(36px, 4vw, 44px);
+}
+
+
+.search-box:hover {
+    background-color: #F2FBF9;
+    color: #0C3932;
 }
 
 .search-box i,
 .search-box svg {
-    color: #5E938B;
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
+    font-size: clamp(14px, 0.8rem + 0.4vw, 18px);
+    width: clamp(14px, 0.8rem + 0.4vw, 18px);
+    height: clamp(14px, 0.8rem + 0.4vw, 18px);
     flex-shrink: 0;
+    color: inherit;
 }
 
 .search-box input {
@@ -206,14 +247,14 @@ body.sidebar-collapsed .user-profile-footer {
     outline: none;
     width: 100%;
     font-family: inherit;
-    font-size: 0.8rem;
-    color: #5E938B;
-    font-weight: 500;
+    font-size: inherit;
+    color: inherit;
+    font-weight: inherit;
 }
 
 .search-box input::placeholder {
-    color: #5E938B;
-    font-weight: 500;
+    color: inherit;
+    font-weight: inherit;
 }
 
 .nav-menu {
@@ -228,13 +269,16 @@ body.sidebar-collapsed .user-profile-footer {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 5px 7px;
+    padding: 0px 7px;
     border-radius: 10px;
-    color: #5E938B;
+    color: #44726B;
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.85rem;
-
+    /* WCAG 2.0: minimum touch target */
+    min-height: clamp(36px, 4vw, 44px);
+}
+.nav-item span{
+    font-size: clamp(1.1rem, 0.6rem + 0.4vw, 1.1rem);
 }
 
 .nav-item:hover {
@@ -260,9 +304,9 @@ body.sidebar-collapsed .user-profile-footer {
 
 .nav-item i,
 .nav-item svg {
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
+    font-size: clamp(14px, 0.8rem + 0.4vw, 25px);
+    width: clamp(14px, 0.8rem + 0.4vw, 25px);
+    height: clamp(14px, 0.8rem + 0.4vw, 25px);
     flex-shrink: 0;
 }
 
@@ -272,12 +316,14 @@ body.sidebar-collapsed .user-profile-footer {
     justify-content: space-between;
     margin: 0 12px;
     padding: 6px 10px;
-    font-size: 0.8rem;
+    font-size: clamp(0.7rem, 0.6rem + 0.3vw, 1rem);
     color: #44726B;
     font-weight: 500;
     cursor: pointer;
     border-radius: 8px;
     transition: background-color 0.2s;
+    /* WCAG 2.0: minimum touch target */
+    min-height: clamp(36px, 4vw, 44px);
 }
 
 .history-dropdown:hover {
@@ -312,9 +358,9 @@ body.sidebar-collapsed .user-profile-footer {
 }
 
 .history-item {
-    font-size: 0.85rem;
-    color: #77A19B;
-    font-weight: 400;
+    font-size: clamp(0.7rem, 0.6rem + 0.4vw, 0.9rem);
+    color: #346762;
+    font-weight: 500;
     text-decoration: none;
     padding: 8px 8px 8px 8px;
     white-space: nowrap;
@@ -323,6 +369,9 @@ body.sidebar-collapsed .user-profile-footer {
     border-radius: 8px;
     transition: background-color 0.2s;
     cursor: pointer;
+    min-height: clamp(36px, 4vw, 44px);
+    display: flex;
+    align-items: center;
 }
 
 .history-item:hover {
@@ -342,30 +391,54 @@ body.sidebar-collapsed .user-profile-footer {
 .invite-card {
     background: radial-gradient(100% 100% at right top, #D0F8F2 0%, #FFFFFFB2 70%);
     border-radius: 12px;
-    padding: 10px;
+    padding: clamp(8px, 1.2vw, 14px);
     position: relative;
+    animation: inviteFadeIn 0.3s ease 0.3s both;
+}
+
+@keyframes inviteFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .invite-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    color: var(--primary-color);
-    font-size: 16px;
-    margin-bottom: 8px;
+    margin-bottom: clamp(4px, 0.6vw, 10px);
+}
+
+.invite-header .invite-icon-user {
+    width: clamp(13px, 1.4vw, 18px);
+    height: auto;
+}
+
+.invite-header .invite-icon-logo {
+    width: clamp(26px, 2.8vw, 38px);
+    height: auto;
 }
 
 .invite-card h4 {
-    font-size: 0.7rem;
+    font-size: clamp(0.65rem, 0.55rem + 0.4vw, 0.9rem);
     font-weight: 600;
-    margin-bottom: 4px;
+    margin-bottom: clamp(2px, 0.3vw, 6px);
     color: #0E4139;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: calc(100% - 20px);
 }
 
 .invite-card p {
-    font-size: 0.6rem;
-    color: #475D5A;
-    line-height: 1.4;
+    font-size: clamp(0.55rem, 0.45rem + 0.35vw, 0.8rem);
+    color: #346762;
+    line-height: 1.5;
     white-space: normal;
     overflow-wrap: break-word;
 }
@@ -374,8 +447,9 @@ body.sidebar-collapsed .user-profile-footer {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 12px;
+    padding: 10px 12px;
     margin-top: 8px;
+    min-width: 0;
     cursor: pointer;
     border-radius: 12px;
     transition: background-color 0.2s;
@@ -385,30 +459,67 @@ body.sidebar-collapsed .user-profile-footer {
     background-color: #F2FBF9;
 }
 
+.user-profile-footer:focus-visible {
+    outline: 2px solid #5E938B;
+    outline-offset: 2px;
+}
+
 .user-profile-footer img {
     border-radius: 50%;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     object-fit: cover;
+    flex-shrink: 0;
 }
 
 .user-profile-info {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 1px;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .user-profile-info h3 {
-    font-size: 0.8rem;
+    font-size: clamp(0.75rem, 0.65rem + 0.25vw, 0.875rem);
     font-weight: 500;
     color: #0C3932;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .user-profile-info span {
-    font-size: 0.4rem;
+    font-size: clamp(0.625rem, 0.55rem + 0.2vw, 0.75rem);
     font-weight: 400;
-    color: #5E938B;
+    color: #44726B;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Sidebar Placeholder (for test.html) */
+.sidebar-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+    padding: clamp(24px, 4vw, 60px);
+}
+
+.sidebar-placeholder h1 {
+    font-size: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    font-weight: 600;
+    color: #0C3932;
+    margin-bottom: 8px;
+}
+
+.sidebar-placeholder p {
+    font-size: clamp(0.85rem, 0.7rem + 0.4vw, 1rem);
+    color: #44726B;
 }
 
 /* Main Chat Area */
@@ -428,6 +539,9 @@ body.sidebar-collapsed .user-profile-footer {
 }
 
 .chat-header {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     background: #FFFFFF;
     border-radius: 50px;
     padding: 5px 24px;
@@ -435,8 +549,174 @@ body.sidebar-collapsed .user-profile-footer {
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    max-width: 640px;
+    max-width: min(720px, 100%);
     box-shadow: 0 4px 15px #0C393226;
+}
+
+.chat-header::before {
+    content: '';
+    position: absolute;
+    inset: -40px -60px -40px -60px;
+    z-index: -2;
+    border-radius: inherit;
+    background:
+        radial-gradient(260px 200px at 55% 40%, rgba(159, 189, 184, 0.18) 0%, transparent 60%),
+        radial-gradient(220px 170px at 75% 45%, rgba(119, 161, 155, 0.12) 0%, transparent 55%),
+        radial-gradient(180px 150px at 65% 55%, rgba(52, 103, 98, 0.08) 0%, transparent 55%);
+    pointer-events: none;
+}
+
+.chat-header::after {
+    content: '';
+    position: absolute;
+    inset: -40px -60px -40px -60px;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    background:
+        radial-gradient(260px 200px at 55% 40%, rgba(12, 57, 50, 0.15) 0%, transparent 60%),
+        radial-gradient(220px 170px at 75% 45%, rgba(20, 93, 82, 0.1) 0%, transparent 55%);
+    pointer-events: none;
+    transition: opacity 0.8s cubic-bezier(0.45, 0.05, 0.2, 0.99);
+}
+
+.chat-header.thinking::after {
+    opacity: 1;
+}
+
+/* ── Mesh gradient blobs ── */
+.mesh-blob {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+    opacity: 0;
+    transition: opacity 1s cubic-bezier(0.45, 0.05, 0.2, 0.99);
+}
+
+.chat-header.thinking .mesh-blob {
+    opacity: 1;
+}
+
+.mesh-blob--1 {
+    width: 200px; height: 200px;
+    top: -60px; right: 10%;
+    background: radial-gradient(circle, rgba(12, 57, 50, 0.55) 0%, transparent 65%);
+    filter: blur(32px);
+    animation: meshFlow1 19s cubic-bezier(0.45, 0.05, 0.2, 0.99) infinite;
+}
+
+.mesh-blob--2 {
+    width: 170px; height: 170px;
+    bottom: -50px; right: -20px;
+    background: radial-gradient(circle, rgba(20, 93, 82, 0.5) 0%, transparent 65%);
+    filter: blur(28px);
+    animation: meshFlow2 16s cubic-bezier(0.45, 0.05, 0.2, 0.99) infinite;
+}
+
+.mesh-blob--3 {
+    width: 150px; height: 150px;
+    top: -40px; right: -10px;
+    background: radial-gradient(circle, rgba(52, 103, 98, 0.45) 0%, transparent 65%);
+    filter: blur(24px);
+    animation: meshFlow3 18s cubic-bezier(0.45, 0.05, 0.2, 0.99) infinite;
+}
+
+.mesh-blob--4 {
+    width: 130px; height: 130px;
+    bottom: -40px; right: 25%;
+    background: radial-gradient(circle, rgba(94, 147, 139, 0.4) 0%, transparent 65%);
+    filter: blur(22px);
+    animation: meshFlow4 14s cubic-bezier(0.45, 0.05, 0.2, 0.99) infinite;
+}
+
+.mesh-blob--5 {
+    width: 180px; height: 180px;
+    top: -50px; right: 30%;
+    background: radial-gradient(circle, rgba(119, 161, 155, 0.35) 0%, transparent 65%);
+    filter: blur(30px);
+    animation: meshFlow5 17s cubic-bezier(0.45, 0.05, 0.2, 0.99) infinite;
+}
+
+.mesh-blob--6 {
+    width: 120px; height: 120px;
+    bottom: -30px; right: 15%;
+    background: radial-gradient(circle, rgba(68, 114, 107, 0.4) 0%, transparent 65%);
+    filter: blur(20px);
+    animation: meshFlow6 15s cubic-bezier(0.45, 0.05, 0.2, 0.99) infinite;
+}
+
+/* ── Organic drift paths ── */
+@keyframes meshFlow1 {
+    0%   { transform: translate(0%, 0%) rotate(0deg); }
+    20%  { transform: translate(15%, -12%) rotate(4deg); }
+    40%  { transform: translate(-5%, 8%) rotate(-3deg); }
+    60%  { transform: translate(10%, 5%) rotate(5deg); }
+    80%  { transform: translate(-8%, -4%) rotate(-2deg); }
+    100% { transform: translate(0%, 0%) rotate(0deg); }
+}
+
+@keyframes meshFlow2 {
+    0%   { transform: translate(0%, 0%) rotate(0deg); }
+    25%  { transform: translate(-12%, 10%) rotate(-5deg); }
+    50%  { transform: translate(8%, -6%) rotate(3deg); }
+    75%  { transform: translate(-4%, 12%) rotate(-4deg); }
+    100% { transform: translate(0%, 0%) rotate(0deg); }
+}
+
+@keyframes meshFlow3 {
+    0%   { transform: translate(0%, 0%) rotate(0deg); }
+    20%  { transform: translate(18%, 4%) rotate(-3deg); }
+    45%  { transform: translate(-8%, -10%) rotate(6deg); }
+    70%  { transform: translate(5%, 8%) rotate(-2deg); }
+    100% { transform: translate(0%, 0%) rotate(0deg); }
+}
+
+@keyframes meshFlow4 {
+    0%   { transform: translate(0%, 0%) rotate(0deg); }
+    30%  { transform: translate(-15%, -8%) rotate(5deg); }
+    55%  { transform: translate(10%, 12%) rotate(-4deg); }
+    80%  { transform: translate(-6%, -5%) rotate(3deg); }
+    100% { transform: translate(0%, 0%) rotate(0deg); }
+}
+
+@keyframes meshFlow5 {
+    0%   { transform: translate(0%, 0%) rotate(0deg); }
+    22%  { transform: translate(5%, -14%) rotate(-4deg); }
+    48%  { transform: translate(-12%, 6%) rotate(5deg); }
+    72%  { transform: translate(8%, -8%) rotate(-3deg); }
+    100% { transform: translate(0%, 0%) rotate(0deg); }
+}
+
+@keyframes meshFlow6 {
+    0%   { transform: translate(0%, 0%) rotate(0deg); }
+    28%  { transform: translate(-10%, -6%) rotate(3deg); }
+    52%  { transform: translate(14%, 10%) rotate(-5deg); }
+    76%  { transform: translate(-5%, -10%) rotate(4deg); }
+    100% { transform: translate(0%, 0%) rotate(0deg); }
+}
+
+/* ── Soft glow overlay ── */
+.mesh-glow {
+    position: absolute;
+    inset: -60px;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 40%, rgba(119, 161, 155, 0.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.chat-header.thinking .mesh-glow {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chat-header.thinking .mesh-blob {
+        animation: none;
+        opacity: 0.3;
+    }
 }
 
 .chat-partner {
@@ -495,7 +775,7 @@ body.sidebar-collapsed .user-profile-footer {
     flex-direction: column;
     gap: 10px;
     scrollbar-width: none;
-    max-width: 640px;
+    max-width: min(720px, 100%);
     margin: 0 auto;
     width: 100%;
 }
@@ -545,8 +825,8 @@ body.sidebar-collapsed .user-profile-footer {
 .bubble {
     padding: 10px 14px;
     border-radius: 12px;
-    font-size: 0.85rem;
-    line-height: 1.4;
+    font-size: clamp(0.7rem, 0.6rem + 0.4vw, 1.1rem);
+    line-height: 1.5;
     position: relative;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     min-width: 225px;
@@ -598,7 +878,7 @@ body.sidebar-collapsed .user-profile-footer {
     align-items: start;
     gap: 16px;
     width: 100%;
-    max-width: 640px;
+    max-width: min(720px, 100%);
     min-height: 140px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
     border: 1px solid #E8F0EF;
@@ -660,7 +940,7 @@ body.sidebar-collapsed .user-profile-footer {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .sidebar {
         position: absolute;
         left: -100%;
@@ -683,18 +963,18 @@ body.sidebar-collapsed .user-profile-footer {
 .psikolog-area {
     flex: 1;
     overflow-y: auto;
-    padding: 40px;
+    padding:60px 150px;
     display: flex;
     flex-direction: column;
     gap: 32px;
-    max-width: 1100px;
+    width: 100%;
 }
 
 .psikolog-header h1 {
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 36px;
+    font-weight: 600;
     color: #0C3932;
-    margin-bottom: 8px;
+    margin: 0;
 }
 
 .psikolog-header p {
@@ -1021,6 +1301,7 @@ body.sidebar-collapsed .sidebar-header {
 
 body.sidebar-collapsed .logo {
     margin: 0;
+    cursor: pointer;
 }
 
 .logo span,
@@ -1030,7 +1311,8 @@ body.sidebar-collapsed .logo {
 }
 
 .logo span {
-    font-size: 18px;
+    font-size: clamp(14px, 1.2rem + 0.6vw, 24px);
+    letter-spacing: -0.02em;
 }
 
 /* Handle for expanding */
@@ -1092,13 +1374,11 @@ body.sidebar-collapsed .nav-item {
     padding: 8px;
     background: transparent !important;
     border: none !important;
+    cursor: pointer;
 }
 
 body.sidebar-collapsed .nav-item i,
 body.sidebar-collapsed .nav-item svg {
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
     margin: 0;
 }
 
@@ -1377,10 +1657,25 @@ body.pencarian-page .pencarian-content {
     display: none;
 }
 
-@media (max-width: 768px) {
-    /* Hide desktop sidebar completely */
+.mobile-header-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
 
+.mobile-header-profile:hover {
+    background-color: #F2FBF9;
+}
 
+.mobile-header-profile svg {
+    display: block;
+}
+
+@media (max-width: 1024px) {
     /* Show mobile header */
     .mobile-header {
         display: flex;
@@ -1435,7 +1730,7 @@ body.pencarian-page .pencarian-content {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
 
     /* Adjust psikolog area */
     .psikolog-area {
@@ -1444,16 +1739,15 @@ body.pencarian-page .pencarian-content {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
 
-    /* Sidebar as a mobile drawer */
+    /* Sidebar as a drawer (tablet/mobile) */
     .app-container .sidebar {
         display: flex !important;
-        /* Override the desktop display or previous none */
         position: fixed;
         top: 0;
         left: 0;
-        height: 100vh;
+        height: 100dvh;
         width: 85vw;
         max-width: 320px;
         z-index: 1001;
@@ -1461,6 +1755,8 @@ body.pencarian-page .pencarian-content {
         transition: transform 0.3s ease-in-out;
         background: #FFFFFF;
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        /* WCAG 2.0: minimum contrast for backdrop */
+        border-right: 1px solid #E5E7EB;
     }
 
     body.sidebar-open .app-container .sidebar {
@@ -1474,18 +1770,63 @@ body.pencarian-page .pencarian-content {
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.5);
+        height: 100dvh;
+        background: rgba(12, 57, 50, 0.55);
         z-index: 1000;
         opacity: 0;
         transition: opacity 0.3s ease-in-out;
+        -webkit-tap-highlight-color: transparent;
     }
 
     body.sidebar-open .mobile-backdrop {
         display: block;
         opacity: 1;
     }
+
+    /* Larger touch targets for mobile menu buttons */
+    .mobile-menu-btn,
+    .mobile-profile-btn {
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
+
+/* Extra small devices (320px – 480px) */
+@media (max-width: 480px) {
+    .sidebar {
+        max-width: 85vw;
+    }
+
+    .invite-card {
+        padding: 8px;
+    }
+
+    .sidebar-header {
+        padding: 10px 10px 0 10px;
+    }
+
+    .search-box,
+    .nav-menu {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+}
+
+/* Large screens (1920px+) */
+@media (min-width: 1920px) {
+    :root {
+        --sidebar-width: clamp(260px, 12vw, 320px);
+    }
+
+    .sidebar {
+        padding-right: 4px;
+    }
+}
+
+
 
 @media (max-width: 768px) {
     /* Psikolog page mobile adjustments */
@@ -1701,8 +2042,8 @@ body.pencarian-page .pencarian-content {
 
 
 
-/* Mobile Sidebar Parallax Push Effect */
-@media (max-width: 768px) {
+/* Sidebar Parallax Push Effect (tablet/mobile) */
+@media (max-width: 1024px) {
 
     .chat-area,
     .psikolog-area,
@@ -1752,8 +2093,8 @@ body.pencarian-page .pencarian-content {
 }
 
 
-/* Further Mobile Spacing Reductions */
-@media (max-width: 768px) {
+/* Further Tablet/Mobile Spacing Reductions */
+@media (max-width: 1024px) {
     .psikolog-area {
         padding: 16px 24px !important;
         gap: 20px !important;
@@ -2143,7 +2484,17 @@ body.sidebar-open .mobile-menu-btn {
 }
 
 .message-wrapper.animate-in {
-    animation: slideUpFade 0.4s ease-out forwards;
+    animation: slideUpFade 0.25s ease-out forwards;
+}
+
+.word-fade {
+    opacity: 0;
+    animation: wordFadeIn 0.12s ease-out forwards;
+}
+
+@keyframes wordFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .message-content {
@@ -2281,7 +2632,6 @@ body.koleksi-page { background: linear-gradient(180deg, #FFFFFF 0%, #EAF0EF 100%
     background: #F2F6F6;
     border: 1px solid rgba(196, 196, 196, 0.3);
     border-radius: 20px;
-    padding: 0 20px;
 }
 
 .koleksi-search input {
@@ -2394,17 +2744,6 @@ body.koleksi-page { background: linear-gradient(180deg, #FFFFFF 0%, #EAF0EF 100%
     }
 }
 
-.koleksi-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center horizontally */
-    height: 100vh;
-    padding: 60px 30px 30px 30px; /* More padding top */
-    overflow-y: auto;
-    position: relative;
-    z-index: 10;
-}
 
 
 /* --- KOLEKSI PAGE --- */
@@ -2412,7 +2751,7 @@ body.koleksi-page { background: linear-gradient(180deg, #FFFFFF 0%, #EAF0EF 100%
     flex: 1;
     position: relative;
     z-index: 2;
-    padding: 60px 40px;
+    padding: 60px 150px;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -2691,10 +3030,32 @@ body.koleksi-page { background: linear-gradient(180deg, #FFFFFF 0%, #EAF0EF 100%
 
 
 /* Khusus header di halaman koleksi */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .koleksi-area .mobile-header {
         padding-left: 0 !important;
         margin-bottom: 16px !important;
     }
 }
+
+@media (max-width: 1024px) {
+    .nav-item span,
+    .search-box input {
+        font-size: 1.2rem;
+    }
+
+    .nav-item i,
+    .nav-item svg {
+        font-size: 1.7rem;
+        width: 1.7rem;
+        height: 1.7rem;
+    }
+
+    .search-box i,
+    .search-box svg {
+        font-size: 1.7rem;
+        width: 1.7rem;
+        height: 1.7rem;
+    }
+}
+
 

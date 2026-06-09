@@ -489,3 +489,268 @@ body {
 .modal-active .modal-content {
     transform: scale(1) !important;
 }
+
+/* ===== Delete Account Modal (Figma) ===== */
+.delete-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.delete-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.delete-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+}
+
+.delete-modal-content {
+    position: relative;
+    background: #ffffff;
+    width: 477px;
+    max-width: 90%;
+    border-radius: 20px;
+    border: 1px solid #c4c4c44c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transform: scale(0.95);
+    transition: transform 0.3s;
+}
+
+.delete-modal-overlay.active .delete-modal-content {
+    transform: scale(1);
+}
+
+.delete-modal-close-btn {
+    position: absolute;
+    top: 21px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+}
+
+.delete-modal-close-btn svg {
+    display: block;
+}
+
+.delete-modal-icon {
+    width: 51px;
+    height: 51px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.delete-modal-title {
+    font-weight: 600;
+    font-size: 24px;
+    color: #bd0000;
+    letter-spacing: -0.025em;
+    margin: 0 0 10px 0;
+}
+
+.delete-modal-message {
+    font-size: 14px;
+    font-weight: 500;
+    color: #b87575;
+    line-height: 1.4;
+    margin: 0 0 28px 0;
+    max-width: 309px;
+}
+
+.delete-modal-highlight {
+    color: #bd0000;
+    font-weight: 700;
+}
+
+.delete-modal-buttons {
+    display: flex;
+    gap: 15px;
+    width: 437px;
+    max-width: 100%;
+}
+
+.delete-btn-danger {
+    flex: 1;
+    height: 50px;
+    background: #c00000;
+    color: #ffffff;
+    border: 1px solid #a20000;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+.delete-btn-danger:hover {
+    background: #a00000;
+}
+
+.delete-btn-cancel {
+    flex: 1;
+    height: 50px;
+    background: #c4c4c4;
+    color: #474747;
+    border: 1px solid #b4b4b4;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+.delete-btn-cancel:hover {
+    background: #b0b0b0;
+}
+
+/* ===== Logout Modal ===== */
+.modal-overlay-2 {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.modal-overlay-2.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-backdrop-2 {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content-2 {
+    position: relative;
+    background: #ffffff;
+    width: 477px;
+    max-width: 90%;
+    border-radius: 20px;
+    border: 1px solid #c4c4c44c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transform: scale(0.95);
+    transition: transform 0.3s;
+}
+
+.modal-overlay-2.active .modal-content-2 {
+    transform: scale(1);
+}
+
+.modal-close-btn-2 {
+    position: absolute;
+    top: 21px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+}
+
+.modal-close-btn-2 svg {
+    display: block;
+}
+
+.modal-icon-2 {
+    width: 51px;
+    height: 51px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.modal-title-2 {
+    font-weight: 600;
+    font-size: 24px;
+    color: #0C3932;
+    letter-spacing: -0.025em;
+    margin: 0 0 10px 0;
+}
+
+.modal-message-2 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #666666;
+    line-height: 1.4;
+    margin: 0 0 28px 0;
+    max-width: 309px;
+}
+
+.modal-buttons-2 {
+    display: flex;
+    gap: 15px;
+    width: 437px;
+    max-width: 100%;
+}
+
+.modal-btn-primary-2 {
+    flex: 1;
+    height: 50px;
+    background: #0C3932;
+    color: #ffffff;
+    border: 1px solid #0a2f29;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+.modal-btn-primary-2:hover {
+    background: #0a2f29;
+}
+
+.modal-btn-cancel-2 {
+    flex: 1;
+    height: 50px;
+    background: #c4c4c4;
+    color: #474747;
+    border: 1px solid #b4b4b4;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+.modal-btn-cancel-2:hover {
+    background: #b0b0b0;
+}
