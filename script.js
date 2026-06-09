@@ -77,6 +77,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendBtn = document.getElementById('sendBtn');
     const chatMessages = document.getElementById('chatMessages');
 
+    const fileUploadInput = document.getElementById('fileUploadInput');
+    const addBtn = document.getElementById('addBtn');
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+    const imagePreview = document.getElementById('imagePreview');
+    const imageName = document.getElementById('imageName');
+    const removeImageBtn = document.getElementById('removeImageBtn');
+
+    let currentImageBase64 = null;
+    let currentImageMime = null;
+    let currentImageFile = null;
+
     // === GEMINI API SETUP ===
     const GEMINI_API_KEY = 'AQ.Ab8RN6LHvIEOWri0UsNZ4LrMfA_4nST4er_ZL2Lopa7h0EIYcQ'; 
     
@@ -85,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 Tugas Anda adalah mendengarkan curhatan atau masalah pribadi pengguna, memberikan tanggapan yang menenangkan, tidak menghakimi, dan memvalidasi perasaan mereka. 
 Gunakan bahasa Indonesia yang hangat, santai tapi sopan. Hindari menggunakan bahasa kaku.
 Berikan saran psikologis ringan jika dirasa perlu, namun fokus utama adalah membuat pengguna merasa didengarkan dan dimengerti. 
+Berikan respons yang singkat, padat, dan tidak terlalu panjang. Jika pengguna mengirimkan gambar, perhatikan gambar tersebut untuk membantu mengerti konteks perasaan mereka.
 Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan apa yang sedang mereka rasakan.`;
 
     let conversationHistory = [];
@@ -98,11 +110,12 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
         if (activeConv) {
             currentTitle = activeConv.title;
             activeConv.messages.forEach(msg => {
-                addMessage(msg.text, msg.role === 'user', false, false, msg.time);
-                conversationHistory.push({
-                    role: msg.role,
-                    parts: [{ text: msg.text }]
-                });
+                addMessage(msg.text, msg.role === 'user', false, false, msg.time, msg.imageBase64, msg.imageMime);
+                let parts = [{ text: msg.text }];
+                if (msg.imageBase64 && msg.imageMime) {
+                    parts.unshift({ inlineData: { mimeType: msg.imageMime, data: msg.imageBase64 } });
+                }
+                conversationHistory.push({ role: msg.role, parts: parts });
             });
         } else {
             currentConversationId = null;
@@ -117,8 +130,9 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
             .replace(/\n/g, '<br>');
     }
 
-    function addMessage(text, isSent = true, saveToHistory = false, animateTyping = false, customTime = null) {
-        if (!text || !chatMessages) return;
+    function addMessage(text, isSent = true, saveToHistory = false, animateTyping = false, customTime = null, imageBase64 = null, imageMime = null) {
+        if (!text && !imageBase64) return;
+        if (!chatMessages) return;
 
         const now = new Date();
         const timeString = customTime || now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
@@ -129,6 +143,7 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
         messageWrapper.innerHTML = `
             <div class="message">
                 <div class="bubble">
+                    ${imageBase64 ? `<img src="data:${imageMime};base64,${imageBase64}" style="max-width: 200px; border-radius: 8px; margin-bottom: 8px; display: block;">` : ''}
                     <p class="message-content"></p>
                     <span class="time">${timeString}</span>
                 </div>
@@ -140,7 +155,7 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
 
         const p = messageWrapper.querySelector('.message-content');
         
-        if (animateTyping && !isSent) {
+        if (animateTyping && !isSent && text) {
             let i = 0;
             let tempText = "";
             const interval = setInterval(() => {
@@ -152,15 +167,19 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
                     clearInterval(interval);
                     p.innerHTML = formatTextToHTML(text);
                 }
-            }, 20); // 20ms per character typing speed
-        } else {
+            }, 20);
+        } else if (text) {
             p.innerHTML = formatTextToHTML(text);
         }
 
         if (saveToHistory) {
+            let parts = [{ text: text }];
+            if (imageBase64 && imageMime) {
+                parts.unshift({ inlineData: { mimeType: imageMime, data: imageBase64 } });
+            }
             conversationHistory.push({
                 role: isSent ? "user" : "model",
-                parts: [{ text: text }]
+                parts: parts
             });
 
             // Save to LocalStorage
@@ -180,7 +199,7 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
                 const url = new URL(window.location);
                 url.searchParams.set('chatId', currentConversationId);
                 window.history.replaceState({}, '', url);
-            } else if (isSent && currentTitle === "Obrolan Baru") {
+            } else if (isSent && currentTitle === "Obrolan Baru" && text) {
                 currentTitle = text.length > 30 ? text.substring(0, 30) + '...' : text;
                 const activeConv = convs.find(c => c.id === currentConversationId);
                 if (activeConv) {
@@ -194,7 +213,9 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
                     role: isSent ? "user" : "model",
                     text: text,
                     time: timeString,
-                    timestamp: now.getTime()
+                    timestamp: now.getTime(),
+                    imageBase64: imageBase64,
+                    imageMime: imageMime
                 });
                 saveConversations(convs);
                 renderSidebarHistory();
@@ -263,7 +284,7 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
                 contents: conversationHistory
             };
 
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -283,22 +304,86 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
         }
     }
 
+    if (addBtn && fileUploadInput) {
+        addBtn.addEventListener('click', () => fileUploadInput.click());
+        fileUploadInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            if (!file.type.startsWith('image/')) {
+                alert("Hanya format gambar yang didukung untuk saat ini.");
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                currentImageBase64 = event.target.result.split(',')[1];
+                currentImageMime = file.type;
+                currentImageFile = {
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    data: event.target.result
+                };
+                
+                if (imagePreviewContainer && imagePreview && imageName) {
+                    imagePreview.src = event.target.result;
+                    imageName.textContent = file.name;
+                    imagePreviewContainer.style.display = 'flex';
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    if (removeImageBtn) {
+        removeImageBtn.addEventListener('click', () => {
+            currentImageBase64 = null;
+            currentImageMime = null;
+            currentImageFile = null;
+            fileUploadInput.value = '';
+            if (imagePreviewContainer) {
+                imagePreviewContainer.style.display = 'none';
+            }
+        });
+    }
+
     async function handleSend() {
         const activeUserStr = localStorage.getItem('tenangin_active_user');
         if (!activeUserStr) {
             const authModal = document.getElementById('authModal');
-            if (authModal) {
-                authModal.classList.add('active');
-            }
+            if (authModal) authModal.classList.add('active');
             return;
         }
 
         if(!messageInput) return;
         const text = messageInput.value.trim();
-        if (!text) return;
+        if (!text && !currentImageBase64) return;
 
-        addMessage(text, true, true);
+        const sentBase64 = currentImageBase64;
+        const sentMime = currentImageMime;
+
+        if (currentImageFile) {
+            const koleksiData = localStorage.getItem('tenangin_koleksi');
+            const koleksi = koleksiData ? JSON.parse(koleksiData) : [];
+            const now = new Date();
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const dateStr = `${now.getDate()} ${months[now.getMonth()]}`;
+            
+            koleksi.unshift({
+                id: 'koleksi_' + Date.now(),
+                name: currentImageFile.name,
+                type: 'Gambar',
+                size: (currentImageFile.size / 1024).toFixed(2) + ' KB',
+                date: dateStr,
+                data: currentImageFile.data
+            });
+            localStorage.setItem('tenangin_koleksi', JSON.stringify(koleksi));
+        }
+
+        addMessage(text, true, true, false, null, sentBase64, sentMime);
         messageInput.value = '';
+        
+        if (removeImageBtn) removeImageBtn.click();
 
         showTypingIndicator();
         setBotStatus('meresapi ceritamu...');

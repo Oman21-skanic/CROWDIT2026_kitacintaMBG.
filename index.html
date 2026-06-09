@@ -186,8 +186,14 @@
                     <button class="chip">Aku hanya ingin ngobrol</button>
                     <button class="chip">Aku ingin bercerita</button>
                 </div>
-                <div class="chat-input-box">
-                    <button class="add-btn" aria-label="Add attachment">
+                <div id="imagePreviewContainer" style="display: none; padding: 10px 16px; align-items: center; gap: 10px; background: #F2FBF9; border: 1px solid #E5ECEB; border-bottom: none; border-radius: 16px 16px 0 0;">
+                    <img id="imagePreview" src="" alt="Preview" style="height: 60px; width: 60px; object-fit: cover; border-radius: 8px; border: 1px solid #E5ECEB;">
+                    <span id="imageName" style="flex: 1; font-size: 13px; color: #5E938B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></span>
+                    <button id="removeImageBtn" style="background: none; border: none; color: #E74C3C; cursor: pointer; padding: 4px;"><i class="ph-fill ph-x-circle" style="font-size: 20px;"></i></button>
+                </div>
+                <div class="chat-input-box" id="chatInputBox">
+                    <input type="file" id="fileUploadInput" accept="image/*" style="display: none;">
+                    <button class="add-btn" id="addBtn" aria-label="Add attachment">
                         <i class="ph ph-plus-circle"></i>
                     </button>
                     <textarea id="messageInput" placeholder="Tulis perasaanmu di sini..." rows="1"></textarea>
