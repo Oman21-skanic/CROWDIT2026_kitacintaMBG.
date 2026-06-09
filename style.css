@@ -2462,7 +2462,7 @@ body.koleksi-page { background: linear-gradient(180deg, #FFFFFF 0%, #EAF0EF 100%
     padding: 12px 20px;
     padding-right: 45px;
     border-radius: 20px;
-    border: 1px solid rgba(196, 196, 196, 0.3);
+    border: none;
     background: transparent;
     font-size: 14px;
     color: #0C3932;
