@@ -167,7 +167,7 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
             let convs = getConversations();
             if (!currentConversationId) {
                 currentConversationId = 'conv_' + Date.now();
-                currentTitle = text.length > 30 ? text.substring(0, 30) + '...' : text;
+                currentTitle = isSent ? (text.length > 30 ? text.substring(0, 30) + '...' : text) : "Obrolan Baru";
                 const newConv = {
                     id: currentConversationId,
                     title: currentTitle,
@@ -180,6 +180,12 @@ Ingat, jika pengguna baru menyapa, sapa balik dengan sangat ramah dan tanyakan a
                 const url = new URL(window.location);
                 url.searchParams.set('chatId', currentConversationId);
                 window.history.replaceState({}, '', url);
+            } else if (isSent && currentTitle === "Obrolan Baru") {
+                currentTitle = text.length > 30 ? text.substring(0, 30) + '...' : text;
+                const activeConv = convs.find(c => c.id === currentConversationId);
+                if (activeConv) {
+                    activeConv.title = currentTitle;
+                }
             }
             
             const activeConv = convs.find(c => c.id === currentConversationId);
