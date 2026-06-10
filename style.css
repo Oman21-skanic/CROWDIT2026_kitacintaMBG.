@@ -63,7 +63,8 @@ body {
     z-index: -1;
     overflow: hidden;
     background: linear-gradient(to bottom, #FFFFFF, #EAF0EF);
-    transition: left 0.3s ease;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: left;
 }
 
 .bg-gradient {
@@ -120,7 +121,8 @@ body.sidebar-collapsed {
     flex-direction: column;
     border-right: 1px solid var(--border-color);
     z-index: 10;
-    transition: width 0.3s ease;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: width;
     overflow-x: hidden;
     white-space: nowrap;
 }
@@ -149,7 +151,7 @@ body.sidebar-collapsed .sidebar-header {
 }
 
 body.sidebar-collapsed .nav-item {
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, padding 0.3s ease;
     justify-content: center;
     padding: 8px 0;
 }
@@ -265,7 +267,7 @@ body.sidebar-collapsed .user-profile-footer {
 }
 
 .nav-item {
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, padding 0.3s ease, color 0.3s ease;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -1290,7 +1292,14 @@ body.sidebar-collapsed .history-list,
 body.sidebar-collapsed .invite-card-wrapper,
 body.sidebar-collapsed .user-profile-footer,
 body.sidebar-collapsed .sidebar-spacer {
-    display: none !important;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    pointer-events: none;
+    border: none;
 }
 
 body.sidebar-collapsed .sidebar-header {
@@ -1307,7 +1316,7 @@ body.sidebar-collapsed .logo {
 .logo span,
 .nav-item span,
 .search-box input {
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease, padding 0.3s ease, margin 0.3s ease;
 }
 
 .logo span {
@@ -1370,7 +1379,7 @@ body.sidebar-collapsed .nav-menu {
 }
 
 body.sidebar-collapsed .nav-item {
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, padding 0.3s ease;
     padding: 8px;
     background: transparent !important;
     border: none !important;
