@@ -110,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const messageInput = document.getElementById("messageInput");
   const sendBtn = document.getElementById("sendBtn");
   const chatMessages = document.getElementById("chatMessages");
+  const suggestionChipsContainer = document.querySelector(".suggestion-chips");
 
   const fileUploadInput = document.getElementById("fileUploadInput");
   const addBtn = document.getElementById("addBtn");
@@ -202,6 +203,9 @@ BATASAN PERAN
     const convs = getConversations();
     const activeConv = convs.find((c) => c.id === currentConversationId);
     if (activeConv) {
+      if (suggestionChipsContainer && activeConv.messages.some(m => m.role === "user")) {
+        suggestionChipsContainer.style.display = "none";
+      }
       currentTitle = activeConv.title;
       activeConv.messages.forEach((msg) => {
         addMessage(
@@ -612,6 +616,10 @@ BATASAN PERAN
 
     addMessage(text, true, true, false, null, sentBase64, sentMime);
     messageInput.value = "";
+
+    if (suggestionChipsContainer) {
+      suggestionChipsContainer.style.display = "none";
+    }
 
     if (removeImageBtn) removeImageBtn.click();
 
