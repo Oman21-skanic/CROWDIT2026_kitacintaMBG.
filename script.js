@@ -5,7 +5,21 @@ function getConversations() {
 }
 
 function saveConversations(convs) {
-  localStorage.setItem("tenangin_conversations", JSON.stringify(convs));
+  let saved = false;
+  while (!saved && convs.length > 0) {
+    try {
+      localStorage.setItem("tenangin_conversations", JSON.stringify(convs));
+      saved = true;
+    } catch (e) {
+      if (e.name === 'QuotaExceededError' || e.code === 22) {
+        console.warn("Storage penuh. Menghapus riwayat lama...");
+        convs.pop();
+      } else {
+        console.error("Gagal menyimpan percakapan:", e);
+        break;
+      }
+    }
+  }
 }
 
 function getActiveChatId() {
@@ -475,20 +489,51 @@ BATASAN PERAN
 
       const reader = new FileReader();
       reader.onload = function (event) {
-        currentImageBase64 = event.target.result.split(",")[1];
-        currentImageMime = file.type;
-        currentImageFile = {
-          name: file.name,
-          size: file.size,
-          type: file.type,
-          data: event.target.result,
-        };
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          const MAX_WIDTH = 800;
+          const MAX_HEIGHT = 800;
+          let width = img.width;
+          let height = img.height;
 
-        if (imagePreviewContainer && imagePreview && imageName) {
-          imagePreview.src = event.target.result;
-          imageName.textContent = file.name;
-          imagePreviewContainer.style.display = "flex";
-        }
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.7);
+          const base64Data = dataUrl.split(",")[1];
+          const approxSize = Math.round((base64Data.length * 3) / 4);
+
+          currentImageBase64 = base64Data;
+          currentImageMime = "image/jpeg";
+          currentImageFile = {
+            name: file.name,
+            size: approxSize,
+            type: "image/jpeg",
+            data: dataUrl,
+          };
+
+          if (imagePreviewContainer && imagePreview && imageName) {
+            imagePreview.src = dataUrl;
+            imageName.textContent = file.name;
+            imagePreviewContainer.style.display = "flex";
+          }
+        };
+        img.src = event.target.result;
       };
       reader.readAsDataURL(file);
     });
@@ -549,7 +594,20 @@ BATASAN PERAN
         date: dateStr,
         data: currentImageFile.data,
       });
-      localStorage.setItem("tenangin_koleksi", JSON.stringify(koleksi));
+      let saved = false;
+      while (!saved && koleksi.length > 0) {
+        try {
+          localStorage.setItem("tenangin_koleksi", JSON.stringify(koleksi));
+          saved = true;
+        } catch (e) {
+          if (e.name === 'QuotaExceededError' || e.code === 22) {
+            koleksi.pop();
+          } else {
+            console.error("Gagal menyimpan ke localStorage:", e);
+            break;
+          }
+        }
+      }
     }
 
     addMessage(text, true, true, false, null, sentBase64, sentMime);
