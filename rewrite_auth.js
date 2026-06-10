@@ -12,7 +12,7 @@ const illustrationHtml = `
             <div class="ill-chat-box">
                 <div class="chat-header">
                     <div class="chat-avatar">
-                        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=hajarol" alt="Hajarol">
+                        <img src="../../tanin.webp" alt="Hajarol">
                     </div>
                     <div class="chat-info">
                         <h4>Hajarol</h4>

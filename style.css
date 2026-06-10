@@ -7,7 +7,7 @@
     --bg-white: #FFFFFF;
     --bg-app: #F5F9F8;
     --border-color: #E5E7EB;
-    --sidebar-width: clamp(200px, 15vw, 280px);
+    --sidebar-width: clamp(200px, 20vw, 300px);
 
     --bubble-sent-bg: #355C56;
     --bubble-received-bg: #FFFFFF;
@@ -318,13 +318,12 @@ body.sidebar-collapsed .user-profile-footer {
     justify-content: space-between;
     margin: 0 12px;
     padding: 6px 10px;
-    font-size: clamp(0.7rem, 0.6rem + 0.3vw, 1rem);
+    font-size: clamp(1.05rem, 0.6rem + 0.4vw, 1.1rem);
     color: #44726B;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     border-radius: 8px;
     transition: background-color 0.2s;
-    /* WCAG 2.0: minimum touch target */
     min-height: clamp(36px, 4vw, 44px);
 }
 
@@ -360,7 +359,7 @@ body.sidebar-collapsed .user-profile-footer {
 }
 
 .history-item {
-    font-size: clamp(0.7rem, 0.6rem + 0.4vw, 0.9rem);
+    font-size: clamp(0.9rem, 0.6rem + 0.4vw, 1rem);
     color: #346762;
     font-weight: 500;
     text-decoration: none;
@@ -427,18 +426,18 @@ body.sidebar-collapsed .user-profile-footer {
 }
 
 .invite-card h4 {
-    font-size: clamp(0.65rem, 0.55rem + 0.4vw, 0.9rem);
+    font-size: clamp(1rem, 0.6rem + 0.4vw, 1rem);
     font-weight: 600;
     margin-bottom: clamp(2px, 0.3vw, 6px);
     color: #0E4139;
     line-height: 1.4;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: calc(100% - 20px);
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .invite-card p {
-    font-size: clamp(0.55rem, 0.45rem + 0.35vw, 0.8rem);
+    font-size: clamp(0.9rem, 0.5rem + 0.35vw, 1.2rem);
     color: #346762;
     line-height: 1.5;
     white-space: normal;
@@ -489,7 +488,7 @@ body.sidebar-collapsed .user-profile-footer {
 }
 
 .user-profile-info h3 {
-    font-size: clamp(0.75rem, 0.65rem + 0.25vw, 0.875rem);
+    font-size: clamp(0.9rem, 0.65rem + 0.25vw, 1.1rem);
     font-weight: 500;
     color: #0C3932;
     margin: 0;
@@ -499,7 +498,7 @@ body.sidebar-collapsed .user-profile-footer {
 }
 
 .user-profile-info span {
-    font-size: clamp(0.625rem, 0.55rem + 0.2vw, 0.75rem);
+    font-size: clamp(0.8rem, 0.7rem + 0.2vw, 0.9rem);
     font-weight: 400;
     color: #44726B;
     overflow: hidden;
@@ -1031,6 +1030,7 @@ body.sidebar-collapsed .user-profile-footer {
 .psikolog-area {
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden;
     padding:60px 150px;
     display: flex;
     flex-direction: column;
@@ -1043,6 +1043,7 @@ body.sidebar-collapsed .user-profile-footer {
     font-weight: 600;
     color: #0C3932;
     margin: 0;
+    margin-bottom: 15px;
 }
 
 .psikolog-header p {
@@ -2376,7 +2377,6 @@ body.sidebar-open .mobile-menu-btn {
 
     body.psikolog-page .mobile-header {
         padding-left: 0 !important;
-        margin-bottom: 16px !important;
     }
 
     .psikolog-area {
@@ -2385,7 +2385,7 @@ body.sidebar-open .mobile-menu-btn {
     }
 
     .psikolog-header h1 {
-        margin-bottom: 4px !important;
+        margin-bottom: 10px !important;
     }
 
     .filter-bar {
