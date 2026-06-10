@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         profileBtns.forEach((btn) => {
           btn.style.cursor = 'pointer';
           btn.addEventListener('click', () => {
-            window.location.href = 'profile/profile.html';
+            window.location.href = 'profile/index.html';
           });
         });
       } catch (e) {
