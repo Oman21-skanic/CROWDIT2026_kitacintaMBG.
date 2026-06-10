@@ -286,15 +286,12 @@
             class="user-profile-footer"
             role="button"
             tabindex="0"
-            aria-label="Profil Sumbul Kharamita"
+            aria-label="Please login"
           >
-            <img
-              src="https://ui-avatars.com/api/?name=Sumbul+Kharamita&background=E5E5E5&color=000&size=40"
-              alt="Sumbul Kharamita"
-            />
+            <i class="ph ph-sign-in user-profile-login-icon"></i>
             <div class="user-profile-info">
-              <h3>Sumbul Kharamita</h3>
-              <span>sumbulkharamista@gmail.com</span>
+              <h3>Please Login</h3>
+              <span>Sign in to your account</span>
             </div>
           </div>
         </div>
@@ -392,53 +389,11 @@
             <button class="chip">Aku hanya ingin ngobrol</button>
             <button class="chip">Aku ingin bercerita</button>
           </div>
-          <div
-            id="imagePreviewContainer"
-            style="
-              display: none;
-              padding: 10px 16px;
-              align-items: center;
-              gap: 10px;
-              background: #f2fbf9;
-              border: 1px solid #e5eceb;
-              border-bottom: none;
-              border-radius: 16px 16px 0 0;
-            "
-          >
-            <img
-              id="imagePreview"
-              src=""
-              alt="Preview"
-              style="
-                height: 60px;
-                width: 60px;
-                object-fit: cover;
-                border-radius: 8px;
-                border: 1px solid #e5eceb;
-              "
-            />
-            <span
-              id="imageName"
-              style="
-                flex: 1;
-                font-size: 13px;
-                color: #5e938b;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-              "
-            ></span>
-            <button
-              id="removeImageBtn"
-              style="
-                background: none;
-                border: none;
-                color: #e74c3c;
-                cursor: pointer;
-                padding: 4px;
-              "
-            >
-              <i class="ph-fill ph-x-circle" style="font-size: 20px"></i>
+          <div id="imagePreviewContainer" class="image-preview-container">
+            <img id="imagePreview" src="" alt="Preview" class="image-preview-thumb" />
+            <span id="imageName" class="image-preview-name"></span>
+            <button id="removeImageBtn" class="image-preview-remove" aria-label="Remove image">
+              <i class="ph-fill ph-x-circle"></i>
             </button>
           </div>
           <div class="chat-input-box" id="chatInputBox">

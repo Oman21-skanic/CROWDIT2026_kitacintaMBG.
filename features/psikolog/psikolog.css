@@ -114,10 +114,10 @@ body {
     display: flex;
     flex-direction: column;
     gap: 32px;
-    padding: 0 24px 56px;
+    padding: 24px 24px 56px;
     width: 100%;
     max-width: 1000px;
-    margin: 8px auto 0;
+    margin: 0 auto;
 }
 
 @media (min-width: 768px) {
@@ -191,14 +191,14 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 24px;
     width: 100%;
     min-width: 0;
 }
 
 .header-section {
     border-bottom: 1px solid rgba(229, 236, 235, 0.6);
-    padding-bottom: 24px;
-    margin-bottom: 24px;
+    padding-bottom: 20px;
 }
 
 .psikolog-name {
@@ -259,7 +259,7 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-top: 12px;
+    margin: 0;
     font-size: 13px;
     color: var(--primary-dark);
     font-weight: 500;
@@ -276,7 +276,7 @@ body {
     flex-wrap: wrap;
     align-items: center;
     gap: 12px;
-    margin-top: 24px;
+    margin: 0;
 }
 
 .btn-primary, .btn-outline {
@@ -319,7 +319,7 @@ body {
 
 /* Info Section */
 .info-section {
-    margin-bottom: 32px;
+    margin: 0;
 }
 
 .section-heading {

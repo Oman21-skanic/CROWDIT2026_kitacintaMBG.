@@ -1,6 +1,6 @@
 // --- LOCAL STORAGE HELPERS ---
 function getConversations() {
-  const data = localStorage.getItem("tenangin_conversations");
+  const data = localStorage.getItem('tenangin_conversations');
   return data ? JSON.parse(data) : [];
 }
 
@@ -24,27 +24,27 @@ function saveConversations(convs) {
 
 function getActiveChatId() {
   const params = new URLSearchParams(window.location.search);
-  return params.get("chatId");
+  return params.get('chatId');
 }
 
 function renderSidebarHistory() {
-  const historyLists = document.querySelectorAll(".history-list");
+  const historyLists = document.querySelectorAll('.history-list');
   if (historyLists.length === 0) return;
 
   const convs = getConversations();
   historyLists.forEach((list) => {
-    list.innerHTML = "";
+    list.innerHTML = '';
     if (convs.length === 0) {
       list.innerHTML =
         '<div class="history-item" style="opacity: 0.5;">Belum ada riwayat</div>';
       return;
     }
     convs.forEach((conv) => {
-      const div = document.createElement("div");
-      div.className = "history-item";
+      const div = document.createElement('div');
+      div.className = 'history-item';
       div.textContent = conv.title;
       div.dataset.id = conv.id;
-      div.style.cursor = "pointer";
+      div.style.cursor = 'pointer';
       list.appendChild(div);
     });
   });
@@ -53,57 +53,70 @@ function renderSidebarHistory() {
 function formatDate(isoString) {
   const date = new Date(isoString);
   const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
   return `${date.getDate()} ${months[date.getMonth()]}`;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   // --- AUTHENTICATION CHECK ---
   const currentPath = window.location.pathname;
   if (
-    !currentPath.includes("login.html") &&
-    !currentPath.includes("register.html") &&
-    !currentPath.includes("forgot-password.html")
+    !currentPath.includes('login.html') &&
+    !currentPath.includes('register.html') &&
+    !currentPath.includes('forgot-password.html')
   ) {
-    const activeUserStr = localStorage.getItem("tenangin_active_user");
+    const activeUserStr = localStorage.getItem('tenangin_active_user');
     if (activeUserStr) {
       try {
         const activeUser = JSON.parse(activeUserStr);
-        const nameEls = document.querySelectorAll(".user-profile-info h3");
-        const emailEls = document.querySelectorAll(".user-profile-info span");
-        const imgEls = document.querySelectorAll(".user-profile-footer img");
+        const nameEls = document.querySelectorAll('.user-profile-info h3');
+        const emailEls = document.querySelectorAll('.user-profile-info span');
+        const iconEls = document.querySelectorAll('.user-profile-login-icon');
 
         nameEls.forEach((el) => (el.textContent = activeUser.name));
         emailEls.forEach((el) => (el.textContent = activeUser.email));
-        imgEls.forEach((el) => {
-          el.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(activeUser.name)}&background=E5E5E5&color=000&size=40`;
-          el.alt = activeUser.name;
+        iconEls.forEach((el) => {
+          const img = document.createElement('img');
+          img.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(activeUser.name)}&background=E5E5E5&color=000&size=40`;
+          img.alt = activeUser.name;
+          el.parentNode.insertBefore(img, el);
+          el.remove();
         });
 
         const profileBtns = document.querySelectorAll(
-          ".user-profile-footer, .mobile-header-profile, .header-action",
+          '.user-profile-footer, .mobile-header-profile, .header-action',
         );
         profileBtns.forEach((btn) => {
-          btn.style.cursor = "pointer";
-          btn.addEventListener("click", () => {
-            window.location.href = "features/profile/profile.html";
+          btn.style.cursor = 'pointer';
+          btn.addEventListener('click', () => {
+            window.location.href = 'features/profile/profile.html';
           });
         });
       } catch (e) {
-        console.error("Error parsing user data", e);
+        console.error('Error parsing user data', e);
       }
+    } else {
+      const profileBtns = document.querySelectorAll(
+        '.user-profile-footer, .mobile-header-profile, .header-action',
+      );
+      profileBtns.forEach((btn) => {
+        btn.style.cursor = 'pointer';
+        btn.addEventListener('click', () => {
+          window.location.href = 'features/auth/login.html';
+        });
+      });
     }
   }
 
@@ -112,14 +125,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatMessages = document.getElementById("chatMessages");
   const suggestionChipsContainer = document.querySelector(".suggestion-chips");
 
-  const fileUploadInput = document.getElementById("fileUploadInput");
-  const addBtn = document.getElementById("addBtn");
+  const fileUploadInput = document.getElementById('fileUploadInput');
+  const addBtn = document.getElementById('addBtn');
   const imagePreviewContainer = document.getElementById(
-    "imagePreviewContainer",
+    'imagePreviewContainer',
   );
-  const imagePreview = document.getElementById("imagePreview");
-  const imageName = document.getElementById("imageName");
-  const removeImageBtn = document.getElementById("removeImageBtn");
+  const imagePreview = document.getElementById('imagePreview');
+  const imageName = document.getElementById('imageName');
+  const removeImageBtn = document.getElementById('removeImageBtn');
 
   let currentImageBase64 = null;
   let currentImageMime = null;
@@ -127,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // === GEMINI API SETUP ===
   const GEMINI_API_KEY =
-    "AQ.Ab8RN6LHvIEOWri0UsNZ4LrMfA_4nST4er_ZL2Lopa7h0EIYcQ";
+    'AQ.Ab8RN6LHvIEOWri0UsNZ4LrMfA_4nST4er_ZL2Lopa7h0EIYcQ';
 
   // System instruction untuk persona Psikiater Pribadi
   const SYSTEM_PROMPT = `
@@ -196,7 +209,7 @@ BATASAN PERAN
 
   let conversationHistory = [];
   let currentConversationId = getActiveChatId();
-  let currentTitle = "Obrolan Baru";
+  let currentTitle = 'Obrolan Baru';
 
   // Load active conversation if exists
   if (currentConversationId) {
@@ -210,7 +223,7 @@ BATASAN PERAN
       activeConv.messages.forEach((msg) => {
         addMessage(
           msg.text,
-          msg.role === "user",
+          msg.role === 'user',
           false,
           false,
           msg.time,
@@ -234,8 +247,8 @@ BATASAN PERAN
 
   function formatTextToHTML(text) {
     return text
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\n/g, "<br>");
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n/g, '<br>');
   }
 
   function addMessage(
@@ -253,20 +266,20 @@ BATASAN PERAN
     const now = new Date();
     const timeString =
       customTime ||
-      now.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
+      now.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
         hour12: true,
       });
 
-    const messageWrapper = document.createElement("div");
+    const messageWrapper = document.createElement('div');
     messageWrapper.className =
-      "message-wrapper " + (isSent ? "sent" : "received") + " animate-in";
+      'message-wrapper ' + (isSent ? 'sent' : 'received') + ' animate-in';
 
     messageWrapper.innerHTML = `
             <div class="message">
                 <div class="bubble">
-                    ${imageBase64 ? `<img src="data:${imageMime};base64,${imageBase64}" style="max-width: 200px; border-radius: 8px; margin-bottom: 8px; display: block;">` : ""}
+                    ${imageBase64 ? `<img src="data:${imageMime};base64,${imageBase64}" style="max-width: 200px; border-radius: 8px; margin-bottom: 8px; display: block;">` : ''}
                     <p class="message-content"></p>
                     <span class="time">${timeString}</span>
                 </div>
@@ -276,7 +289,7 @@ BATASAN PERAN
     chatMessages.appendChild(messageWrapper);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    const p = messageWrapper.querySelector(".message-content");
+    const p = messageWrapper.querySelector('.message-content');
 
     if (text && animateTyping && !isSent) {
       const formatted = formatTextToHTML(text);
@@ -285,16 +298,16 @@ BATASAN PERAN
       const step = 20;
 
       for (const part of parts) {
-        if (part === "") continue;
-        const span = document.createElement("span");
+        if (part === '') continue;
+        const span = document.createElement('span');
         span.innerHTML = part;
-        span.style.display = "inline";
+        span.style.display = 'inline';
 
         const isWhitespace = /^\s+$/.test(part);
         const isTag = /^<[^>]+>$/.test(part);
 
         if (!isWhitespace && !isTag) {
-          span.classList.add("word-fade");
+          span.classList.add('word-fade');
           span.style.animationDelay = `${wordIdx * step}ms`;
           wordIdx++;
         }
@@ -314,19 +327,19 @@ BATASAN PERAN
         });
       }
       conversationHistory.push({
-        role: isSent ? "user" : "model",
+        role: isSent ? 'user' : 'model',
         parts: parts,
       });
 
       // Save to LocalStorage
       let convs = getConversations();
       if (!currentConversationId) {
-        currentConversationId = "conv_" + Date.now();
+        currentConversationId = 'conv_' + Date.now();
         currentTitle = isSent
           ? text.length > 30
-            ? text.substring(0, 30) + "..."
+            ? text.substring(0, 30) + '...'
             : text
-          : "Obrolan Baru";
+          : 'Obrolan Baru';
         const newConv = {
           id: currentConversationId,
           title: currentTitle,
@@ -337,10 +350,10 @@ BATASAN PERAN
 
         // Update URL
         const url = new URL(window.location);
-        url.searchParams.set("chatId", currentConversationId);
-        window.history.replaceState({}, "", url);
-      } else if (isSent && currentTitle === "Obrolan Baru" && text) {
-        currentTitle = text.length > 30 ? text.substring(0, 30) + "..." : text;
+        url.searchParams.set('chatId', currentConversationId);
+        window.history.replaceState({}, '', url);
+      } else if (isSent && currentTitle === 'Obrolan Baru' && text) {
+        currentTitle = text.length > 30 ? text.substring(0, 30) + '...' : text;
         const activeConv = convs.find((c) => c.id === currentConversationId);
         if (activeConv) {
           activeConv.title = currentTitle;
@@ -350,7 +363,7 @@ BATASAN PERAN
       const activeConv = convs.find((c) => c.id === currentConversationId);
       if (activeConv) {
         activeConv.messages.push({
-          role: isSent ? "user" : "model",
+          role: isSent ? 'user' : 'model',
           text: text,
           time: timeString,
           timestamp: now.getTime(),
@@ -364,14 +377,14 @@ BATASAN PERAN
   }
 
   function setBotStatus(text) {
-    const botStatusText = document.getElementById("botStatusText");
-    const typingIndicatorText = document.getElementById("typingIndicatorText");
+    const botStatusText = document.getElementById('botStatusText');
+    const typingIndicatorText = document.getElementById('typingIndicatorText');
 
     if (botStatusText && botStatusText.textContent !== text) {
-      botStatusText.classList.add("fade-out");
+      botStatusText.classList.add('fade-out');
       setTimeout(() => {
         botStatusText.textContent = text;
-        botStatusText.classList.remove("fade-out");
+        botStatusText.classList.remove('fade-out');
       }, 300);
     }
 
@@ -382,15 +395,15 @@ BATASAN PERAN
 
   function showTypingIndicator() {
     if (!chatMessages) return;
-    const chatHeader = document.querySelector(".chat-header");
+    const chatHeader = document.querySelector('.chat-header');
     if (chatHeader) {
       injectMeshBlobs(chatHeader);
       void chatHeader.offsetHeight;
-      chatHeader.classList.add("thinking");
+      chatHeader.classList.add('thinking');
     }
-    const wrapper = document.createElement("div");
-    wrapper.className = "message-wrapper received";
-    wrapper.id = "typingIndicator";
+    const wrapper = document.createElement('div');
+    wrapper.className = 'message-wrapper received';
+    wrapper.id = 'typingIndicator';
 
     wrapper.innerHTML = `
             <div class="message">
@@ -410,40 +423,42 @@ BATASAN PERAN
   }
 
   function injectMeshBlobs(container) {
-    if (container.querySelector(".mesh-glow")) return;
-    const glow = document.createElement("div");
-    glow.className = "mesh-glow";
+    if (container.querySelector('.mesh-glow')) return;
+    const glow = document.createElement('div');
+    glow.className = 'mesh-glow';
     container.appendChild(glow);
     for (let i = 1; i <= 6; i++) {
-      const blob = document.createElement("div");
-      blob.className = "mesh-blob mesh-blob--" + i;
+      const blob = document.createElement('div');
+      blob.className = 'mesh-blob mesh-blob--' + i;
       container.appendChild(blob);
     }
   }
 
   function removeMeshBlobs(container) {
-    container.querySelectorAll(".mesh-blob, .mesh-glow").forEach((el) => el.remove());
+    container
+      .querySelectorAll('.mesh-blob, .mesh-glow')
+      .forEach((el) => el.remove());
   }
 
   function hideTypingIndicator() {
-    const indicator = document.getElementById("typingIndicator");
+    const indicator = document.getElementById('typingIndicator');
     if (indicator) {
       indicator.remove();
     }
-    const chatHeader = document.querySelector(".chat-header");
+    const chatHeader = document.querySelector('.chat-header');
     if (chatHeader) {
-      chatHeader.classList.remove("thinking");
+      chatHeader.classList.remove('thinking');
       setTimeout(function () {
         removeMeshBlobs(chatHeader);
       }, 1100);
     }
-    setBotStatus("siap mendengarkan");
+    setBotStatus('siap mendengarkan');
   }
 
   async function generateResponse(userMessage) {
     if (!GEMINI_API_KEY) {
       hideTypingIndicator();
-      addMessage("Halo! API Key belum diset.", false, false);
+      addMessage('Halo! API Key belum diset.', false, false);
       return;
     }
 
@@ -456,8 +471,8 @@ BATASAN PERAN
       const response = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${GEMINI_API_KEY}`,
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         },
       );
@@ -470,10 +485,10 @@ BATASAN PERAN
       hideTypingIndicator();
       addMessage(aiResponseText, false, true, true);
     } catch (error) {
-      console.error("Gemini API Error:", error);
+      console.error('Gemini API Error:', error);
       hideTypingIndicator();
       addMessage(
-        "Maaf ya, koneksi terganggu. Boleh coba lagi?",
+        'Maaf ya, koneksi terganggu. Boleh coba lagi?',
         false,
         false,
         true,
@@ -482,12 +497,12 @@ BATASAN PERAN
   }
 
   if (addBtn && fileUploadInput) {
-    addBtn.addEventListener("click", () => fileUploadInput.click());
-    fileUploadInput.addEventListener("change", (e) => {
+    addBtn.addEventListener('click', () => fileUploadInput.click());
+    fileUploadInput.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file) return;
-      if (!file.type.startsWith("image/")) {
-        alert("Hanya format gambar yang didukung untuk saat ini.");
+      if (!file.type.startsWith('image/')) {
+        alert('Hanya format gambar yang didukung untuk saat ini.');
         return;
       }
 
@@ -544,22 +559,22 @@ BATASAN PERAN
   }
 
   if (removeImageBtn) {
-    removeImageBtn.addEventListener("click", () => {
+    removeImageBtn.addEventListener('click', () => {
       currentImageBase64 = null;
       currentImageMime = null;
       currentImageFile = null;
-      fileUploadInput.value = "";
+      fileUploadInput.value = '';
       if (imagePreviewContainer) {
-        imagePreviewContainer.style.display = "none";
+        imagePreviewContainer.style.display = 'none';
       }
     });
   }
 
   async function handleSend() {
-    const activeUserStr = localStorage.getItem("tenangin_active_user");
+    const activeUserStr = localStorage.getItem('tenangin_active_user');
     if (!activeUserStr) {
-      const authModal = document.getElementById("authModal");
-      if (authModal) authModal.classList.add("active");
+      const authModal = document.getElementById('authModal');
+      if (authModal) authModal.classList.add('active');
       return;
     }
 
@@ -571,30 +586,30 @@ BATASAN PERAN
     const sentMime = currentImageMime;
 
     if (currentImageFile) {
-      const koleksiData = localStorage.getItem("tenangin_koleksi");
+      const koleksiData = localStorage.getItem('tenangin_koleksi');
       const koleksi = koleksiData ? JSON.parse(koleksiData) : [];
       const now = new Date();
       const months = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
       ];
       const dateStr = `${now.getDate()} ${months[now.getMonth()]}`;
 
       koleksi.unshift({
-        id: "koleksi_" + Date.now(),
+        id: 'koleksi_' + Date.now(),
         name: currentImageFile.name,
-        type: "Gambar",
-        size: (currentImageFile.size / 1024).toFixed(2) + " KB",
+        type: 'Gambar',
+        size: (currentImageFile.size / 1024).toFixed(2) + ' KB',
         date: dateStr,
         data: currentImageFile.data,
       });
@@ -615,7 +630,7 @@ BATASAN PERAN
     }
 
     addMessage(text, true, true, false, null, sentBase64, sentMime);
-    messageInput.value = "";
+    messageInput.value = '';
 
     if (suggestionChipsContainer) {
       suggestionChipsContainer.style.display = "none";
@@ -624,43 +639,43 @@ BATASAN PERAN
     if (removeImageBtn) removeImageBtn.click();
 
     showTypingIndicator();
-    setBotStatus("meresapi ceritamu...");
+    setBotStatus('meresapi ceritamu...');
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    setBotStatus("mencari tanggapan terbaik...");
+    setBotStatus('mencari tanggapan terbaik...');
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    setBotStatus("sedang mengetik...");
+    setBotStatus('sedang mengetik...');
     generateResponse(text);
   }
 
   // Auth Modal Close Logic
-  const authModal = document.getElementById("authModal");
-  const authModalBackdrop = document.getElementById("authModalBackdrop");
+  const authModal = document.getElementById('authModal');
+  const authModalBackdrop = document.getElementById('authModalBackdrop');
 
   if (authModalBackdrop) {
-    authModalBackdrop.addEventListener("click", () => {
-      if (authModal) authModal.classList.remove("active");
+    authModalBackdrop.addEventListener('click', () => {
+      if (authModal) authModal.classList.remove('active');
     });
   }
 
-  document.addEventListener("keydown", (e) => {
+  document.addEventListener('keydown', (e) => {
     if (
-      e.key === "Escape" &&
+      e.key === 'Escape' &&
       authModal &&
-      authModal.classList.contains("active")
+      authModal.classList.contains('active')
     ) {
-      authModal.classList.remove("active");
+      authModal.classList.remove('active');
     }
   });
 
   if (sendBtn) {
-    sendBtn.addEventListener("click", handleSend);
+    sendBtn.addEventListener('click', handleSend);
   }
 
   if (messageInput) {
-    messageInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
+    messageInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
         handleSend();
       }
     });
@@ -670,20 +685,20 @@ BATASAN PERAN
   setTimeout(() => {
     if (chatMessages && !currentConversationId) {
       const hasMessages =
-        chatMessages.querySelectorAll(".message-wrapper").length > 0;
+        chatMessages.querySelectorAll('.message-wrapper').length > 0;
       if (!hasMessages) {
         const greetings = [
-          "Halo! Aku Tenangin AI, teman ngobrolmu hari ini. Ada yang membebani pikiranmu?",
-          "Hai, selamat datang! Gimana kabarmu hari ini? Aku siap mendengarkan cerita apapun darimu.",
-          "Halo! Aku di sini untuk mendengarkan. Ada sesuatu yang ingin kamu ceritakan atau luapkan?",
-          "Hai! Kadang bercerita bisa membuat perasaan jadi lebih lega. Mau mulai dari mana?",
-          "Halo, aku Tenangin AI. Aku siap menjadi pendengar yang baik untukmu hari ini. Ada yang bisa aku bantu?",
+          'Halo! Aku Tenangin AI, teman ngobrolmu hari ini. Ada yang membebani pikiranmu?',
+          'Hai, selamat datang! Gimana kabarmu hari ini? Aku siap mendengarkan cerita apapun darimu.',
+          'Halo! Aku di sini untuk mendengarkan. Ada sesuatu yang ingin kamu ceritakan atau luapkan?',
+          'Hai! Kadang bercerita bisa membuat perasaan jadi lebih lega. Mau mulai dari mana?',
+          'Halo, aku Tenangin AI. Aku siap menjadi pendengar yang baik untukmu hari ini. Ada yang bisa aku bantu?',
         ];
         const randomGreeting =
           greetings[Math.floor(Math.random() * greetings.length)];
 
         showTypingIndicator();
-        setBotStatus("sedang mengetik...");
+        setBotStatus('sedang mengetik...');
         setTimeout(() => {
           hideTypingIndicator();
           addMessage(randomGreeting, false, true, true);
@@ -693,54 +708,54 @@ BATASAN PERAN
   }, 500);
 
   // Sidebar collapse functionality (Desktop vs Mobile)
-  const collapseBtn = document.getElementById("collapseBtn");
-  const sidebar = document.getElementById("sidebar");
+  const collapseBtn = document.getElementById('collapseBtn');
+  const sidebar = document.getElementById('sidebar');
 
   if (collapseBtn && sidebar) {
-    collapseBtn.addEventListener("click", () => {
+    collapseBtn.addEventListener('click', () => {
       if (window.innerWidth <= 1024) {
         // Close the drawer (tablet/mobile)
-        document.body.classList.remove("sidebar-open");
+        document.body.classList.remove('sidebar-open');
       } else {
         // Desktop: Toggle mini-sidebar mode
-        document.body.classList.toggle("sidebar-collapsed");
+        document.body.classList.toggle('sidebar-collapsed');
       }
     });
   }
 
   // Logo click toggles sidebar like collapse button
-  const logo = document.querySelector(".logo");
+  const logo = document.querySelector('.logo');
   if (logo) {
-    logo.addEventListener("click", () => {
+    logo.addEventListener('click', () => {
       if (window.innerWidth <= 1024) {
-        document.body.classList.remove("sidebar-open");
+        document.body.classList.remove('sidebar-open');
       } else {
-        document.body.classList.toggle("sidebar-collapsed");
+        document.body.classList.toggle('sidebar-collapsed');
       }
     });
   }
 
   // History Dropdown Toggle
-  const historyDropdown = document.getElementById("historyDropdown");
-  const historyList = document.getElementById("historyList");
-  const historyCaret = document.getElementById("historyCaret");
+  const historyDropdown = document.getElementById('historyDropdown');
+  const historyList = document.getElementById('historyList');
+  const historyCaret = document.getElementById('historyCaret');
 
   if (historyDropdown && historyList && historyCaret) {
-    historyDropdown.addEventListener("click", () => {
-      historyList.classList.toggle("collapsed");
-      historyCaret.style.transform = historyList.classList.contains("collapsed")
-        ? "rotate(0deg)"
-        : "rotate(90deg)";
-      historyCaret.style.transition = "transform 0.3s ease";
+    historyDropdown.addEventListener('click', () => {
+      historyList.classList.toggle('collapsed');
+      historyCaret.style.transform = historyList.classList.contains('collapsed')
+        ? 'rotate(0deg)'
+        : 'rotate(90deg)';
+      historyCaret.style.transition = 'transform 0.3s ease';
     });
   }
 
   // Animated Placeholder Logic
   const placeholderTemplates = [
-    "Tulis perasaanmu di sini...",
-    "Ceritakan apa yang membuatmu gelisah...",
-    "Ada hal yang membebani pikiranmu?",
-    "Aku siap mendengarkan ceritamu...",
+    'Tulis perasaanmu di sini...',
+    'Ceritakan apa yang membuatmu gelisah...',
+    'Ada hal yang membebani pikiranmu?',
+    'Aku siap mendengarkan ceritamu...',
   ];
 
   let placeholderIdx = 0;
@@ -755,7 +770,7 @@ BATASAN PERAN
       document.activeElement === messageInput ||
       messageInput.value.length > 0
     ) {
-      messageInput.setAttribute("placeholder", "Tulis pesan...");
+      messageInput.setAttribute('placeholder', 'Tulis pesan...');
       setTimeout(typePlaceholder, 2000);
       return;
     }
@@ -770,7 +785,7 @@ BATASAN PERAN
       typingDelay = 60;
     }
 
-    messageInput.setAttribute("placeholder", currentText.substring(0, charIdx));
+    messageInput.setAttribute('placeholder', currentText.substring(0, charIdx));
 
     if (!isDeletingPlaceholder && charIdx === currentText.length) {
       typingDelay = 3000;
@@ -790,20 +805,20 @@ BATASAN PERAN
 
   // Suggestion Chips Logic
   const chipTemplates = [
-    "Aku merasa cemas",
-    "Aku sedang stres",
-    "Aku hanya ingin ngobrol",
-    "Aku ingin bercerita",
-    "Pikiranku sedang kacau",
+    'Aku merasa cemas',
+    'Aku sedang stres',
+    'Aku hanya ingin ngobrol',
+    'Aku ingin bercerita',
+    'Pikiranku sedang kacau',
   ];
 
-  const suggestionChips = document.querySelectorAll(".chip");
+  const suggestionChips = document.querySelectorAll('.chip');
   if (suggestionChips.length > 0 && messageInput && sendBtn) {
     suggestionChips.forEach((chip, index) => {
       if (chipTemplates[index]) {
         chip.textContent = chipTemplates[index];
       }
-      chip.addEventListener("click", () => {
+      chip.addEventListener('click', () => {
         messageInput.value = chip.textContent.trim();
         handleSend();
       });
@@ -812,11 +827,11 @@ BATASAN PERAN
 });
 
 // --- MOCK PENCARIAN PAGE LOGIC REPLACED WITH LOCALSTORAGE ---
-function renderSearchHistory(searchTerm = "") {
-  const searchHistoryList = document.getElementById("searchHistoryListMock");
+function renderSearchHistory(searchTerm = '') {
+  const searchHistoryList = document.getElementById('searchHistoryListMock');
   if (!searchHistoryList) return;
 
-  searchHistoryList.innerHTML = "";
+  searchHistoryList.innerHTML = '';
   const convs = getConversations();
 
   const filtered = convs.filter((c) =>
@@ -830,10 +845,10 @@ function renderSearchHistory(searchTerm = "") {
   }
 
   filtered.forEach((conv) => {
-    const item = document.createElement("div");
-    item.className = "history-item-full";
+    const item = document.createElement('div');
+    item.className = 'history-item-full';
     item.dataset.id = conv.id;
-    item.style.cursor = "pointer";
+    item.style.cursor = 'pointer';
 
     item.innerHTML = `
             <span class="history-title">${conv.title}</span>
@@ -846,26 +861,26 @@ function renderSearchHistory(searchTerm = "") {
   });
 }
 
-const mainSearchInputMock = document.getElementById("mainSearchInput");
-const modalSearchInput = document.getElementById("modalSearchInput");
+const mainSearchInputMock = document.getElementById('mainSearchInput');
+const modalSearchInput = document.getElementById('modalSearchInput');
 
-if (document.getElementById("searchHistoryListMock")) {
+if (document.getElementById('searchHistoryListMock')) {
   renderSearchHistory();
   const handleSearchInput = (e) => {
     renderSearchHistory(e.target.value.trim());
   };
   if (mainSearchInputMock) {
-    mainSearchInputMock.addEventListener("input", handleSearchInput);
+    mainSearchInputMock.addEventListener('input', handleSearchInput);
   }
   if (modalSearchInput) {
-    modalSearchInput.addEventListener("input", handleSearchInput);
+    modalSearchInput.addEventListener('input', handleSearchInput);
   }
 }
 
 // --- GLOBAL HISTORY CLICK LOGIC ---
-document.addEventListener("click", (e) => {
+document.addEventListener('click', (e) => {
   // Handle Delete
-  const deleteBtn = e.target.closest(".delete-chat-btn");
+  const deleteBtn = e.target.closest('.delete-chat-btn');
   if (deleteBtn) {
     e.stopPropagation();
     const chatId = deleteBtn.dataset.id;
@@ -875,25 +890,25 @@ document.addEventListener("click", (e) => {
 
     // If the current chat is being deleted, redirect to new chat
     if (getActiveChatId() === chatId) {
-      window.location.href = "index.html";
+      window.location.href = 'index.html';
       return;
     }
 
     renderSearchHistory(
-      mainSearchInputMock ? mainSearchInputMock.value.trim() : "",
+      mainSearchInputMock ? mainSearchInputMock.value.trim() : '',
     );
     renderSidebarHistory();
     return;
   }
 
   // Handle Navigate
-  const historyItem = e.target.closest(".history-item, .history-item-full");
+  const historyItem = e.target.closest('.history-item, .history-item-full');
   if (historyItem) {
     const chatId = historyItem.dataset.id;
     if (chatId) {
-      window.location.href = "index.html?chatId=" + chatId;
+      window.location.href = 'index.html?chatId=' + chatId;
     } else {
-      window.location.href = "index.html";
+      window.location.href = 'index.html';
     }
   }
 });
@@ -901,139 +916,139 @@ document.addEventListener("click", (e) => {
 // Filter Pills & Mobile Load More Logic for Psikolog Page
 function updateGlobalVisibility() {
   const isMobile = window.innerWidth <= 768;
-  const isShowAll = document.body.classList.contains("show-all-cards");
+  const isShowAll = document.body.classList.contains('show-all-cards');
 
   let matchedCardsCount = 0;
-  const grids = document.querySelectorAll(".psikolog-grid");
+  const grids = document.querySelectorAll('.psikolog-grid');
   grids.forEach((grid) => {
-    const cards = Array.from(grid.querySelectorAll(".psikolog-card"));
+    const cards = Array.from(grid.querySelectorAll('.psikolog-card'));
     let visibleInGrid = 0;
     cards.forEach((card) => {
-      const shouldShow = card.dataset.shouldShow !== "false";
+      const shouldShow = card.dataset.shouldShow !== 'false';
       if (shouldShow) {
         matchedCardsCount++;
         if (isMobile && !isShowAll && matchedCardsCount > 3) {
-          card.style.display = "none";
+          card.style.display = 'none';
         } else {
-          card.style.display = "flex";
+          card.style.display = 'flex';
           visibleInGrid++;
         }
       } else {
-        card.style.display = "none";
+        card.style.display = 'none';
       }
     });
 
     const prevHeader = grid.previousElementSibling;
     if (visibleInGrid === 0) {
-      grid.style.display = "none";
-      if (prevHeader && prevHeader.tagName === "H2")
-        prevHeader.style.display = "none";
+      grid.style.display = 'none';
+      if (prevHeader && prevHeader.tagName === 'H2')
+        prevHeader.style.display = 'none';
     } else {
-      grid.style.display = "";
-      if (prevHeader && prevHeader.tagName === "H2")
-        prevHeader.style.display = "";
+      grid.style.display = '';
+      if (prevHeader && prevHeader.tagName === 'H2')
+        prevHeader.style.display = '';
     }
   });
 
-  let globalBtn = document.getElementById("globalLoadMoreBtn");
+  let globalBtn = document.getElementById('globalLoadMoreBtn');
   if (!globalBtn) {
-    globalBtn = document.createElement("button");
-    globalBtn.id = "globalLoadMoreBtn";
-    globalBtn.className = "load-more-btn";
-    globalBtn.textContent = "Lihat Lebih Banyak";
-    const section = document.querySelector(".psikolog-section");
+    globalBtn = document.createElement('button');
+    globalBtn.id = 'globalLoadMoreBtn';
+    globalBtn.className = 'load-more-btn';
+    globalBtn.textContent = 'Lihat Lebih Banyak';
+    const section = document.querySelector('.psikolog-section');
     if (section) section.appendChild(globalBtn);
 
-    globalBtn.addEventListener("click", () => {
-      document.body.classList.add("show-all-cards");
+    globalBtn.addEventListener('click', () => {
+      document.body.classList.add('show-all-cards');
       updateGlobalVisibility();
     });
   }
 
   if (isMobile && !isShowAll && matchedCardsCount > 3) {
-    globalBtn.style.display = "block";
+    globalBtn.style.display = 'block';
   } else {
-    globalBtn.style.display = "none";
+    globalBtn.style.display = 'none';
   }
 
   document
-    .querySelectorAll(".load-more-btn:not(#globalLoadMoreBtn)")
+    .querySelectorAll('.load-more-btn:not(#globalLoadMoreBtn)')
     .forEach((b) => b.remove());
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const grids = document.querySelectorAll(".psikolog-grid");
+document.addEventListener('DOMContentLoaded', () => {
+  const grids = document.querySelectorAll('.psikolog-grid');
   grids.forEach((grid) => {
-    grid.querySelectorAll(".psikolog-card").forEach((card) => {
-      card.dataset.shouldShow = "true";
+    grid.querySelectorAll('.psikolog-card').forEach((card) => {
+      card.dataset.shouldShow = 'true';
     });
   });
   if (grids.length > 0) {
     updateGlobalVisibility();
   }
 
-  window.addEventListener("resize", () => {
+  window.addEventListener('resize', () => {
     if (grids.length > 0) {
       updateGlobalVisibility();
     }
   });
 
   const filterPills = document.querySelectorAll(
-    ".filter-bar .pill:not(.primary)",
+    '.filter-bar .pill:not(.primary)',
   );
   if (filterPills.length > 0) {
     filterPills.forEach((pill) => {
-      pill.addEventListener("click", () => {
-        filterPills.forEach((p) => p.classList.remove("active"));
-        pill.classList.add("active");
+      pill.addEventListener('click', () => {
+        filterPills.forEach((p) => p.classList.remove('active'));
+        pill.classList.add('active');
 
         const filterText = pill.textContent.trim().toLowerCase();
 
         grids.forEach((grid) => {
-          const cards = grid.querySelectorAll(".psikolog-card");
+          const cards = grid.querySelectorAll('.psikolog-card');
           cards.forEach((card) => {
             const title =
               card
-                .querySelector(".card-title span")
-                ?.textContent.toLowerCase() || "";
-            const tags = Array.from(card.querySelectorAll(".tag")).map((t) =>
+                .querySelector('.card-title span')
+                ?.textContent.toLowerCase() || '';
+            const tags = Array.from(card.querySelectorAll('.tag')).map((t) =>
               t.textContent.toLowerCase(),
             );
-            const isOnline = card.querySelector(".availability.online");
+            const isOnline = card.querySelector('.availability.online');
 
             let shouldShow = false;
 
-            if (filterText === "tersedia sekarang") {
-              shouldShow = card.querySelector(".status-dot.green") !== null;
-            } else if (filterText === "online" && isOnline) {
+            if (filterText === 'tersedia sekarang') {
+              shouldShow = card.querySelector('.status-dot.green') !== null;
+            } else if (filterText === 'online' && isOnline) {
               shouldShow = true;
             } else if (
-              filterText === "psikolog" &&
-              title.includes("psikolog")
+              filterText === 'psikolog' &&
+              title.includes('psikolog')
             ) {
               shouldShow = true;
             } else if (
-              filterText === "konselor" &&
-              title.includes("konselor")
+              filterText === 'konselor' &&
+              title.includes('konselor')
             ) {
               shouldShow = true;
             } else if (
-              filterText === "psikiater" &&
-              tags.includes("psikiater")
+              filterText === 'psikiater' &&
+              tags.includes('psikiater')
             ) {
               shouldShow = true;
-            } else if (filterText === "trauma" && tags.includes("trauma")) {
+            } else if (filterText === 'trauma' && tags.includes('trauma')) {
               shouldShow = true;
             } else {
               if (title.includes(filterText) || tags.includes(filterText)) {
                 shouldShow = true;
               }
             }
-            card.dataset.shouldShow = shouldShow ? "true" : "false";
+            card.dataset.shouldShow = shouldShow ? 'true' : 'false';
           });
         });
 
-        document.body.classList.remove("show-all-cards");
+        document.body.classList.remove('show-all-cards');
         updateGlobalVisibility();
       });
     });
@@ -1041,56 +1056,56 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // --- MOBILE SIDEBAR TOGGLE LOGIC ---
-const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-const mobileBackdrop = document.getElementById("mobileBackdrop");
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileBackdrop = document.getElementById('mobileBackdrop');
 
 if (mobileMenuBtn) {
-  mobileMenuBtn.addEventListener("click", () => {
-    document.body.classList.add("sidebar-open");
+  mobileMenuBtn.addEventListener('click', () => {
+    document.body.classList.add('sidebar-open');
   });
 }
 
 if (mobileBackdrop) {
-  mobileBackdrop.addEventListener("click", () => {
-    document.body.classList.remove("sidebar-open");
+  mobileBackdrop.addEventListener('click', () => {
+    document.body.classList.remove('sidebar-open');
   });
 }
 
 // --- SEARCH MODAL LOGIC ---
-const searchModal = document.getElementById("searchModal");
-const openSearchModalBtn = document.getElementById("openSearchModalBtn");
-const closeSearchModalBtn = document.getElementById("closeSearchModalBtn");
-const searchModalBackdrop = document.getElementById("searchModalBackdrop");
-const modalSearchInputEl = document.getElementById("modalSearchInput");
+const searchModal = document.getElementById('searchModal');
+const openSearchModalBtn = document.getElementById('openSearchModalBtn');
+const closeSearchModalBtn = document.getElementById('closeSearchModalBtn');
+const searchModalBackdrop = document.getElementById('searchModalBackdrop');
+const modalSearchInputEl = document.getElementById('modalSearchInput');
 
 function openSearchModal() {
   if (searchModal) {
     if (window.innerWidth <= 1024) {
-      document.body.classList.remove("sidebar-open");
+      document.body.classList.remove('sidebar-open');
     }
-    searchModal.classList.add("active");
+    searchModal.classList.add('active');
     if (modalSearchInputEl) setTimeout(() => modalSearchInputEl.focus(), 100);
   }
 }
 
 function closeSearchModal() {
   if (searchModal) {
-    searchModal.classList.remove("active");
+    searchModal.classList.remove('active');
   }
 }
 
 if (openSearchModalBtn)
-  openSearchModalBtn.addEventListener("click", openSearchModal);
+  openSearchModalBtn.addEventListener('click', openSearchModal);
 if (closeSearchModalBtn)
-  closeSearchModalBtn.addEventListener("click", closeSearchModal);
+  closeSearchModalBtn.addEventListener('click', closeSearchModal);
 if (searchModalBackdrop)
-  searchModalBackdrop.addEventListener("click", closeSearchModal);
+  searchModalBackdrop.addEventListener('click', closeSearchModal);
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener('keydown', (e) => {
   if (
-    e.key === "Escape" &&
+    e.key === 'Escape' &&
     searchModal &&
-    searchModal.classList.contains("active")
+    searchModal.classList.contains('active')
   ) {
     closeSearchModal();
   }
