@@ -29,19 +29,12 @@ Proyek ini dikerjakan secara kolaboratif oleh 3 orang anggota tim:
 tenangin/
 │
 ├── index.html                # Halaman Chatbot Utama
+├── style.css                 # File Utama CSS (Variabel, Tata Letak & Styling)
+├── script.js                 # Logika interaktif Chatbot
 ├── README.md                 # Dokumentasi proyek & Panduan Git (File Ini)
 │
 ├── assets/                   # Aset global
-│   ├── css/
-│   │   ├── variables.css     # CSS Variables (Warna, tipografi, transisi)
-│   │   ├── reset.css         # Normalisasi style browser
-│   │   └── global.css        # Tata letak dasar (Grid, Sidebar & Main Content)
-│   ├── js/
-│   │   └── utils.js          # Helper JavaScript umum (localStorage, modal helper, dll)
 │   └── images/               # Gambar, logo, avatar
-│
-├── components/               # Komponen bersama (Web Components)
-│   └── app-sidebar.js        # Komponen Sidebar Kustom
 │
 └── features/                 # Fitur-fitur modular proyek
     ├── auth/                 # Folder Login & Register (Developer 2)
@@ -54,7 +47,7 @@ tenangin/
 
 ## 🎨 Panduan Desain & Warna (Design System)
 
-Semua halaman **wajib** menggunakan CSS variables yang telah didefinisikan di `assets/css/variables.css`. Jangan menulis warna manual (seperti `#ffffff` atau `red`) langsung di CSS fitur Anda.
+Semua styling berada di `style.css`. Jangan menulis warna manual (seperti `#ffffff` atau `red`) langsung di CSS, tetapi gunakan variabel yang telah disediakan.
 
 ### Contoh CSS yang Benar:
 ```css
