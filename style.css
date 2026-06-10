@@ -69,7 +69,7 @@ body {
 
 .bg-gradient {
     position: absolute;
-    bottom: 80px;
+    bottom: 17vw;
     left: 50%;
     transform: translate(-50%, 50%);
     width: 100%;
@@ -87,7 +87,7 @@ body {
 
 .bg-star {
     position: absolute;
-    bottom: 30%;
+    bottom: 37%;
     left: 50%;
     transform: translate(-50%, 50%);
     width: 100%;
@@ -98,7 +98,7 @@ body {
 }
 
 .bg-star svg {
-    width: 1000px;
+    width: 800px;
     height: auto;
     max-width: none;
 }
