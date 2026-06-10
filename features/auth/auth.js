@@ -327,27 +327,22 @@ document.addEventListener("DOMContentLoaded", () => {
             if (enteredCode === savedCode && savedCode !== null) {
                 errorMsg.classList.add('hidden');
                 
-                // set user yang berhasil reset password ini sebagai user aktif
                 let users = JSON.parse(localStorage.getItem('tenangin_users')) || [];
                 const user = users.find(u => u.email === savedEmail);
                 if (user) {
                     localStorage.setItem('tenangin_active_user', JSON.stringify(user));
                 }
 
-                // hapus data dari storage
                 localStorage.removeItem('tenangin_reset_code');
                 localStorage.removeItem('tenangin_reset_email');
 
-                // pindah ke step 3
                 document.getElementById('step-2').classList.add('hidden');
                 document.getElementById('step-3').classList.remove('hidden');
 
-                // mengalihkan otomatis ke halaman chatbot setelah jeda 2 detik
                 setTimeout(() => {
                     window.location.href = "../../index.html";
                 }, 1500);
             } else {
-                // tampilkan pesan error
                 errorMsg.classList.remove('hidden');
                 otpInputs.forEach(input => {
                     input.classList.add('border-[#FF5656]');
