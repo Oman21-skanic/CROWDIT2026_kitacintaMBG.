@@ -1031,11 +1031,23 @@ body.sidebar-collapsed .user-profile-footer {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding:60px 150px;
+    padding: 60px 80px; /* Default Desktop */
     display: flex;
     flex-direction: column;
     gap: 32px;
     width: 100%;
+}
+
+@media (min-width: 1441px) {
+    .psikolog-area {
+        padding: 60px 150px; /* Desktop XL */
+    }
+}
+
+@media (max-width: 1200px) {
+    .psikolog-area {
+        padding: 40px 48px; /* Desktop Small / Tablet Landscape */
+    }
 }
 
 .psikolog-header h1 {
@@ -2270,8 +2282,8 @@ body.pencarian-page .pencarian-content {
 /* Further Tablet/Mobile Spacing Reductions */
 @media (max-width: 1024px) {
     .psikolog-area {
-        padding: 16px 24px !important;
-        gap: 20px !important;
+        padding: 32px 32px !important; /* Tablet */
+        gap: 24px !important;
     }
 
     .mobile-header {
@@ -2380,7 +2392,7 @@ body.sidebar-open .mobile-menu-btn {
     }
 
     .psikolog-area {
-        padding: 8px 24px 16px 24px !important;
+        padding: 16px 20px 24px 20px !important; /* Mobile */
         gap: 16px !important;
     }
 

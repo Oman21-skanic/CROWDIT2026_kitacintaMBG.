@@ -13,11 +13,11 @@ Proyek ini dikerjakan secara kolaboratif oleh 3 orang anggota tim:
 1. **Developer 1 (Lead UI & Chatbot)**
    - Membuat CSS Global, variabel desain, dan komponen Sidebar utama.
    - Membuat Halaman Chatbot Utama (`index.html`).
-   - Membuat Halaman Koleksi & Audio Terapi (`features/koleksi/`).
+   - Membuat Halaman Koleksi & Audio Terapi (`koleksi/`).
 2. **Developer 2 (Auth & Profil)**
-   - Membuat alur masuk/daftar (`features/auth/`).
-   - Membuat halaman Profil User (`features/profile/`).
-   - Membuat halaman pencarian psikolog (`features/psikolog/psikolog.html`) & detail profil psikolog (`features/psikolog/detail.html`).
+   - Membuat alur masuk/daftar (`auth/`).
+   - Membuat halaman Profil User (`profile/`).
+   - Membuat halaman pencarian psikolog (`psikolog/index.html`) & detail profil psikolog (`psikolog/detail.html`).
 3. **Developer 3 (Chat & Komunitas - Pengembangan Lanjutan)**
    - Mengembangkan integrasi lanjutan (opsional/tambahan seperti forum komunitas).
 
@@ -36,11 +36,11 @@ tenangin/
 ├── assets/                   # Aset global
 │   └── images/               # Gambar, logo, avatar
 │
-└── features/                 # Fitur-fitur modular proyek
-    ├── auth/                 # Folder Login & Register (Developer 2)
-    ├── profile/              # Folder Profil Pribadi User (Developer 2)
-    ├── psikolog/             # Folder Layanan & Detail Psikolog (Developer 2)
-    └── koleksi/              # Folder Audio Terapi & Koleksi (Developer 1)
+├── auth/                     # Fitur Login & Register (Developer 2)
+├── profile/                  # Fitur Profil Pribadi User (Developer 2)
+├── psikolog/                 # Fitur Layanan & Detail Psikolog (Developer 2)
+├── koleksi/                  # Fitur Audio Terapi & Koleksi (Developer 1)
+└── pencarian/                # Fitur Modul Pencarian
 ```
 
 ---
