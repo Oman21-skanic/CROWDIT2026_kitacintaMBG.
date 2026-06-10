@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3500);
     }
 
+    // Toggle mata untuk input password utama
     const togglePasswordBtn = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('password');
     const eyeClosedIcon = document.getElementById('eyeClosedIcon');
@@ -56,6 +57,27 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 if (eyeClosedIcon) eyeClosedIcon.classList.remove('hidden');
                 if (eyeOpenIcon) eyeOpenIcon.classList.add('hidden');
+            }
+        });
+    }
+
+    // Toggle mata untuk input konfirmasi password
+    const toggleConfirmPasswordBtn = document.getElementById('toggleConfirmPassword');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const confirmEyeClosedIcon = document.getElementById('confirmEyeClosedIcon');
+    const confirmEyeOpenIcon = document.getElementById('confirmEyeOpenIcon');
+
+    if (toggleConfirmPasswordBtn && confirmPasswordInput) {
+        toggleConfirmPasswordBtn.addEventListener('click', () => {
+            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordInput.setAttribute('type', type);
+            
+            if (type === 'text') {
+                if (confirmEyeClosedIcon) confirmEyeClosedIcon.classList.add('hidden');
+                if (confirmEyeOpenIcon) confirmEyeOpenIcon.classList.remove('hidden');
+            } else {
+                if (confirmEyeClosedIcon) confirmEyeClosedIcon.classList.remove('hidden');
+                if (confirmEyeOpenIcon) confirmEyeOpenIcon.classList.add('hidden');
             }
         });
     }
@@ -196,25 +218,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    const forgotForm = document.getElementById('forgot-password-form');
-    const verifyForm = document.getElementById('verify-code-form');
+    const forgotForm = document.getElementById('forgot-form');
+    const verifyForm = document.getElementById('otp-form');
     const otpInputs = document.querySelectorAll('.otp-input');
     
     // otomatis pindah kolom saat isi otp
-    otpInputs.forEach((input, index) => {
-        input.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^0-9]/g, ''); 
-            if (e.target.value && index < otpInputs.length - 1) {
-                otpInputs[index + 1].focus();
-            }
+    if (otpInputs.length > 0) {
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, ''); 
+                if (e.target.value && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+            
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
         });
-        
-        input.addEventListener('keydown', (e) => {
-            if (e.key === 'Backspace' && !e.target.value && index > 0) {
-                otpInputs[index - 1].focus();
-            }
-        });
-    });
+    }
 
     // fungsi kirim otp pakai emailjs
     const sendOTP = (emailTarget, buttonElement) => {
@@ -232,17 +256,19 @@ document.addEventListener("DOMContentLoaded", () => {
             otp_code: randomCode,
         })
         .then(() => {
-            // pindah ke step 2 jika berhasil
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.remove('hidden');
             
+            const displayEmail = document.getElementById('display-email');
+            if(displayEmail) displayEmail.innerText = emailTarget;
+
             setTimeout(() => {
                 if(otpInputs.length > 0) otpInputs[0].focus();
             }, 100);
         })
         .catch((err) => {
             let detailError = err.text || err.message || JSON.stringify(err);
-            alert("gagal mengirim email!\nerror: " + detailError);
+            alert("Gagal mengirim email!\nError: " + detailError);
             console.error("error emailjs:", err);
         })
         .finally(() => {
@@ -255,24 +281,22 @@ document.addEventListener("DOMContentLoaded", () => {
     if (forgotForm) {
         forgotForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const email = document.getElementById('forgot-email').value.trim();
-            const btnSubmit = document.getElementById('btn-kirim-code');
+            const email = document.getElementById('reset-email').value.trim();
+            const btnSubmit = forgotForm.querySelector('button[type="submit"]');
 
             if (!isValidEmail(email)) { 
-                toggleInputError('forgot-email', true, 'Format alamat email tidak sesuai...'); 
+                toggleInputError('reset-email', true, 'Format alamat email tidak sesuai...'); 
                 return; 
             }
 
-            // cek email di local storage
             let users = JSON.parse(localStorage.getItem('tenangin_users')) || [];
             const user = users.find(u => u.email === email);
             
             if (!user) {
-                toggleInputError('forgot-email', true, 'Email tidak terdaftar...');
+                toggleInputError('reset-email', true, 'Email tidak terdaftar...');
                 return; 
             }
 
-            // kirim otp jika valid
             sendOTP(email, btnSubmit);
         });
     }
@@ -300,30 +324,25 @@ document.addEventListener("DOMContentLoaded", () => {
             const savedEmail = localStorage.getItem('tenangin_reset_email');
             const errorMsg = document.getElementById('otp-error');
 
-            if (enteredCode === savedCode) {
+            if (enteredCode === savedCode && savedCode !== null) {
                 errorMsg.classList.add('hidden');
                 
-                // set user yang berhasil reset password ini sebagai user aktif
                 let users = JSON.parse(localStorage.getItem('tenangin_users')) || [];
                 const user = users.find(u => u.email === savedEmail);
                 if (user) {
                     localStorage.setItem('tenangin_active_user', JSON.stringify(user));
                 }
 
-                // hapus data dari storage
                 localStorage.removeItem('tenangin_reset_code');
                 localStorage.removeItem('tenangin_reset_email');
 
-                // pindah ke step 3
                 document.getElementById('step-2').classList.add('hidden');
                 document.getElementById('step-3').classList.remove('hidden');
 
-                // mengalihkan otomatis ke halaman chatbot setelah jeda 2 detik
                 setTimeout(() => {
                     window.location.href = "../../index.html";
-                }, 1000);
+                }, 1500);
             } else {
-                // tampilkan pesan error
                 errorMsg.classList.remove('hidden');
                 otpInputs.forEach(input => {
                     input.classList.add('border-[#FF5656]');
@@ -337,46 +356,44 @@ document.addEventListener("DOMContentLoaded", () => {
     // INTEGRASI GOOGLE LOGIN (Menyimpan Data via Local Storage)
     // ====================================================================
     
-    // Fungsi memproses data saat Google Auth berhasil
     const handleGoogleLoginSuccess = (userInfo) => {
         let users = JSON.parse(localStorage.getItem('tenangin_users')) || [];
         let user = users.find(u => u.email === userInfo.email);
         
-        // Jika belum ada di local storage (daftar baru dengan Google)
         if (!user) {
             user = { 
                 name: userInfo.name, 
                 email: userInfo.email, 
-                password: '', // Kosongkan karena daftar dari Google
-                isGoogleAuth: true // Penanda bahwa ini akun Google
+                password: '', 
+                isGoogleAuth: true 
             };
             users.push(user);
             localStorage.setItem('tenangin_users', JSON.stringify(users));
         }
         
-        // Simpan sebagai user aktif
         localStorage.setItem('tenangin_active_user', JSON.stringify(user));
-        
-        // Redirect ke dashboard
         window.location.href = "../../index.html";
     };
 
-    // Inisiasi Client Google menggunakan Token API terbaru
+    let tokenClient; 
+
     const initGoogleAuth = () => {
-        if (typeof google === 'undefined' || !google.accounts) return;
+        if (typeof google === 'undefined' || !google.accounts) {
+            setTimeout(initGoogleAuth, 100);
+            return;
+        }
         
         const googleBtns = document.querySelectorAll('.btn-google');
         if (googleBtns.length === 0) return;
 
-        /* PENTING: GANTI 'YOUR_CLIENT_ID' DENGAN CLIENT ID MILIKMU DARI GOOGLE CLOUD CONSOLE */
+        // Menggunakan Client ID asli yang baru saja kamu buat
         const GOOGLE_CLIENT_ID = '11895252258-u98sldkcra1ueshfr6puae7dcpem7aek.apps.googleusercontent.com'; 
 
-        const tokenClient = google.accounts.oauth2.initTokenClient({
+        tokenClient = google.accounts.oauth2.initTokenClient({
             client_id: GOOGLE_CLIENT_ID,
             scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
             callback: (tokenResponse) => {
                 if (tokenResponse && tokenResponse.access_token) {
-                    // Ambil detail profil user Google
                     fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
                         headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
                     })
@@ -385,21 +402,23 @@ document.addEventListener("DOMContentLoaded", () => {
                         handleGoogleLoginSuccess(userInfo);
                     })
                     .catch(err => {
-                        console.error('Gagal mengambil detail user Google:', err);
-                        alert('Maaf, terjadi kesalahan saat masuk menggunakan Google.');
+                        console.error('Gagal fetch data Google:', err);
+                        alert('Gagal mengambil data dari Google.');
                     });
                 }
             },
         });
 
-        // Tautkan pop-up Auth ke semua tombol "Lanjutkan Dengan Google"
         googleBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                tokenClient.requestAccessToken();
+                if(tokenClient) {
+                    tokenClient.requestAccessToken();
+                } else {
+                    alert("Sistem Google sedang memuat, silakan coba lagi sebentar.");
+                }
             });
         });
     };
 
-    // Jalankan integrasi Google sesudah jeda singkat agar script luar termuat
-    setTimeout(initGoogleAuth, 500);
+    initGoogleAuth();
 });
