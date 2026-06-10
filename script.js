@@ -140,7 +140,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // === GEMINI API SETUP ===
   const GEMINI_API_KEY =
-    'AQ.Ab8RN6LHvIEOWri0UsNZ4LrMfA_4nST4er_ZL2Lopa7h0EIYcQ';
+    "AQ.Ab8RN6LHvIEOWri0UsNZ4LrMfA_4nST4er_ZL2Lopa7h0EIYcQ";
+
+  let isGeneratingResponse = false;
+  let currentAbortController = null;
+
+  function resetSendButton() {
+    if (messageInput) {
+      messageInput.disabled = false;
+      messageInput.focus();
+    }
+    if (sendBtn) {
+      sendBtn.innerHTML = '<i class="ph-fill ph-paper-plane-right"></i>';
+      sendBtn.style.color = '';
+    }
+    isGeneratingResponse = false;
+    currentAbortController = null;
+  }
 
   // System instruction untuk persona Psikiater Pribadi
   const SYSTEM_PROMPT = `
@@ -474,6 +490,7 @@ BATASAN PERAN
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
+          signal: currentAbortController ? currentAbortController.signal : undefined
         },
       );
 
@@ -484,7 +501,12 @@ BATASAN PERAN
 
       hideTypingIndicator();
       addMessage(aiResponseText, false, true, true);
+      resetSendButton();
     } catch (error) {
+      if (error.name === 'AbortError') {
+        console.log('Request dibatalkan oleh user');
+        return;
+      }
       console.error('Gemini API Error:', error);
       hideTypingIndicator();
       addMessage(
@@ -493,6 +515,7 @@ BATASAN PERAN
         false,
         true,
       );
+      resetSendButton();
     }
   }
 
@@ -571,6 +594,15 @@ BATASAN PERAN
   }
 
   async function handleSend() {
+    if (isGeneratingResponse) {
+      if (currentAbortController) {
+        currentAbortController.abort();
+      }
+      hideTypingIndicator();
+      resetSendButton();
+      return;
+    }
+
     const activeUserStr = localStorage.getItem('tenangin_active_user');
     if (!activeUserStr) {
       const authModal = document.getElementById('authModal');
@@ -631,6 +663,15 @@ BATASAN PERAN
 
     addMessage(text, true, true, false, null, sentBase64, sentMime);
     messageInput.value = '';
+    messageInput.disabled = true;
+
+    if (sendBtn) {
+      sendBtn.innerHTML = '<i class="ph-fill ph-stop-circle"></i>';
+      sendBtn.style.color = '#e74c3c';
+    }
+
+    isGeneratingResponse = true;
+    currentAbortController = new AbortController();
 
     if (suggestionChipsContainer) {
       suggestionChipsContainer.style.display = "none";
@@ -641,9 +682,11 @@ BATASAN PERAN
     showTypingIndicator();
     setBotStatus('meresapi ceritamu...');
     await new Promise((resolve) => setTimeout(resolve, 1500));
+    if (!isGeneratingResponse) return;
 
     setBotStatus('mencari tanggapan terbaik...');
     await new Promise((resolve) => setTimeout(resolve, 1000));
+    if (!isGeneratingResponse) return;
 
     setBotStatus('sedang mengetik...');
     generateResponse(text);
