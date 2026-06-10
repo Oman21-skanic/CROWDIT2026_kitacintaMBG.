@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         profileBtns.forEach((btn) => {
           btn.style.cursor = 'pointer';
           btn.addEventListener('click', () => {
-            window.location.href = 'features/profile/profile.html';
+            window.location.href = 'profile/profile.html';
           });
         });
       } catch (e) {
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
       profileBtns.forEach((btn) => {
         btn.style.cursor = 'pointer';
         btn.addEventListener('click', () => {
-          window.location.href = 'features/auth/login.html';
+          window.location.href = 'auth/login.html';
         });
       });
     }

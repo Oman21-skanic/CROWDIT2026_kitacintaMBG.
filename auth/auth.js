@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
             users.push(newUser);
             localStorage.setItem('tenangin_users', JSON.stringify(users));
             localStorage.setItem('tenangin_active_user', JSON.stringify(newUser));
-            window.location.href = "../../index.html"; 
+            window.location.href = "../index.html"; 
         });
     }
 
@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             localStorage.setItem('tenangin_active_user', JSON.stringify(user));
-            window.location.href = "../../index.html"; 
+            window.location.href = "../index.html"; 
         });
     }
 
@@ -340,7 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById('step-3').classList.remove('hidden');
 
                 setTimeout(() => {
-                    window.location.href = "../../index.html";
+                    window.location.href = "../index.html";
                 }, 1500);
             } else {
                 errorMsg.classList.remove('hidden');
@@ -372,7 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         localStorage.setItem('tenangin_active_user', JSON.stringify(user));
-        window.location.href = "../../index.html";
+        window.location.href = "../index.html";
     };
 
     let tokenClient; 
