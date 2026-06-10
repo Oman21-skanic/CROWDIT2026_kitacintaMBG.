@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const input = document.getElementById(inputId);
         if (!input) return;
 
-        const wrapper = input.closest('.relative');
+        const wrapper = input.closest('.relative') || input.closest('.input-wrapper');
 
         if (showError) {
             if (wrapper) wrapper.classList.add('input-error-wrapper');
@@ -332,4 +332,74 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // ====================================================================
+    // INTEGRASI GOOGLE LOGIN (Menyimpan Data via Local Storage)
+    // ====================================================================
+    
+    // Fungsi memproses data saat Google Auth berhasil
+    const handleGoogleLoginSuccess = (userInfo) => {
+        let users = JSON.parse(localStorage.getItem('tenangin_users')) || [];
+        let user = users.find(u => u.email === userInfo.email);
+        
+        // Jika belum ada di local storage (daftar baru dengan Google)
+        if (!user) {
+            user = { 
+                name: userInfo.name, 
+                email: userInfo.email, 
+                password: '', // Kosongkan karena daftar dari Google
+                isGoogleAuth: true // Penanda bahwa ini akun Google
+            };
+            users.push(user);
+            localStorage.setItem('tenangin_users', JSON.stringify(users));
+        }
+        
+        // Simpan sebagai user aktif
+        localStorage.setItem('tenangin_active_user', JSON.stringify(user));
+        
+        // Redirect ke dashboard
+        window.location.href = "../../index.html";
+    };
+
+    // Inisiasi Client Google menggunakan Token API terbaru
+    const initGoogleAuth = () => {
+        if (typeof google === 'undefined' || !google.accounts) return;
+        
+        const googleBtns = document.querySelectorAll('.btn-google');
+        if (googleBtns.length === 0) return;
+
+        /* PENTING: GANTI 'YOUR_CLIENT_ID' DENGAN CLIENT ID MILIKMU DARI GOOGLE CLOUD CONSOLE */
+        const GOOGLE_CLIENT_ID = '11895252258-u98sldkcra1ueshfr6puae7dcpem7aek.apps.googleusercontent.com'; 
+
+        const tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: GOOGLE_CLIENT_ID,
+            scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
+            callback: (tokenResponse) => {
+                if (tokenResponse && tokenResponse.access_token) {
+                    // Ambil detail profil user Google
+                    fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                        headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
+                    })
+                    .then(res => res.json())
+                    .then(userInfo => {
+                        handleGoogleLoginSuccess(userInfo);
+                    })
+                    .catch(err => {
+                        console.error('Gagal mengambil detail user Google:', err);
+                        alert('Maaf, terjadi kesalahan saat masuk menggunakan Google.');
+                    });
+                }
+            },
+        });
+
+        // Tautkan pop-up Auth ke semua tombol "Lanjutkan Dengan Google"
+        googleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tokenClient.requestAccessToken();
+            });
+        });
+    };
+
+    // Jalankan integrasi Google sesudah jeda singkat agar script luar termuat
+    setTimeout(initGoogleAuth, 500);
 });
