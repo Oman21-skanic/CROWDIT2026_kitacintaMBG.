@@ -69,7 +69,7 @@ body {
 
 .bg-gradient {
     position: absolute;
-    bottom: 17vw;
+    bottom: 12vw;
     left: 50%;
     transform: translate(-50%, 50%);
     width: 100%;
@@ -87,7 +87,7 @@ body {
 
 .bg-star {
     position: absolute;
-    bottom: 37%;
+    bottom: 10vw;
     left: 50%;
     transform: translate(-50%, 50%);
     width: 100%;
@@ -2110,13 +2110,22 @@ body.pencarian-page .pencarian-content {
     align-items: center;
     justify-content: flex-start;
     overflow-x: auto;
-    scrollbar-width: none;
-    /* Hide scrollbar for Firefox */
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #C4C4C44C transparent;
 }
 
 .suggestion-chips::-webkit-scrollbar {
-    display: none;
-    /* Hide scrollbar for Chrome/Safari */
+    height: 4px;
+}
+
+.suggestion-chips::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.suggestion-chips::-webkit-scrollbar-thumb {
+    background: #C4C4C4;
+    border-radius: 99px;
 }
 
 .chip {
@@ -2838,25 +2847,8 @@ body.koleksi-page { background: linear-gradient(180deg, #FFFFFF 0%, #EAF0EF 100%
     flex-direction: column;
 }
 
-.koleksi-item {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid rgba(196, 196, 196, 0.3);
-    color: #0C3932;
-    font-weight: 400;
-    border-radius: 12px;
-    transition: background 0.2s;
-    cursor: pointer;
-}
-
 .koleksi-item .col-name span, .koleksi-item .col-time, .koleksi-item .col-size {
     font-size: 16px;
-}
-
-.koleksi-item:hover {
-    background: #A8CCC6;
-    border-bottom-color: transparent;
 }
 
 .item-thumb-placeholder {
@@ -3002,10 +2994,12 @@ body.koleksi-page { background: linear-gradient(180deg, #FFFFFF 0%, #EAF0EF 100%
     align-items: center;
     padding: 16px 24px;
     border-bottom: 1px solid rgba(196, 196, 196, 0.2);
+    border-radius: 12px;
     transition: background 0.3s ease;
 }
 .koleksi-item:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: #e4f0ee;
+    border-bottom-color: transparent;
 }
 
 .col-nama {
@@ -3022,6 +3016,22 @@ body.koleksi-page { background: linear-gradient(180deg, #FFFFFF 0%, #EAF0EF 100%
     display: flex;
     align-items: center;
     gap: 8px;
+}
+.sort-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    color: #346762;
+    font-size: inherit;
+}
+.sort-btn i {
+    transition: transform 0.3s ease;
+}
+.sort-btn i.flip {
+    transform: rotate(180deg);
 }
 .col-ukuran {
     flex: 1;
@@ -3043,26 +3053,7 @@ body.koleksi-page { background: linear-gradient(180deg, #FFFFFF 0%, #EAF0EF 100%
     position: relative;
     flex-shrink: 0;
 }
-.item-thumb::after {
-    content: '';
-    position: absolute;
-    width: 60%;
-    height: 4px;
-    background: #1274E5;
-    border-radius: 2px;
-    top: 12px;
-    right: 8px;
-}
-.item-thumb::before {
-    content: '';
-    position: absolute;
-    width: 40%;
-    height: 4px;
-    background: #1274E5;
-    border-radius: 2px;
-    bottom: 12px;
-    right: 8px;
-}
+
 
 @media (max-width: 768px) {
     .koleksi-area {

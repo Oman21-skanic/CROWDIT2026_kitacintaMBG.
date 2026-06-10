@@ -2,20 +2,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.querySelector('.koleksi-search input');
     const koleksiList = document.getElementById('koleksiList');
     const pills = document.querySelectorAll('.filter-bar .pill');
-    
-    function loadKoleksi() {
+    const sortBtn = document.getElementById('sortBtn');
+    const sortIcon = document.getElementById('sortIcon');
+    let sortOrder = 'desc';
+
+    function parseDate(dateStr) {
+        if (!dateStr) return new Date(0);
+        const parts = dateStr.split('/');
+        if (parts.length === 3) {
+            return new Date(parts[2], parts[1] - 1, parts[0]);
+        }
+        return new Date(dateStr);
+    }
+
+    function renderKoleksi(koleksi) {
         if (!koleksiList) return;
-        const data = localStorage.getItem('tenangin_koleksi');
-        const koleksi = data ? JSON.parse(data) : [];
-        
         koleksiList.innerHTML = '';
-        
+
         if (koleksi.length === 0) {
             koleksiList.innerHTML = '<div style="padding: 20px; text-align: center; color: #5E938B;">Belum ada koleksi yang disimpan.</div>';
             return;
         }
 
-        koleksi.forEach(item => {
+        const sorted = [...koleksi].sort((a, b) => {
+            const da = parseDate(a.date);
+            const db = parseDate(b.date);
+            return sortOrder === 'desc' ? db - da : da - db;
+        });
+
+        sorted.forEach(item => {
             const isImage = item.type.toLowerCase().includes('gambar');
             const imgSrc = isImage && item.data ? item.data : '';
             const thumbHtml = isImage && imgSrc ? 
@@ -46,17 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
         attachEvents();
     }
 
+    function loadKoleksi() {
+        const data = localStorage.getItem('tenangin_koleksi');
+        const koleksi = data ? JSON.parse(data) : [];
+        renderKoleksi(koleksi);
+    }
+
     function attachEvents() {
         const items = document.querySelectorAll('.koleksi-item');
-
-        // Klik Item (Simulasi Buka/Unduh File)
-        items.forEach(item => {
-            item.style.cursor = 'pointer';
-            item.addEventListener('click', () => {
-                const name = item.querySelector('.col-nama span').textContent;
-                alert(`File "${name}" sedang dibuka/diunduh...`);
-            });
-        });
 
         // Logika Dropdown Hapus
         const actionBtns = document.querySelectorAll('.col-action');
@@ -168,6 +180,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             });
+        });
+    }
+
+    // Sort toggle
+    if (sortBtn) {
+        sortBtn.addEventListener('click', () => {
+            sortOrder = sortOrder === 'desc' ? 'asc' : 'desc';
+            sortIcon.className = sortOrder === 'desc' ? 'ph ph-arrow-down' : 'ph ph-arrow-up';
+            loadKoleksi();
         });
     }
 
