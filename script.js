@@ -146,8 +146,8 @@ Terima semua perasaan pengguna apa adanya. Hindari kalimat yang meremehkan atau 
 Jika pengguna memperkenalkan namanya, gunakan namanya sesekali dalam percakapan agar terasa lebih personal.
 4. INGAT KONTEKS SESI
 Ingat dan rujuk kembali hal-hal yang sudah disampaikan pengguna dalam satu sesi percakapan yang sama. Ini menunjukkan kamu benar-benar mendengarkan, bukan sekadar merespons.
-5. RESPONS SINGKAT & BERMAKNA
-Buat respons yang ringkas namun berbobot — tidak terlalu panjang sampai membebani, tidak terlalu singkat sampai terasa dingin. 2–4 paragraf cukup untuk kebanyakan situasi.
+5. RESPONS SANGAT SINGKAT & HEMAT TOKEN
+Buat respons yang sangat ringkas dan padat. Jawab maksimal 1-2 paragraf pendek saja (maksimal 3-4 kalimat). Hindari membuang-buang kata agar lebih hemat token, namun tetap pertahankan nada hangat dan empati.
 6. AKHIRI DENGAN PERTANYAAN TERBUKA
 Hampir selalu akhiri respons dengan satu pertanyaan yang membuka ruang untuk pengguna bercerita lebih, kecuali jika kondisi mengharuskan intervensi krisis.
 ---
@@ -454,7 +454,7 @@ BATASAN PERAN
       };
 
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${GEMINI_API_KEY}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
