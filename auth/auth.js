@@ -120,9 +120,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const toggleCheckboxError = (checkboxId, showError) => {
         const label = document.querySelector(`label[for="${checkboxId}"]`);
         if (showError) {
-            if (label) label.classList.add('!text-[#FF5656]');
+            if (label) label.style.color = '#FF5656';
         } else {
-            if (label) label.classList.remove('!text-[#FF5656]');
+            if (label) label.style.color = '';
         }
     };
 
@@ -147,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
             const terms = document.getElementById('terms-checkbox').checked;
 
             let hasError = false;
@@ -159,6 +160,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (password.length < 8) { toggleInputError('password', true, 'Sandi harus minimal 8 karakter...'); hasError = true; } 
             else { toggleInputError('password', false); }
+
+            if (password !== confirmPassword || !confirmPassword) { toggleInputError('confirmPassword', true, 'Konfirmasi sandi tidak cocok...'); hasError = true; } 
+            else { toggleInputError('confirmPassword', false); }
 
             if (!terms) { toggleCheckboxError('terms-checkbox', true); hasError = true; } 
             else { toggleCheckboxError('terms-checkbox', false); }
