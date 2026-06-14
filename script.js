@@ -105,6 +105,9 @@ document.addEventListener('DOMContentLoaded', () => {
         el.remove();
       });
 
+      const isSubDir = currentPath.includes('/auth/') || currentPath.includes('/koleksi/') || currentPath.includes('/psikolog/') || currentPath.includes('/profile/') || currentPath.includes('/pencarian/');
+      const basePath = isSubDir ? '../' : './';
+
       const profileBtns = document.querySelectorAll(
         '.user-profile-footer, .mobile-header-profile, .header-action',
       );
@@ -112,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.style.cursor = 'pointer';
         btn.addEventListener('click', () => {
           // If they are default user, maybe let them go to profile to log out
-          window.location.href = 'profile/index.html';
+          window.location.href = basePath + 'profile/index.html';
         });
       });
     } catch (e) {
@@ -936,7 +939,10 @@ document.addEventListener('click', (e) => {
 
     // If the current chat is being deleted, redirect to new chat
     if (getActiveChatId() === chatId) {
-      window.location.href = 'index.html';
+      const currentPathStr = window.location.pathname;
+      const isSub = currentPathStr.includes('/auth/') || currentPathStr.includes('/koleksi/') || currentPathStr.includes('/psikolog/') || currentPathStr.includes('/profile/') || currentPathStr.includes('/pencarian/');
+      const baseP = isSub ? '../' : './';
+      window.location.href = baseP + 'index.html';
       return;
     }
 
@@ -951,10 +957,14 @@ document.addEventListener('click', (e) => {
   const historyItem = e.target.closest('.history-item, .history-item-full');
   if (historyItem) {
     const chatId = historyItem.dataset.id;
+    const currentPathStr = window.location.pathname;
+    const isSub = currentPathStr.includes('/auth/') || currentPathStr.includes('/koleksi/') || currentPathStr.includes('/psikolog/') || currentPathStr.includes('/profile/') || currentPathStr.includes('/pencarian/');
+    const baseP = isSub ? '../' : './';
+
     if (chatId) {
-      window.location.href = 'index.html?chatId=' + chatId;
+      window.location.href = baseP + 'index.html?chatId=' + chatId;
     } else {
-      window.location.href = 'index.html';
+      window.location.href = baseP + 'index.html';
     }
   }
 });
