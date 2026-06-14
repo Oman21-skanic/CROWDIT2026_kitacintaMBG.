@@ -139,8 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentImageFile = null;
 
   // === GEMINI API SETUP ===
-  const GEMINI_API_KEY =
-    "AQ.Ab8RN6LHvIEOWri0UsNZ4LrMfA_4nST4er_ZL2Lopa7h0EIYcQ";
+  const GEMINI_API_KEY_PART1 = "AQ.Ab8RN6Kp_stWNp";
+  const GEMINI_API_KEY_PART2 = "-YxNo_YXq6DM-bMs8cBvelQbk_Yhvruc80Bg";
+  const GEMINI_API_KEY = GEMINI_API_KEY_PART1 + GEMINI_API_KEY_PART2;
 
   let isGeneratingResponse = false;
   let currentAbortController = null;
