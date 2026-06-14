@@ -77,46 +77,46 @@ document.addEventListener('DOMContentLoaded', () => {
     !currentPath.includes('register.html') &&
     !currentPath.includes('forgot-password.html')
   ) {
-    const activeUserStr = localStorage.getItem('tenangin_active_user');
-    if (activeUserStr) {
-      try {
-        const activeUser = JSON.parse(activeUserStr);
-        const nameEls = document.querySelectorAll('.user-profile-info h3');
-        const emailEls = document.querySelectorAll('.user-profile-info span');
-        const iconEls = document.querySelectorAll('.user-profile-login-icon');
+    let activeUserStr = localStorage.getItem('tenangin_active_user');
+    
+    // Auto-login default user if not logged in
+    if (!activeUserStr) {
+      const defaultUser = {
+        name: "Pengguna Default",
+        email: "default@tenangin.app"
+      };
+      activeUserStr = JSON.stringify(defaultUser);
+      localStorage.setItem('tenangin_active_user', activeUserStr);
+    }
 
-        nameEls.forEach((el) => (el.textContent = activeUser.name));
-        emailEls.forEach((el) => (el.textContent = activeUser.email));
-        iconEls.forEach((el) => {
-          const img = document.createElement('img');
-          img.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(activeUser.name)}&background=E5E5E5&color=000&size=40`;
-          img.alt = activeUser.name;
-          el.parentNode.insertBefore(img, el);
-          el.remove();
-        });
+    try {
+      const activeUser = JSON.parse(activeUserStr);
+      const nameEls = document.querySelectorAll('.user-profile-info h3');
+      const emailEls = document.querySelectorAll('.user-profile-info span');
+      const iconEls = document.querySelectorAll('.user-profile-login-icon');
 
-        const profileBtns = document.querySelectorAll(
-          '.user-profile-footer, .mobile-header-profile, .header-action',
-        );
-        profileBtns.forEach((btn) => {
-          btn.style.cursor = 'pointer';
-          btn.addEventListener('click', () => {
-            window.location.href = 'profile/index.html';
-          });
-        });
-      } catch (e) {
-        console.error('Error parsing user data', e);
-      }
-    } else {
+      nameEls.forEach((el) => (el.textContent = activeUser.name));
+      emailEls.forEach((el) => (el.textContent = activeUser.email));
+      iconEls.forEach((el) => {
+        const img = document.createElement('img');
+        img.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(activeUser.name)}&background=E5E5E5&color=000&size=40`;
+        img.alt = activeUser.name;
+        el.parentNode.insertBefore(img, el);
+        el.remove();
+      });
+
       const profileBtns = document.querySelectorAll(
         '.user-profile-footer, .mobile-header-profile, .header-action',
       );
       profileBtns.forEach((btn) => {
         btn.style.cursor = 'pointer';
         btn.addEventListener('click', () => {
-          window.location.href = 'auth/login.html';
+          // If they are default user, maybe let them go to profile to log out
+          window.location.href = 'profile/index.html';
         });
       });
+    } catch (e) {
+      console.error('Error parsing user data', e);
     }
   }
 
